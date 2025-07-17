@@ -101,4 +101,25 @@ Komplexní webová aplikace s přepínáním stránek. Bude sloužit k různým 
     - databáze
     - zdroj nabídky k tisku do pdf
 
+První verze rozdělení:
+.
+├── Kód.gs             # Hlavní serverový soubor (doGet, include funkce)
+├── appsscript.json    # Manifest aplikace
+├── README.md
+├── html/
+│   ├── Index.html     # Hlavní kostra stránky (shell)
+│   └── stranky/
+│       ├── bilance.html
+│       ├── optimalizace.html
+│       ├── zdravotni.html
+│       └── ... (a další jednotlivé stránky)
+│
+├── css/
+│   └── styl.css       # Všechny globální styly a utility třídy
+│
+└── js/
+    ├── script.js      # Hlavní klientský skript (navigace, motiv vzhledu)
+    └── moduly/
+        └── kalkulacky.js # Příklad modulu pro budoucí kalkulačky
+
 **Instrukce budou doplňovány průběžně, jak bude vytvářen projekt**
