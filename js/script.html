@@ -1,0 +1,173 @@
+<script>
+// Theme management
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const body = document.body;
+
+// Load saved theme or default to light
+const savedTheme = localStorage.getItem('theme') || 'light';
+body.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    themeIcon.className = theme === 'light' ? 'ti ti-moon' : 'ti ti-sun';
+}
+
+// Navigation management
+const navbar = document.getElementById('navbar');
+const hero = document.getElementById('hero');
+let isScrolled = false;
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Only check for navbar scroll behavior if we're on home page (no active content sections)
+    const hasActiveSection = document.querySelector('.content-section.active');
+    
+    if (!hasActiveSection) {
+        const shouldBeScrolled = scrollTop > window.innerHeight / 2;
+        
+        if (shouldBeScrolled !== isScrolled) {
+            isScrolled = shouldBeScrolled;
+            navbar.classList.toggle('scrolled', isScrolled);
+        }
+    } else {
+        // When content section is active, check scroll relative to hero height
+        const heroHeight = hero.offsetHeight;
+        const shouldBeScrolled = scrollTop > heroHeight;
+        
+        if (shouldBeScrolled !== isScrolled) {
+            isScrolled = shouldBeScrolled;
+            navbar.classList.toggle('scrolled', isScrolled);
+        }
+    }
+});
+
+// Dropdown management
+const navButtons = document.querySelectorAll('.nav-btn[data-menu]');
+const dropdowns = document.querySelectorAll('.dropdown');
+
+navButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const menuName = button.getAttribute('data-menu');
+        const dropdown = document.getElementById(`dropdown-${menuName}`);
+        
+        // Close all other dropdowns
+        dropdowns.forEach(d => {
+            if (d !== dropdown) {
+                d.classList.remove('show');
+            }
+        });
+        
+        // Toggle current dropdown
+        dropdown.classList.toggle('show');
+    });
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', () => {
+    dropdowns.forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+});
+
+// Page navigation
+const contentSections = document.querySelectorAll('.content-section');
+const dropdownItems = document.querySelectorAll('.dropdown-item[data-page]');
+const heroTitle = document.getElementById('heroTitle');
+const heroSubtitle = document.getElementById('heroSubtitle');
+const menuToggleBtn = document.getElementById('menuToggleBtn');
+
+// Kliknutí na tlačítko v rohu
+menuToggleBtn.addEventListener('click', () => {
+    navbar.classList.toggle('is-hidden');
+});
+
+// Page titles mapping
+const pageTitles = {
+    bilance: 'Bilance klienta',
+    optimalizace: 'Optimalizace',
+    zdravotni: 'Zdravotní dotazník',
+    investice: 'Investice',
+    zivotko: 'Životní pojištění',
+    dipuj: 'DIPuj',
+    investicni: 'Investiční kalkulačky',
+    porovnani: 'Porovnání produktů',
+    stavebko: 'Stavebko vs. investice',
+    platby: 'Platby',
+    prehledovka: 'Přehledovka'
+};
+
+const pageSubtitles = {
+    bilance: 'Přehled příjmů, výdajů a celkové finanční situace',
+    optimalizace: 'Nástroje pro optimalizaci finančního portfolia',
+    zdravotni: 'Dotazník pro posouzení zdravotního stavu',
+    investice: 'Nástroje a kalkulačky pro investiční produkty',
+    zivotko: 'Kalkulátory a nástroje pro životní pojištění',
+    dipuj: 'Dlouhodobý investiční produkt vs. doplňkové penzijní spoření',
+    investicni: 'Specializované kalkulačky pro investiční výpočty',
+    porovnani: 'Nástroje pro porovnání finančních produktů',
+    stavebko: 'Porovnání stavebního spoření a investic',
+    platby: 'Vytvoření přehledu plateb včetně QR kódů',
+    prehledovka: 'Přehledové nástroje a reporty'
+};
+
+dropdownItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const pageName = item.getAttribute('data-page');
+        
+        // Skryj všechny sekce
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        const targetSection = document.getElementById(pageName);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            
+            // Aktualizuj hero sekci
+            hero.classList.add('compact');
+            heroTitle.textContent = pageTitles[pageName] || 'Finanční Aplikace';
+            heroSubtitle.textContent = pageSubtitles[pageName] || 'Komplexní nástroj pro finanční poradenství';
+
+            // Zobraz tlačítko v rohu a skryj hlavní lištu
+            menuToggleBtn.classList.remove('hidden');
+            navbar.classList.add('is-hidden');
+        }
+        
+        // Zavři dropdown
+        dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+
+// Toggle function for sections
+function toggleSection(header) {
+    const section = header.parentElement;
+    const wasActive = section.classList.contains('active');
+
+    // Close all sections
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+    // If section wasn't active, open it
+    if (!wasActive) {
+        section.classList.add('active');
+    }
+}
+
+// Add toggle function to global scope
+window.toggleSection = toggleSection;
+</script>

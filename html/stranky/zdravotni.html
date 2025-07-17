@@ -1,0 +1,178 @@
+<section class="content-section" id="zdravotni">
+    <div class="container">
+        <div class="page-header">
+            <h2>Zdravotní dotazník</h2>
+            <p>Pečlivé vyplnění následujících údajů je klíčové pro správné nastavení pojistné ochrany.</p>
+        </div>
+
+        <form id="health-questionnaire-form" novalidate>
+            <div class="section mb-6 p-6">
+                <h3 class="text-xl font-weight-bold mb-4">Údaje klienta</h3>
+                <div class="form-group">
+                    <label for="klient_jmeno" class="form-label">Jméno</label>
+                    <input type="text" id="klient_jmeno" name="klient_jmeno" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="klient_prijmeni" class="form-label">Příjmení</label>
+                    <input type="text" id="klient_prijmeni" name="klient_prijmeni" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="klient_email" class="form-label">E-mail</label>
+                    <input type="email" id="klient_email" name="klient_email" class="form-input" required>
+                </div>
+            </div>
+
+            <div class="section mb-6 p-6">
+                <h3 class="text-xl font-weight-bold mb-4">Základní údaje</h3>
+                <div class="form-group">
+                    <label for="q_vaha" class="form-label">Váha (kg)</label>
+                    <input type="number" id="q_vaha" name="vaha" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="q_vyska" class="form-label">Výška (cm)</label>
+                    <input type="number" id="q_vyska" name="vyska" class="form-input">
+                </div>
+            </div>
+            
+            <div class="section mb-6 p-6">
+                <div class="form-group">
+                    <label class="form-label">1. Jste v současné době v léčení pro akutní změny zdravotního stavu?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="q1_leceni" value="Ano" data-target="q1-details"> Ano</label>
+                        <label><input type="radio" name="q1_leceni" value="Ne" data-target="q1-details"> Ne</label>
+                    </div>
+                    <div id="q1-details" class="details-group">
+                        <label for="q1_doplneni" class="form-label">Popis léčby:</label>
+                        <textarea id="q1_doplneni" name="q1_leceni_detail" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section mb-6 p-6">
+                <div class="form-group">
+                    <label class="form-label">2. Kouříte pravidelně více než 10 cigaret/náplní denně?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="q2_koureni" value="Ano" data-target="q2-details"> Ano</label>
+                        <label><input type="radio" name="q2_koureni" value="Ne" data-target="q2-details"> Ne</label>
+                    </div>
+                    <div id="q2-details" class="details-group">
+                        <label class="form-label">Druh a frekvence:</label>
+                        <textarea name="q2_koureni_detail" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section mb-6 p-6">
+                 <div class="form-group">
+                    <label class="form-label">3. Pijete nebo jste pil/a pravidelně alkohol?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="q3_alkohol" value="Ano" data-target="q3-details"> Ano</label>
+                        <label><input type="radio" name="q3_alkohol" value="Ne" data-target="q3-details"> Ne</label>
+                    </div>
+                    <div id="q3-details" class="details-group">
+                        <label class="form-label">Množství a frekvence:</label>
+                        <textarea name="q3_alkohol_detail" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section mb-6 p-6">
+                <div class="form-group">
+                    <label class="form-label">4. Užíváte nebo jste užíval/a omamné či toxické látky?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="q4_drogy" value="Ano" data-target="q4-details"> Ano</label>
+                        <label><input type="radio" name="q4_drogy" value="Ne" data-target="q4-details"> Ne</label>
+                    </div>
+                    <div id="q4-details" class="details-group">
+                        <label for="q4_doplneni" class="form-label">Uveďte látky, kdy a zda jste byl/a léčen/a:</label>
+                        <textarea id="q4_doplneni" name="q4_drogy_detail" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section mb-6 p-6">
+                 <div class="form-group">
+                    <label class="form-label">5. Máte přiznaný jakýkoliv stupeň invalidity nebo jste OZZ?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="q5_invalidita" value="Ano" data-target="q5-details"> Ano</label>
+                        <label><input type="radio" name="q5_invalidita" value="Ne" data-target="q5-details"> Ne</label>
+                    </div>
+                    <div id="q5-details" class="details-group">
+                        <label for="q5_doplneni" class="form-label">Datum a důvod přiznání:</label>
+                        <textarea id="q5_doplneni" name="q5_invalidita_detail" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section mb-6 p-6">
+                 <div class="form-group">
+                    <label class="form-label">6. Podstoupil/a jste v posledních 7 letech operaci nebo ji máte naplánovanou?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="q6_operace" value="Ano" data-target="q6-details"> Ano</label>
+                        <label><input type="radio" name="q6_operace" value="Ne" data-target="q6-details"> Ne</label>
+                    </div>
+                    <div id="q6-details" class="details-group">
+                        <label for="q6_doplneni" class="form-label">Popis operace, rok:</label>
+                        <textarea id="q6_doplneni" name="q6_operace_detail" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section mb-6 p-6">
+                <div class="form-group">
+                    <label class="form-label">7. Jste nebo jste byl/a vyšetřován/a, sledován/a nebo léčen/a lékařem pro:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="q7_vysetreni" value="Ano" data-target="q7-details"> Ano</label>
+                        <label><input type="radio" name="q7_vysetreni" value="Ne" data-target="q7-details"> Ne</label>
+                    </div>
+                    <div id="q7-details" class="details-group">
+                        <label class="form-label">Zaškrtněte relevantní problémy a doplňte detaily:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="q7_nemoci" value="Alergie" data-sub-target="q7-alergie"> Alergie</label>
+                            <div id="q7-alergie" class="sub-details-group">
+                                <label class="form-label">Popis, léky, stabilita:</label>
+                                <textarea name="q7_alergie_detail" class="form-input"></textarea>
+                            </div>
+                            
+                            <label><input type="checkbox" name="q7_nemoci" value="Astma" data-sub-target="q7-astma"> Astma bronchiale</label>
+                            <div id="q7-astma" class="sub-details-group">
+                                <label class="form-label">Stupeň, léky, popis:</label>
+                                <textarea name="q7_astma_detail" class="form-input"></textarea>
+                            </div>
+
+                            <label><input type="checkbox" name="q7_nemoci" value="Cukrovka" data-sub-target="q7-cukrovka"> Cukrovka (diabetes mellitus)</label>
+                            <div id="q7-cukrovka" class="sub-details-group">
+                                <label class="form-label">Typ, rok zjištění, léčba:</label>
+                                <textarea name="q7_cukrovka_detail" class="form-input"></textarea>
+                            </div>
+
+                            <label><input type="checkbox" name="q7_nemoci" value="Vysoký krevní tlak" data-sub-target="q7-tlak"> Vysoký krevní tlak (hypertenze)</label>
+                            <div id="q7-tlak" class="sub-details-group">
+                                <label class="form-label">Stupeň, hodnoty, léky:</label>
+                                <textarea name="q7_tlak_detail" class="form-input"></textarea>
+                            </div>
+
+                            <label><input type="checkbox" name="q7_nemoci" value="Vysoký cholesterol" data-sub-target="q7-cholesterol"> Vysoký cholesterol</label>
+                            <div id="q7-cholesterol" class="sub-details-group">
+                                <label class="form-label">Hodnoty, léky:</label>
+                                <textarea name="q7_cholesterol_detail" class="form-input"></textarea>
+                            </div>
+
+                            <label><input type="checkbox" name="q7_nemoci" value="Bolesti zad/páteře" data-sub-target="q7-zada"> Bolesti zad, onemocnění páteře</label>
+                            <div id="q7-zada" class="sub-details-group">
+                                <label class="form-label">Diagnóza, kdy, léčba (např. po pádu plotýnka 2021):</label>
+                                <textarea name="q7_zada_detail" class="form-input"></textarea>
+                            </div>
+                            
+                            <label for="q7_jiny_problem_text" class="mt-4 form-label">Jiný zdravotní problém:</label>
+                            <textarea id="q7_jiny_problem_text" name="q7_jiny_problem_detail" class="form-input"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-button" class="btn btn-primary w-full mt-4">Odeslat dotazník</button>
+            <div id="status" class="text-center mt-4"></div>
+        </form>
+    </div>
+</section>

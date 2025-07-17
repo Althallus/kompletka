@@ -1,0 +1,47 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Najdeme všechny prvky, které mají spouštět modál
+    const modalTriggers = document.querySelectorAll('[data-modal-target]');
+
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const modalId = trigger.dataset.modalTarget;
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('is-visible');
+            }
+        });
+    });
+
+    // Najdeme všechny překryvné vrstvy modálů (pro zavření kliknutím vedle)
+    const modalOverlays = document.querySelectorAll('.modal-overlay');
+
+    modalOverlays.forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            // Zavřeme modál jen pokud se kliklo na pozadí, ne na obsah
+            if (e.target === overlay) {
+                overlay.classList.remove('is-visible');
+            }
+        });
+    });
+
+    // Najdeme všechny tlačítka pro zavření modálu
+    const closeButtons = document.querySelectorAll('.modal-close-btn');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Najde nejbližší rodičovský modál a zavře ho
+            button.closest('.modal-overlay').classList.remove('is-visible');
+        });
+    });
+
+    // Zavření modálu klávesou Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            const visibleModal = document.querySelector('.modal-overlay.is-visible');
+            if (visibleModal) {
+                visibleModal.classList.remove('is-visible');
+            }
+        }
+    });
+});
+</script>

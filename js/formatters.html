@@ -1,0 +1,32 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    /**
+     * Formátuje hodnotu v inputu na český formát čísel (s mezerou jako oddělovačem tisíců).
+     * @param {HTMLInputElement} inputElement - Input, který se má formátovat.
+     */
+    function formatNumberInput(inputElement) {
+        // 1. Získáme čistou hodnotu bez mezer
+        let value = inputElement.value.replace(/\s/g, '');
+
+        // 2. Pokud hodnota není číslo nebo je prázdná, nic neděláme
+        if (isNaN(Number(value)) || value.trim() === '') {
+            return;
+        }
+
+        // 3. Převedeme na číslo a naformátujeme pomocí vestavěného API prohlížeče
+        const number = Number(value);
+        const formattedValue = number.toLocaleString('cs-CZ');
+
+        // 4. Vložíme naformátovanou hodnotu zpět do pole
+        inputElement.value = formattedValue;
+    }
+
+    // 5. Najdeme všechny inputy, které mají třídu "format-number" a připojíme k nim posluchač
+    document.querySelectorAll('.format-number').forEach(input => {
+        // Formátujeme, když uživatel opustí pole (ideální pro vkládání a finální úpravy)
+        input.addEventListener('blur', (e) => {
+            formatNumberInput(e.target);
+        });
+    });
+});
+</script>

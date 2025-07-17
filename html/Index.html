@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanční Aplikace</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    
+    <?!= include('css/styl'); ?>
+</head>
+<body>
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 id="heroTitle">Finanční Aplikace</h1>
+            <p id="heroSubtitle">Komplexní nástroj pro finanční poradenství a kalkulace</p>
+        </div>
+    </section>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-item">
+            <button class="nav-btn" data-menu="rozhovor">
+                <i class="ti ti-message-circle"></i>
+                <span>Rozhovor</span>
+            </button>
+            <div class="dropdown" id="dropdown-rozhovor">
+                <button class="dropdown-item" data-page="bilance">Bilance</button>
+                <button class="dropdown-item" data-page="optimalizace">Optimalizace</button>
+                <button class="dropdown-item" data-page="zdravotni">Zdravotní dotazník</button>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <button class="nav-btn" data-menu="nabidkovace">
+                <i class="ti ti-briefcase"></i>
+                <span>Nabídkovače</span>
+            </button>
+            <div class="dropdown" id="dropdown-nabidkovace">
+                <button class="dropdown-item" data-page="investice">Investice</button>
+                <button class="dropdown-item" data-page="zivotko">Životko</button>
+                <button class="dropdown-item" data-page="dipuj">DIPuj</button>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <button class="nav-btn" data-menu="kalkulacky">
+                <i class="ti ti-calculator"></i>
+                <span>Kalkulačky</span>
+            </button>
+            <div class="dropdown" id="dropdown-kalkulacky">
+                <button class="dropdown-item" data-page="investicni">Investiční</button>
+                <button class="dropdown-item" data-page="porovnani">Porovnání produktů</button>
+                <button class="dropdown-item" data-page="stavebko">Stavebko vs. investice</button>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <button class="nav-btn" data-menu="pomucky">
+                <i class="ti ti-tools"></i>
+                <span>Pomůcky</span>
+            </button>
+            <div class="dropdown" id="dropdown-pomucky">
+                <button class="dropdown-item" data-page="platby">Platby</button>
+                <button class="dropdown-item" data-page="prehledovka">Přehledovka</button>
+            </div>
+        </div>
+
+        <button class="theme-toggle" id="themeToggle">
+            <i class="ti ti-sun" id="themeIcon"></i>
+        </button>
+    </nav>
+    <button class="menu-toggle-btn hidden" id="menuToggleBtn">
+        <i class="ti ti-menu-2"></i>
+    </button>
+
+    <main>
+        <?!= include('html/stranky/bilance'); ?>
+        <?!= include('html/stranky/optimalizace'); ?>
+        <?!= include('html/stranky/zdravotni'); ?>
+        <?!= include('html/stranky/investice'); ?>
+        <?!= include('html/stranky/zivotko'); ?>
+        <?!= include('html/stranky/dipuj'); ?>
+        <?!= include('html/stranky/investicni'); ?>
+        <?!= include('html/stranky/porovnani'); ?>
+        <?!= include('html/stranky/stavebko'); ?>
+        <?!= include('html/stranky/platby'); ?>
+        <?!= include('html/stranky/prehledovka'); ?>
+    </main>
+
+    <?!= include('js/script'); ?>
+    <?!= include('js/dotaznik'); ?>
+    <?!= include('js/formatters'); ?>
+    <?!= include('js/modals'); ?>
+    <?!= include('js/kalkulacka'); ?>
+</body>
+</html>

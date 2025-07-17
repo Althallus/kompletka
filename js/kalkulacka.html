@@ -1,0 +1,135 @@
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    if (!document.getElementById('calculator-modal')) return;
+
+    const sliders = {
+        target: document.getElementById('targetSlider'),
+        initial: document.getElementById('initialSlider'),
+        years: document.getElementById('yearsSlider'),
+        return: document.getElementById('returnSlider'),
+    };
+
+    const displays = {
+        target: document.getElementById('targetDisplay'),
+        initial: document.getElementById('initialDisplay'),
+        years: document.getElementById('yearsDisplay'),
+        return: document.getElementById('returnDisplay'),
+        monthlyAmount: document.getElementById('monthlyAmount'),
+    };
+
+    let investmentChart;
+
+    const currencyFormatter = new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+    function calculateAndupdate() {
+        const target = parseFloat(sliders.target.value);
+        const initial = parseFloat(sliders.initial.value);
+        const years = parseInt(sliders.years.value, 10);
+        const annualReturn = parseFloat(sliders.return.value) / 100;
+        const monthlyReturn = annualReturn / 12;
+        const totalMonths = years * 12;
+
+        const fvInitial = initial * Math.pow(1 + monthlyReturn, totalMonths);
+        const numerator = (target - fvInitial) * monthlyReturn;
+        const denominator = Math.pow(1 + monthlyReturn, totalMonths) - 1;
+        
+        let monthlyPayment = 0;
+        if (denominator > 0) {
+            monthlyPayment = numerator / denominator;
+        } else {
+            monthlyPayment = (target - initial) / (totalMonths || 1);
+        }
+        monthlyPayment = Math.max(0, monthlyPayment);
+
+        displays.target.textContent = currencyFormatter.format(target);
+        displays.initial.textContent = currencyFormatter.format(initial);
+        displays.years.textContent = `${years} ${getYearText(years)}`;
+        displays.return.textContent = `${sliders.return.value.replace('.', ',')} % p.a.`;
+        displays.monthlyAmount.textContent = currencyFormatter.format(monthlyPayment);
+        
+        updateChart(initial, monthlyPayment, totalMonths, monthlyReturn);
+    }
+    
+    function updateChart(initial, monthly, months, monthlyRate) {
+        const categories = [];
+        const data = [];
+        let currentValue = initial;
+        
+        for (let y = 0; y <= months / 12; y++) {
+            categories.push(`Rok ${y}`);
+        }
+        
+        for (let m = 0; m <= months; m++) {
+            if (m % 12 === 0) {
+                 data.push(Math.round(currentValue));
+            }
+            currentValue = (currentValue + monthly) * (1 + monthlyRate);
+        }
+        if (months % 12 !== 0) {
+            data.push(Math.round(currentValue));
+        }
+
+        if (investmentChart) {
+            investmentChart.series[0].setData(data, false);
+            investmentChart.xAxis[0].setCategories(categories, true);
+        }
+    }
+    
+    function initializeChart() {
+         investmentChart = Highcharts.chart('investmentChartContainer', {
+            chart: { type: 'area', backgroundColor: 'transparent' },
+            title: { text: null },
+            xAxis: { categories: [], labels: { style: { color: 'var(--neutral-600)' } } },
+            yAxis: { title: { text: null }, labels: { format: '{value:,.0f} Kč', style: { color: 'var(--neutral-600)' } } },
+            tooltip: {
+                shared: true,
+                headerFormat: '<b>{point.key}</b><br>',
+                pointFormat: 'Hodnota investice: <b>{point.y:,.0f} Kč</b>'
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                        stops: [ [0, 'rgba(19, 160, 219, 0.5)'], [1, 'rgba(19, 160, 219, 0)'] ]
+                    },
+                    marker: { radius: 3 },
+                    lineWidth: 2,
+                    states: { hover: { lineWidth: 3 } },
+                    threshold: null
+                }
+            },
+            series: [{ name: 'Hodnota investice', data: [], color: 'var(--primary)', negativeColor: 'var(--primary)' }],
+            credits: { enabled: false },
+            legend: { enabled: false }
+        });
+    }
+
+    Object.values(sliders).forEach(slider => {
+        slider.addEventListener('input', calculateAndupdate);
+    });
+    
+    window.setTarget = (val) => { sliders.target.value = val; sliders.target.dispatchEvent(new Event('input')); };
+    window.setInitial = (val) => { sliders.initial.value = val; sliders.initial.dispatchEvent(new Event('input')); };
+    window.setYears = (val) => { sliders.years.value = val; sliders.years.dispatchEvent(new Event('input')); };
+    window.setReturn = (val) => { sliders.return.value = val; sliders.return.dispatchEvent(new Event('input')); };
+    
+    function getYearText(years) {
+        if (years === 1) return 'Rok';
+        if (years >= 2 && years <= 4) return 'Roky';
+        return 'Let';
+    }
+
+    // Otevření modálu s kalkulačkou spustí první výpočet
+    const calcModalTrigger = document.querySelector('[data-modal-target="calculator-modal"]');
+    if(calcModalTrigger){
+        calcModalTrigger.addEventListener('click', () => {
+            if (!investmentChart) {
+                initializeChart();
+            }
+            calculateAndupdate();
+            // Někdy je třeba graf překreslit po zobrazení modálu
+            setTimeout(() => investmentChart.reflow(), 10); 
+        });
+    }
+});
+</script>
