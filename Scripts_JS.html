@@ -297,7 +297,43 @@ document.addEventListener('DOMContentLoaded', function() {
             formatNumberInput(e.target);
         });
     });
+
+// === KÓD PRO TLAČÍTKO DOMŮ ===
+
+    const homeBtn = document.getElementById('homeBtn');
+
+    // Funkce pro návrat na úvodní obrazovku
+    function returnToHome() {
+        // Skryjeme všechny aktivní obsahové sekce
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+
+        // Obnovíme 'hero' sekci a její obsah
+        hero.classList.remove('compact');
+        heroTitle.textContent = 'FiDos'; // Původní hlavní nadpis
+        heroSubtitle.textContent = 'Komplexní nástroj pro finanční poradenství a kalkulace'; // Původní podnadpis
+
+        // Zobrazíme hlavní navigační lištu
+        navbar.classList.remove('is-hidden');
+        
+        // Skryjeme plovoucí menu tlačítko
+        menuToggleBtn.classList.add('hidden');
+        
+        // Skryjeme poznámkové tlačítko (pokud bylo viditelné)
+        toggleNoteButton();
+
+        // Plynule posuneme stránku nahoru
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Přidáme 'event listener' na tlačítko "Domů"
+    if (homeBtn) {
+        homeBtn.addEventListener('click', returnToHome);
+    }
+
 });
+
 
 
 // Add toggle function to global scope

@@ -272,6 +272,7 @@ body {
     cursor: pointer;
     transition: var(--transition);
     border-bottom: 1px solid var(--neutral-100);
+    text-decoration: none;
 }
 
 .dropdown-item:last-child {
@@ -989,5 +990,40 @@ input[type="range"].slider::-moz-range-thumb {
     .modal-body {
         padding: var(--spacing-4);
     }
+}
+
+
+/* Styly pro našeptávač kontaktů */
+.autocomplete-container {
+    display: none; /* Skrytý by default */
+    position: absolute;
+    border: 1px solid var(--neutral-300);
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+.autocomplete-item {
+    padding: var(--spacing-3) var(--spacing-4);
+    cursor: pointer;
+    border-bottom: 1px solid var(--neutral-100);
+}
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+.autocomplete-item:hover {
+    background-color: var(--neutral-50);
+}
+.autocomplete-item .name {
+    font-weight: 500;
+    color: var(--neutral-800);
+}
+.autocomplete-item .email {
+    font-size: var(--text-sm);
+    color: var(--neutral-500);
 }
 </style>

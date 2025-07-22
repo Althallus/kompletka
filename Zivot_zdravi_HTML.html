@@ -1,9 +1,3251 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <base target="_top">
-  </head>
-  <body>
+<section class="content-section" id="zivotko">
+
+<!-- ----------------------------------------------------------- -->
+  <!-- SPINNER OVERLAY -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner">
+      <div class="spinner_line_1"></div>
+      <div class="spinner_line_2"></div>
+      <div class="spinner_line_3"></div>
+      <img src="https://res.cloudinary.com/dewu93tdy/image/upload/v1743082544/vymVWh7_zlrisn.webp" alt="Logo" class="logo">
+      <!-- <img src="https://i.imgur.com/8LBxZG6.png" alt="Logo" class="logo"> -->
+    </div>
+  </div>
+
+  <div id="overlay" class="overlay" onclick="hideInfoCard()"></div>
+  <!-- ======================================================== -->
+
+  <!-- MODALS ------------------------------------------------------------------------------>
+  <!-- =================================================================================== -->
+
+  <form id="myForm" onsubmit="handleFormSubmit(this)">
+
+
+    <!-- --------------------------------------------------- -->
+    <!-- ============== -->
+    <!-- === NAVBAR === -->
+    <!-- ============== -->
+    <!-- --------------------------------------------------- -->
+    <nav class="navbar navbar-custom navbar-hover navbar-expand-md fixed-top navbar-light">
+      <!-- -------------------------------------------------- -->
+      <!-- === NAZEV A LOGO === -->
+      <a class="navbar-brand align-self-bottom" style="color:#f36500;"><img src="https://res.cloudinary.com/dewu93tdy/image/upload/v1743082544/vymVWh7_zlrisn.webp" alt="..." height="32">
+        <strong class="" style="font-size:0.9rem">Život & zdraví</strong></a>
+      <!-- --------------------------------------------------- -->
+
+      <!-- ----------------------------------------------- -->
+      <!-- === MENU PRO MENSI OBRAZOVKU === -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_1" aria-controls="navbar_1" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+      <!-- -------------------------------------------- -->
+
+      <!-- ------------------------------------------- -->
+      <!-- === POLOZKY NA LISTE === -->
+      <div class="collapse navbar-collapse" id="navbar_1">
+        <ul class="navbar-nav ml-auto">
+
+          <!-- -------------------------------------------------- -->
+          <!-- === DROPDOWN NASTAVENÍ === -->
+          <li class="nav-item dropdown mr-3">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <b>Nastavení</b>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right p-0 m-0" aria-labelledby="navbarDropdown"
+              onclick=" event.stopPropagation();">
+
+              <!-- <a class="dropdown-item mt-3 py-2 w-100" href="#"> -->
+              <h5 class="p-2 mt-2 text-nowrap">Nastavení podrobností kalkulace</h5>
+              <!-- </a> -->
+
+              <!-- === ZOBRAZENI PARTNERKY -->
+              <a class="dropdown-item mt-3 py-2 w-100" href="#">
+                <div class="custom-control custom-switch mr-3" style="scale:1">
+                  <input type="checkbox" class="custom-control-input custom-control" id="switch_partneri" onclick="zobrazeni_partnera()" >
+                  <label class="custom-control-label " for="switch_partneri" id="switch_partneri_label">Zobrazit partnerku/a</label>
+                </div>
+              </a>
+
+              <!-- === SPOLECNE VYDAJE -->
+              <a class="dropdown-item py-2 w-100" href="#" hidden>
+                <div class="custom-control custom-switch mr-3" style="scale:1">
+                  <input type="checkbox" class="custom-control-input custom-control" id="switch_spolecne_vydaje" onclick="zobrazeni_vydaju()" >
+                  <label class="custom-control-label " for="switch_spolecne_vydaje" id="switch_spolecne_vydaje_label">Společné výdaje</label>
+                </div>
+              </a>
+
+              <!-- === ZOBRAZENI SMRTI -->
+              <a class="dropdown-item py-1 w-100" href="#" hidden>
+                <div class="form-group col-xl-12 col-lg-12 col-md-6 col-sm-6 mt-3">
+                  <label class="label-custom" >Zobrazení PČ smrt</label>
+                  <div class="form-check ">
+                    <input class="form-check-input" type="radio" name="smrt_zobrazeni_castek" id="smrt_zobrazeni_castek_1" value="1" checked>
+                    <label class="form-check-label" for="smrt_zobrazeni_castek_1">PČ bez investice</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="smrt_zobrazeni_castek" id="smrt_zobrazeni_castek_2" value="2">
+                    <label class="form-check-label" for="smrt_zobrazeni_castek_2">PČ s investicí</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="smrt_zobrazeni_castek" id="smrt_zobrazeni_castek_3" value="3">
+                    <label class="form-check-label" for="smrt_zobrazeni_castek_3">Obojí</label>
+                  </div>
+                </div>
+              </a>
+
+
+              <!-- === ZOBRAZENI INVALIDITY -->
+              <a class="dropdown-item py-1 w-100" href="#">
+                <div class="form-group col-xl-12 col-lg-12 col-md-6 col-sm-6 mt-3">
+                  <label class="label-custom" >Zobrazení PČ invalidity</label>
+                  <div class="form-check ">
+                    <input class="form-check-input" type="radio" name="invalidita_zobrazeni_castek" id="invalidita_zobrazeni_castek_1" value="1" checked>
+                    <label class="form-check-label" for="invalidita_zobrazeni_castek_1">PČ bez investice</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="invalidita_zobrazeni_castek" id="invalidita_zobrazeni_castek_2" value="2">
+                    <label class="form-check-label" for="invalidita_zobrazeni_castek_2">PČ s investicí</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="invalidita_zobrazeni_castek" id="invalidita_zobrazeni_castek_3" value="3">
+                    <label class="form-check-label" for="invalidita_zobrazeni_castek_3">Obojí</label>
+                  </div>
+                </div>
+              </a>
+
+
+              <!--
+              <a class="dropdown-item py-2 w-100" href="#">
+                <div class="custom-control custom-switch mr-3" style="scale:1">
+                  <input type="checkbox" class="custom-control-input custom-control" id="switch_dluh_rozdeleni" name="switch_dluh_rozdeleni">
+                  <label class="custom-control-label " for="switch_dluh_rozdeleni" id="switch_dluh_rozdeleni_label">Rozdělit dluh mezi oba?</label>
+                </div>
+              </a> -->
+
+              <a class="dropdown-item py-2 w-100" href="#">
+              
+              </a>
+
+
+            </div> <!-- END DROPDOWN MENU -->
+          </li>
+          <!-- END NASTAVENI DROPDPOWN -->
+          <!-- ============================================================================ -->
+
+          <!-- ---------------------------------------------------------------------------- -->
+          <!-- DROPDOWN ZOBRAZENÍ-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_2" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <b>Zobrazení</b>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right p-0 m-0" aria-labelledby="navbarDropdown_2"
+              onclick=" event.stopPropagation();">
+
+              <a class="dropdown-item mt-3 py-2 w-100" href="#">
+              </a>
+
+              <h5 class="p-2 mt-2 text-nowrap">Nastavení zobrazení připojištění</h5>
+
+
+              <div class="row">
+                <div class="col-lg-12">
+
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_smrt" onclick="prepnuti_smrt()" checked>
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_smrt" style=""><b>Připojištění smrti</b></label>
+                  </div>
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_INV" onclick="prepnuti_invalidita()" checked>
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_INV" style=""><b>Připojištění invalidity</b></label>
+                  </div>
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_PN" onclick="prepnuti_pn()" checked>
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_PN" style=""><b>Připojištění pracovní neschopnosti</b></label>
+                  </div>
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_TNU" onclick="prepnuti_tnu()" checked>
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_TNU" style=""><b>Připojištění trvalých následků úrazu</b></label>
+                  </div>
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_ZO" onclick="prepnuti_ZO_2()">
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_ZO" style=""><b>Připojištění závažných onemocnění</b></label>
+                  </div>
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_ZNP" onclick="prepnuti_ZNP_2()">
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_ZNP" style=""><b>Připojištění závislosti na péči</b></label>
+                  </div>
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_CO" onclick="prepnuti_CO_2()">
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_CO" style=""><b>Připojištění celodenního ošetřování</b></label>
+                  </div>
+                  <div class="custom-control custom-switch mt-2 ml-3 mb-3 d-flex align-items-center">
+                    <input type="checkbox" class="custom-control-input custom-control" id="zobrazeni_DO" onclick="prepnuti_DO_2()">
+                    <label class="custom-control-label text-nowrap ml-2"  for="zobrazeni_DO" style=""><b>Připojištění léčení úrazu</b></label>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- <a class="dropdown-item" href="#"> -->
+
+              <!-- </a> -->
+
+
+
+            </div> <!-- END DROPDOWN MENU -->
+          </li>
+          <!-- === END ZOBRAZENI DROPDPOWN -->
+          <!-- ================================================================================== -->
+        </ul>
+      </div>
+
+    </nav>
+    <!-- === END NAVBAR === -->
+    <!-- ########################################################################################## -->
+
+
+
+
+    <!-- ----------------------------------------------------------------------------- -->
+    <!-- === PAGE BEGIN  -->
+    <!-- ----------------------------------------------------------------------------- -->
+    <main class="flex-shrink-0">
+
+
+
+      <!-- ----------------------------------------------------------- -->
+      <!-- === UVODNI SCREEN === -->
+      <!-- ----------------------------------------------------------- -->
+      <div class="cover-container mb-4">
+        <img src="https://res.cloudinary.com/dewu93tdy/image/upload/v1743082577/HfADUzr_j78ch8.webp" alt="Obrázek" class="trimmed-cover" loading="eager">
+        <div class="cover-text">
+          <h1 class="mb-3">Proč se pojistit?</h1>
+          <p>
+            Máte finanční rezervu, pokud byste kvůli nemoci museli zůstat doma?
+            <br>
+      Zvládnete splácet hypotéku, pokud přijdete o část příjmu?
+            <br>
+            <!-- Jak dlouho zvládnete pokrýt životní náklady bez stabilního příjmu?
+      <br> -->
+            Co budete dělat, když ze dne na den přijdete o svůj příjem?
+          </p>
+        </div>
+      </div>
+      <!-- =============================================================== -->
+
+
+      <!-- ------------------------------------------------------------------------------------ -->
+      <!-- ==================== -->
+      <!-- === ZADANI UDAJU === -->
+      <!-- ==================== -->
+      <!-- ------------------------------------------------------------------------------------ -->
+      <div class="container-fluid " style="width:; background-color:">
+
+<!-- -------------------------------------------------------------------------- -->
+<!-- === VYPOCET RENTY/INVESTICE K POJ CASTKAM === -->
+       <button class="toggle-btn" id="toggleButton" onclick="toggleCard(event)">
+        <i class="fa-solid fa-calculator fa-xl" style="color: #E15452; margin-left: 8px;"></i>
+    </button>
     
-  </body>
-</html>
+    <div id="rentaCard" class="floating-card">
+        <button class="close-btn" onclick="toggleCard(event)" title="Skrýt výpočet">
+            <i class="fa-solid fa-eye-slash"></i>
+        </button>
+        <h5 class="mt-2">Kalkulačka renty</h5>
+        <div class="form-group">
+            <label>Výše renty (Kč/m)</label>
+            <input type="text" id="renta" class="form-control" placeholder="Kč/m" oninput="formatovani_na_tisicovky(this); calculateTotalNeeded()">
+        </div>
+        <div class="form-group">
+            <label>Počet let</label>
+            <input type="number" id="years" class="form-control" placeholder="roky" oninput="calculateTotalNeeded()">
+        </div>
+        <div class="form-group">
+            <label>Výnos (%)</label>
+            <input type="number" id="returnRate" class="form-control" placeholder="%" oninput="calculateTotalNeeded()">
+        </div>
+        <p class="mt-2 font-weight-bold">Kolik potřebuji mít:</p>
+        <strong id="result" class="result-text">Kč</strong>
+    </div>
+    
+    <div id="infoCard" class="info-card">
+        <h5>Jak jsme dospěli k doporučené částce?</h5>
+        <p id="infoText">Vyberte informaci pro zobrazení.</p>
+    </div>
+    <!-- ========================================================================== -->
+
+        <hr class="custom-hr mt-2">
+
+        <!-- ----------------------------------------------------------------------------- -->
+        <!-- === 1. KLIENT === -->
+        <!-- ----------------------------------------------------------------------------- -->
+        <div class="row mx-auto d-flex justify-content-center align-items-center" style="width:">
+
+          <div class="col-sm-12 col-md-12 col-lg-12 mt-2 mb-4 d-flex flex-column mx-auto">
+
+                  <!-- <button class="info-btn" onclick="showInfo(event, 'result', 'Doporučená částka pro rentu je: ')">
+        <i class="fa-solid fa-question fa-lg"></i>
+    </button>
+    <button class="info-btn" onclick="showInfo(event, 'renta', 'Vaše zadaná měsíční renta je: ')">
+        <i class="fa-solid fa-info-circle"></i>
+    </button>
+    <button class="info-btn" onclick="showInfo(event, 'Počet let spoření:', 'years', 'let.', 'Roční výnos je:', 'returnRate', '%.')">
+    <i class="fa-solid fa-question fa-lg"></i>
+</button>
+<button class="info-btn" onclick="showInfo(event, 'Potřebná renta je:', 'renta', 'Kč.', 'Potřebuješ naspořit:', 'result', 'Kč.')">
+    <i class="fa-solid fa-question fa-lg"></i>
+</button> -->
+
+            <div class="card bg-white p-0" style="">
+              <div class="card-header d-flex align-items-center p-1 m-0" id="heading_klient_1">
+                <h6 class="card-title my-auto no-pointer">Zadání údajů klienta 1
+                </h6>
+                <button  type="button" class="btn btn-sm  arrow-toggle ml-auto" data-toggle="collapse" data-target="#collapse_klient_1" aria-expanded="false" aria-controls="collapse_klient_1">
+              <i class="fas fa-chevron-down"></i>
+            </button>
+
+              </div>
+              <div class="card-body p-2">
+
+                <div class="row d-flex justify-content-center align-items-center p-0 m-0">
+
+
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <label for="client_vydaje" class="label-custom col-sm px-1">Datum narození</label>
+                    <input type="date" class="form-control bg-light mt-n2 client-narozeni" id="client_narozeni" name="client_narozeni" ondblclick="this.value=''" style="border:0">
+                  </div>
+
+                  <div class="form-group col-sm-6 col-md-6 col-lg-1 col-xl-1 mb-2">
+                    <label for="client_vydaje" class="label-custom col-sm px-1">Věk</label>
+                    <input type="text" class="form-control bg-light mt-n2 client-vek" id="client_vek" name="client_vek" style="border:0" disabled>
+                  </div>
+
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <label class="label-custom col-sm px-1">Výdaje</label>
+                    <input type="text" class="form-control bg-light mt-n2" name="client_vydaje" id="client_vydaje" inputmode="numeric" min="0" placeholder="Kč/měs." ondblclick="this.value=''" oninput="formatovani_na_tisicovky(this)">
+                  </div>
+
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <label class="label-custom col-sm px-1">Čisté přijmy</label>
+                    <input type="text" class="form-control bg-light mt-n2" name="client_prijem" id="client_prijem" inputmode="numeric" min="0" placeholder="Kč/měs." ondblclick="this.value=''" oninput="formatovani_na_tisicovky(this)">
+                  </div>
+
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <div class="btn-group d-flex flex-column" id="typZamestnani">
+                      <div class="btn btn-custom btn-sm active" data-value="Zaměstnanec">Zaměstnanec</div>
+                      <div class="btn btn-custom btn-sm" data-value="Živnostník">Živnostník</div>
+                    </div>
+                    <input class="form-control" type="hidden" id="typ_prijmu_selected" name="typ_prijmu_selected" value="Zaměstnanec">
+                  </div>
+
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <label class="label-custom col-sm px-1">Hrubý příjem</label>
+                    <input type="text" class="form-control bg-light mt-n2" id="client_hruba_mzda" ondblclick="this.value=''" disabled>
+                  </div>
+
+
+                </div>
+
+                <!-- === PODROBNOSTI KLIENTA 1 CARD -->
+                <div id="collapse_klient_1" class="collapse border-1 p-2" aria-labelledby="heading_klient_1">
+                  <h6 class="card-title no-pointer">Další podrobnosti klienta 1</h6>
+
+                  <div class="row d-none justify-content-start align-items-center p-1 m-0 mt-2" id="klient_1_details">
+
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 form-group mb-2">
+                      <label class="label-custom col-sm px-1" >Pohlaví</label>
+                      <div class="btn-group mt-n2" id="pohlavi_1">
+                        <div class="btn active border-light" data-value="Žena" style="border-radius:20px 0 0 20px">Žena
+                        </div>
+                        <div class="btn border-light" data-value="Muž" style="border-radius:0 20px 20px 0">Muž</div>
+                      </div>
+                      <input class="form-control" type="hidden" id="pohlavi_selected" name="pohlavi_selected" value="Žena">
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 form-group mb-2">
+                      <label class="label-custom col-sm px-1" for="pocetDetiBox" >Počet dětí</label>
+                      <div class="btn-group mt-n2" id="pocetDetiBox">
+                        <div class="btn active border-light" data-value="0" style="border-radius:20px 0 0 20px">0</div>
+                        <div class="btn border-light" data-value="1">1</div>
+                        <div class="btn border-light" data-value="2">2</div>
+                        <div class="btn border-light" data-value="3">3</div>
+                        <div class="btn border-light" data-value="4">4</div>
+                        <div class="btn border-light" data-value="5" style="border-radius:0 20px 20px 0">5 a více</div>
+                      </div>
+                      <input class="form-control" type="hidden" id="pocet_deti" name="pocet_deti" value="0">
+                    </div>
+
+                  </div>
+
+                  <div class="row d-flex justify-content-start align-items-center p-1 m-0">
+
+                    <div class="col-sm-12 col-md-10 col-lg-6 col-xl-6 form-group mb-2">
+                      <label class="label-custom col-sm px-1" for="smrt_nasobek_form">
+        Jak dlouhou dobu má pojištění pokrýt v případě výpadku příjmu?
+    </label>
+                      <div class="btn-group mt-n2" id="smrt_nasobek_form"
+                        style="display: inline-flex; align-items: center;">
+                        <div class="btn border-light" data-value="1" style="border-radius:20px 0 0 20px">1 rok</div>
+                        <div class="btn border-light" data-value="2">2 roky</div>
+                        <div class="btn border-light" data-value="3">3 roky</div>
+                        <div class="btn border-light active" data-value="5">5 let</div>
+                        <div class="btn border-light" id="smrt_nasobek_jine" data-value=""
+                          style="border-radius:0 20px 20px 0">Jiné</div>
+                        <input class="form-control" type="hidden" id="smrt_nasobek" name="smrt_nasobek" value="5" style="width: 60px; margin-left: 10px;">
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- === END CARD -->
+
+          </div>
+        </div>
+        <!-- === END ROW -->
+
+
+
+        <!-- </div> -->
+        <!-- </div> -->
+        <!-- END KLIENT 1 -->
+        <!-- ================================================================================================ -->
+
+
+
+        <!-- ----------------------------------------------------------------------------- -->
+        <!-- === 2. KLIENT === -->
+        <!-- ----------------------------------------------------------------------------- -->
+        <div class="row mx-auto d-none justify-content-center client_label mb-3" style="border-radius: 8px">
+
+          <div class="col-sm-12 col-md-12 col-lg-12 mt-2 mb-4 d-flex flex-column mx-auto">
+
+            <div class="card bg-white p-0" style="">
+              <div class="card-header d-flex align-items-center p-1 m-0" id="heading_klient_2">
+                <h6 class="card-title my-auto no-pointer">Zadání údajů klienta 2
+                </h6>
+                <button  type="button" class="btn btn-sm ml-auto" onclick="zobrazeni_partnera()">
+          <i class="fa-solid fa-eye-slash"></i>
+            </button>
+                <button  type="button" class="btn btn-sm arrow-toggle" data-toggle="collapse" data-target="#collapse_klient_2" aria-expanded="false" aria-controls="collapse_klient_2">
+          <i class="fas fa-chevron-down"></i>
+            </button>
+
+
+              </div>
+              <div class="card-body p-2">
+                <div class="row d-flex justify-content-center align-items-center p-0 m-0">
+
+
+                  <!-- === Datum narozeni -->
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <label class="label-custom col-sm px-1"> Datum narození</label>
+                    <input type="date" class="form-control bg-light mt-n2 client-narozeni" id="client_narozeni_2" name="client_narozeni_2" ondblclick="this.value=''" style="border:0" >
+                  </div>
+
+                  <!-- === Vek -->
+                  <div class="form-group col-sm-6 col-md-6 col-lg-1 col-xl-1 mb-2">
+                    <label class="label-custom col-sm px-1"> Věk</label>
+                    <input type="text" class="form-control bg-light mt-n2 client-vek" id="client_vek_2" name="client_vek_2" style="border:0" disabled>
+                  </div>
+
+                  <!-- === Vydaje -->
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2" style="display:"
+                    id="vydaje_2_zobrazeni">
+                    <label class="label-custom col-sm px-1 ">Výdaje</label>
+                    <input type="text" class="form-control bg-light mt-n2" name="client_vydaje_2" id="client_vydaje_2" value="" inputmode="numeric" min="0" placeholder="Kč/měs." ondblclick="this.value=''" oninput="formatovani_na_tisicovky(this)">
+                  </div>
+
+
+                  <!-- === Prijmy -->
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <label class="label-custom col-sm px-1 " style="pointer-events: none;">Čisté přijmy</label>
+                    <input type="text" class="form-control bg-light mt-n2" name="client_prijem_2" id="client_prijem_2" value="" inputmode="numeric" style="" min="0" placeholder="Kč/měs." ondblclick="this.value=''" oninput="formatovani_na_tisicovky(this)">
+                  </div>
+
+
+                  <!-- === Typ zamestnani -->
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <div class="btn-group d-flex flex-column" id="typZamestnani_2">
+                      <div class="btn btn-custom btn-sm active" data-value="Zaměstnanec">Zaměstnanec</div>
+                      <div class="btn btn-custom btn-sm" data-value="Živnostník">Živnostník</div>
+                    </div>
+                    <input class="form-control" type="hidden" id="typ_prijmu_selected_2" name="typ_prijmu_selected_2" value="Zaměstnanec">
+
+                  </div>
+
+                  <!-- === Hruby prijem -->
+                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
+                    <label class="label-custom col-sm px-1"> Hrubý příjem</label>
+                    <input type="text" class="form-control  bg-light mt-n2" id="client_hruba_mzda_2" ondblclick="this.value=''" value="" style="border:0" disabled>
+                  </div>
+
+
+                </div>
+
+
+                <!-- === DALSI PODROBNOSTI KLIENT 2 -->
+                <div id="collapse_klient_2" class="collapse p-2" aria-labelledby="heading_klient_2">
+                  <h6 class="card-title my-auto no-pointer">Další podrobnosti klienta 2</h6>
+
+                  <div class="row d-flex justify-content-start align-items-center p-1 m-0 mt-2" id="klient_2_details">
+
+                    <!-- === POHLAVI -->
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-2">
+                      <label class="label-custom col-sm px-1" >Pohlaví</label>
+                      <div class="btn-group mt-n2" id="pohlavi_2">
+                        <div class="btn active border-light" data-value="Žena" style="border-radius:20px 0 0 20px">Žena
+                        </div>
+                        <div class="btn border-light" data-value="Muž" style="border-radius:0 20px 20px 0">Muž</div>
+                      </div>
+                      <input class="form-control" type="hidden" id="pohlavi_selected_2" name="pohlavi_selected_2" value="Žena">
+                    </div>
+
+                    <!-- ==== POCET DETI -->
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-2">
+                      <label class="label-custom col-sm px-1" for="pocetDetiBox_2" >Počet dětí</label>
+                      <div class="btn-group mt-n2" id="pocetDetiBox2">
+                        <div class="btn active border-light" data-value="0" style="border-radius:20px 0 0 20px">0</div>
+                        <div class="btn border-light" data-value="1">1</div>
+                        <div class="btn border-light" data-value="2">2</div>
+                        <div class="btn border-light" data-value="3">3</div>
+                        <div class="btn border-light" data-value="4">4</div>
+                        <div class="btn border-light" data-value="5" style="border-radius:0 20px 20px 0">5 a více</div>
+                      </div>
+                      <input class="form-control" type="hidden" id="pocet_deti_2" name="pocet_deti_2" value="0">
+                    </div>
+
+                  </div>
+
+                  <div class="row d-flex justify-content-start align-items-center p-0 m-0">
+                    <!-- === NASOBEK SMRTI -->
+                    <div class="form-group col-sm-12 col-md-10 col-lg-6 col-xl-6 mb-2">
+                      <label class="label-custom col-sm px-1" for="smrt_nasobek_form_2">
+        Jak dlouhou dobu má pojištění pokrýt v případě výpadku příjmu?
+    </label>
+                      <div class="btn-group mt-n2" id="smrt_nasobek_form_2"
+                        style="display: inline-flex; align-items: center;">
+                        <div class="btn border-light" data-value="1" style="border-radius:20px 0 0 20px">1 rok</div>
+                        <div class="btn border-light" data-value="2">2 roky</div>
+                        <div class="btn border-light" data-value="3">3 roky</div>
+                        <div class="btn border-light active" data-value="5">5 let</div>
+                        <div class="btn border-light" id="smrt_nasobek_jine_2" data-value=""
+                          style="border-radius:0 20px 20px 0">Jiné</div>
+                        <input class="form-control" type="hidden" id="smrt_nasobek_2" name="smrt_nasobek_2" value="5" style=" width: 60px; margin-left: 10px;">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- === END CARD -->
+
+
+
+          </div>
+        </div>
+        <!-- </div> -->
+        <!-- END KLIENT 2 -->
+        <!-- ================================================================================================ -->
+
+
+<!-- ---------------------------------------------------------------------------- -->
+<!-- === TLACITKO PRIDANI KLIENTA 2 -->
+<!-- ---------------------------------------------------------------------------- -->
+        <div class="row d-flex flex-row justify-content-center">
+          <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_partner" onclick="zobrazeni_partnera()" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-plus fa-xl" style="color: #E15452;margin-left: 4px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Přidat partnera/ku</span></button>
+
+          <input class="form-control" type="hidden" id="zobrazeni_klienta_2" name="zobrazeni_klienta_2" value="0">
+          </div>
+<!-- -------------------------------------------------------- -->
+                  <!-- === Rocni vydaje -->
+                  <div class="row d-flex justify-content-left mt-2">
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Roční výdaje</div>
+                        <div class="prediction-value" id="client_vydaje_rocni"></div>
+                      </div>
+                    </div>
+
+                    <!-- === Rocni prijmy === -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-2">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Roční čisté příjmy</div>
+                        <div class="prediction-value" id="client_prijem_rocni"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- -------------------------------------------------------- -->
+
+
+
+        <div class="row d-flex justify-content-center">
+          <!-- ---------------------------------------------------------------------------------- -->
+          <!-- === KARTY REZERVY A DUCHODU === -->
+          <!-- ---------------------------------------------------------------------------------- -->
+          <!-- === CARD REZERVA === -->
+          <!-- ---------------------------------------------------------------------------------- -->
+          <div class="col-sm-12 col-md-10 col-lg-10 mt-2 mb-4 d-flex flex-column mx-auto">
+            <div class="card bg-white  p-0 h-100" style="">
+              <div class="card-header collapsed" id="heading_rezerva" data-toggle="collapse"
+                data-target="#collapse_rezerva" aria-expanded="false" aria-controls="collapse_rezerva">
+                <h4 class="card-title my-auto">Rezerva & závazky</h4>
+              </div>
+
+              <div id="collapse_rezerva" class="collapse" aria-labelledby="heading_rezerva" data-parent=".card">
+                <div class="card-body">
+
+
+                  <div class="row d-flex justify-content-center">
+
+                    <!-- === Dluhy === -->
+                    <div class="form-group  col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <h6 class="card-title ml-n1">Aktuální hodnota všech závazků</h6>
+                      <label class="label-custom col-sm px-1">Aktuální výše závazků</label>
+                      <input type="text" class="form-control bg-light mt-n2" name="client_mortgage" id="client_mortgage" value="" inputmode="numeric" min="0" placeholder="Půjčky / dluhy / Úvěr na bydlení" ondblclick="this.value=''" oninput="formatovani_na_tisicovky(this)">
+                    </div>
+
+                    <!-- === Rezerva === -->
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <h6 class="card-title ml-n1">Finanční rezerva pro nenadále výdaje</h6>
+                      <label class="label-custom col-sm px-1 " style="pointer-events: none;">Jakou mám aktuální rezervu?</label>
+                      <input type="text" class="form-control bg-light mt-n2" name="client_rezerva" id="client_rezerva" ondblclick="this.value=''" style="border:0; " value="" placeholder="Kolik můžu použít pro pokrytí výpadku příjmu?" oninput="formatovani_na_tisicovky(this)">
+                    </div>
+
+                  </div>
+
+                  <!-- === POHLAVI -->
+                  <div class="row d-none client_label">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-2">
+                      <label class="label-custom col-sm px-1" >Jak zajistit dluh?</label>
+                      <div class="btn-group mt-n2" id="dluh_pocitani">
+                        <div class="btn active border-light" data-value="FALSE" style="border-radius:20px 0 0 20px">Ve stejné výši pro oba
+                        </div>
+                        <div class="btn border-light" data-value="TRUE" style="border-radius:0 20px 20px 0">Rozdělit mezi oba</div>
+                      </div>
+                      <input class="form-control" type="hidden" id="rozdeleni_dluhu" name="rozdeleni_dluhu" value="FALSE">
+                    </div>
+                    </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ========================================================================= -->
+
+
+          <!-- ---------------------------------------------------------------------------------- -->
+          <!-- === CARD UDAJE Z CSSZ === -->
+          <!-- ---------------------------------------------------------------------------------- -->
+          <div class="col-sm-12 col-md-10 col-lg-10 mb-4 d-flex flex-column mx-auto">
+            <div class="card bg-white  p-0 h-100">
+              <div class="card-header collapsed" id="heading_cssz" data-toggle="collapse" data-target="#collapse_cssz"
+                aria-expanded="false" aria-controls="collapse_cssz">
+
+                <h4 class="card-title my-auto">Údaje z důchodové aplikace ČSSZ</h4>
+              </div>
+
+              <div id="collapse_cssz" class="collapse" aria-labelledby="heading_cssz" data-parent=".card">
+                <div class="card-body">
+
+                  <div class="row d-flex align-items-center pt-3">
+
+
+                    <!-- ### KLIENT 1 -->
+                    <div class="col-sm-3 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- === Predpokladany duchod -->
+                    <div class="form-group col-sm-12 col-md-6 col-xl-3 mb-2 ">
+                      <label class="label-custom col-sm px-1 " style="pointer-events: none;"> Předpokládaný důchod</label>
+                      <!-- <label class="label-custom col-sm px-1 ml-n1 text-right" style="pointer-events: none;" > Kč</label> -->
+                      <input type="text" class="form-control bg-light mt-n2" name="client_duchod_zaklad" id="client_duchod_zaklad" ondblclick="this.value=''" style="border:0; " oninput="formatovani_na_tisicovky(this)" value="">
+                    </div>
+
+                    <!-- === Pocet odpracovanych let -->
+                    <div class="form-group col-sm-12 col-md-6 col-xl-3 mb-2" hidden>
+                      <label class="label-custom col-sm px-1"> Odpracované roky</label>
+                      <input type="number" class="form-control bg-light mt-n2" name="client_rok_odpracovane" id="client_rok_odpracovane" ondblclick="this.value=''" value="" style="border:0">
+                    </div>
+
+                  </div>
+
+                  <div class="row bg-light d-none align-items-center client_label pt-3" style="border-radius: 20px">
+
+                    <!-- === KLIENT 2 -->
+                    <div class="col-sm-3 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- === Predpokladany duchod -->
+                    <div class="form-group col-sm-12 col-md-6 col-xl-3 mb-2 ">
+                      <label class="label-custom col-sm px-1 " style="pointer-events: none;"> Předpokládaný důchod</label>
+                      <input type="text" class="form-control bg-light mt-n2" name="client_duchod_zaklad_2" id="client_duchod_zaklad_2" ondblclick="this.value=''" style="border:0; " oninput="formatovani_na_tisicovky(this)" value="">
+                    </div>
+
+                    <!-- === Pocet odpracovanych let -->
+                    <div class="form-group col-sm-12 col-md-6 col-xl-3 mb-2" hidden>
+                      <label class="label-custom col-sm px-1"> Odpracované roky</label>
+                      <input type="number" class="form-control bg-light mt-n2" name="client_rok_odpracovane_2" id="client_rok_odpracovane_2" ondblclick="this.value=''" value="" style="border:0">
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ========================================================================= -->
+
+
+          
+        </div>
+        <!-- END ROW -->
+
+        <!-- === Tlacitka -->
+        
+
+        <div class="row d-flex flex-row justify-content-center">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap justify-content-center">
+
+            <button type="submit" class="col-auto btn btn-custom bg-white mb-2 mx-2 no-print" id="odeslatFormular" style="text-align: left; padding-left: 0;"><i class="fa-solid fa-calculator fa-xl" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Spočítat</span></button>
+
+            <button type="button" class="col-auto btn btn-custom bg-white mb-2 mx-2 no-print" onclick="generatePagedPDF()" style="text-align: left; padding-left: 0;"><i class="fa-solid fa-print fa-xl" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Stáhnout PDF</span></button>
+
+
+          </div>
+
+        </div>
+
+        <!-- === ZADANI END -->
+        <!-- ================================================================================== -->
+
+
+        <hr class="custom-hr">
+
+
+      </div><!-- CONT END -->
+      <!-- ########################################################################################### -->
+
+
+
+
+      <!-- ---------------------------------------------------------------------------- -->
+      <!-- === PREHLEDOVA CAST ===  -->
+      <!-- ---------------------------------------------------------------------------- -->
+      <div class="container-fluid">
+
+        
+      </div>
+      <!-- END CONTAINER -->
+      <!-- ======================================================================= -->
+
+
+      <!-- ---------------------------------------------------------------------------------------- -->
+      <!-- === POJISTNE CASTKY === -->
+      <!-- === HEADER === -->
+      <!-- ---------------------------------------------------------------------------------------- -->
+      <div id="content_to_print" class="print" style="background-color: #eff2f8">
+        <div class="container-fluid container-custom my-3" style="width:110%">
+
+          <div class="row custom-row text-white g-0" style="background-color:#3c79b1">
+            <div class="col-12 mx-auto py-3 d-flex justify-content-center align-items-center">
+              <h2 class="mt-2" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Jak se pojistit? </h2>
+            </div>
+          </div>
+
+
+
+          <div class="row custom-row text-white text-center g-0" style="width:100%; background-color:#0b5e81">
+            <div class="col-12 mx-auto py-1 d-flex justify-content-center align-items-center">
+              <h5 class="mt-2 text-center" style="line-height:2;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">V případě
+                dlouhodobého výpadku příjmu je řešením <br>
+                <b>kombinace sociálních dávek, životního pojištění a finanční rezervy.</b>
+              </h5>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- === COLUMN POJISTNE CASTKY === -->
+        <!-- ------------------------------------------------------------------------- -->
+        <div class="container-fluid">
+
+          <div class="row d-flex justify-content-center">
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+          <!-- === CARD DUCHODY PREHLED === -->
+          <!-- ---------------------------------------------------------------------------------- -->
+          <div class="col-sm-12 col-md-10 col-lg-10 mb-3 d-flex flex-column mx-auto mt-3 no-print">
+            <div class="card bg-white  p-0 m-0 h-100">
+              <div class="card-header collapsed" id="heading_duchody" data-toggle="collapse"
+                data-target="#collapse_duchody" aria-expanded="false" aria-controls="collapse_duchody">
+
+                <h4 class="card-title my-auto">Přehled důchodů</h4>
+              </div>
+
+              <div id="collapse_duchody" class="collapse" aria-labelledby="heading_duchody" data-parent=".card">
+                <div class="card-body p-0 m-0">
+
+
+                  <!-- ---------------------------------------------------------------------------------- -->
+                  <!-- ### STAROBNI ### -->
+                  <div class="row d-flex justify-content-center px-0 mx-0 my-4">
+                    <!-- ### PENZE VYSE -->
+                    <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Starobní důchod</h5>
+
+                    <!-- ### KLIENT 1 -->
+                    <div class="col-sm-12 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <!-- ### PENZE DATUM -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Datum odchodu do důchodu</div>
+                        <div class="prediction-value" id="penze_datum"></div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE VEK -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Věk odchodu do důchodu</div>
+                        <div class="prediction-value" id="penze_vek"></div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE ZA JAK DLOUHO -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Za jak dlouho</div>
+                        <div class="prediction-value" id="penze_za_jak_dlouho"></div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE KOLIK -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientační výše důchodu</div>
+                        <div class="prediction-value" id="penze_result"></div>
+                      </div>
+                    </div>
+
+                     <!-- ### PENZE ZTRATA -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Propad oproti příjmu</div>
+                        <div class="prediction-value" id="penze_rozdil"></div>
+                      </div>
+                    </div>
+
+                  </div>
+
+        <!-- ------------------------------------------------------------------------ -->
+        <!-- === VYPOCET RENTY NA DUCHOD -->
+        <!-- ------------------------------------------------------------------------ -->
+        <!-- === KLIENT1 -->
+        <!-- ------------------------------------------------------------------------ -->
+        <div class="row d-flex justify-content-center align-items-center px-0 mx-0 my-0">
+                  
+          <h5 class="col-sm-12 text-center p-1 w-100 mx-auto my-1" style="color:#0b5e81">Na propad příjmu při přechodu do důchodu existuje několik řešení.</h5>
+
+
+        <!-- <div class="row d-flex flex-row justify-content-center"> -->
+      <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_penze_renta" data-toggle="collapse" data-target="#collapse_renta_klient_1" aria-expanded="false" aria-controls="collapse_renta_klient_1" onclick="" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-question fa-xl" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;color: #E15452;"> Chcete vědět víc?</span></button>
+          <!-- </div> -->
+                  </div>
+                  
+
+                <div id="collapse_renta_klient_1" class="collapse border-1 p-2" aria-labelledby="heading_renta_klient_1">
+                  <div class="row d-flex justify-content-center align-items-center px-0 mx-0 mb-3">
+                  
+                    <h6 class="col-sm-12 text-center p-1 w-100 mx-auto my-1" style="color:#0b5e81"><b>Pravidelným odkládáním a zhodnocením peněž si můžete vytvořit potřebnou rezervu na měsíční rentu.</b></h6>
+
+                     <!-- ### PENZE RENTA -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Na měsíční rentu</div>
+                        <div class="prediction-value" id="penze_renta"></div>
+                        <div class="prediction-label">potřebujete mít připraveno</div>
+                        <div class="prediction-value" id="penze_renta_celkem"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Při zhodnocení </div>
+                        <div class="prediction-value" id="penze_zhodnoceni"></div>
+                        <div class="prediction-label">stačí pravidelně odkládat</div>
+                        <div class="prediction-value" id="penze_renta_platba"></div>
+                      </div>
+                    </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap justify-content-center">
+
+            <a href="https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec" target="_blank" type="button" class="col-auto btn btn-custom bg-white mb-2 mx-2 no-print" style="text-align: left; padding-left: 0;"><i class="fa-solid fa-up-right-from-square fa-l" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;"> DIPuj</span></a>
+
+            <a href="https://script.google.com/macros/s/AKfycbyAqz0N5XDTrRBkpTQRJx78wRVX9IUe_TV2_KCjcchV_yoNbXEg/exec" target="_blank" type="button" class="col-auto btn btn-custom bg-white mb-2 mx-2 no-print" style="text-align: left; padding-left: 0;"><i class="fa-solid fa-up-right-from-square fa-l" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Investiční porovnávač</span></a>
+
+
+          </div>
+
+
+                  </div>
+                  </div>
+                  
+                  
+                  
+                  <div class="row bg-light d-none justify-content-center px-0 mx-0 my-4 client_label">
+                    <!-- ---------------------------------------------------------- -->
+                    <!-- ### KLIENT 2 -->
+                    <div class="col-sm-12 m-0 p-0">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE DATUM -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Datum odchodu do důchodu</div>
+                        <div class="prediction-value" id="penze_datum_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE VEK -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Věk odchodu do důchodu</div>
+                        <div class="prediction-value" id="penze_vek_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE ZA JAK DLOUHO -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Za jak dlouho</div>
+                        <div class="prediction-value" id="penze_za_jak_dlouho_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE KOLIK -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientační výše důchodu</div>
+                        <div class="prediction-value" id="penze_result_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE ZTRATA -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Propad oproti příjmu</div>
+                        <div class="prediction-value" id="penze_rozdil_2"></div>
+                      </div>
+                    </div>
+
+                  </div>
+
+        <!-- === KLIENT 2 -->
+        <!-- ------------------------------------------------------------------------ -->
+        <div class="row d-none justify-content-center align-items-center px-0 mx-0 my-0 client_label">
+                  
+          <h5 class="col-sm-12 text-center p-1 w-100 mx-auto my-1" style="color:#0b5e81">Na propad příjmu při přechodu do důchodu existuje několik řešení.</h5>
+
+
+        <!-- <div class="row d-flex flex-row justify-content-center"> -->
+      <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_penze_renta_2" data-toggle="collapse" data-target="#collapse_renta_klient_2" aria-expanded="false" aria-controls="collapse_renta_klient_2" onclick="" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-question fa-xl" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;color: #E15452;"> Chcete vědět víc?</span></button>
+          <!-- </div> -->
+                  </div>
+                  
+
+                <div id="collapse_renta_klient_2" class="collapse border-1 p-2" aria-labelledby="heading_renta_klient_2">
+                  <div class="row d-flex justify-content-center align-items-center px-0 mx-0 mb-3">
+                  
+                    <h6 class="col-sm-12 text-center p-1 w-100 mx-auto my-1" style="color:#0b5e81"><b>Pravidelným odkládáním a zhodnocením peněž si můžete vytvořit potřebnou rezervu na měsíční rentu.</b></h6>
+
+                     <!-- ### PENZE RENTA -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Na měsíční rentu</div>
+                        <div class="prediction-value" id="penze_renta_2"></div>
+                        <div class="prediction-label">potřebujete mít připraveno</div>
+                        <div class="prediction-value" id="penze_renta_celkem_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Při zhodnocení </div>
+                        <div class="prediction-value" id="penze_zhodnoceni_2"></div>
+                        <div class="prediction-label">stačí pravidelně odkládat</div>
+                        <div class="prediction-value" id="penze_renta_platba_2"></div>
+                      </div>
+                    </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap justify-content-center">
+
+            <a href="https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec" target="_blank" type="button" class="col-auto btn btn-custom bg-white mb-2 mx-2 no-print" style="text-align: left; padding-left: 0;"><i class="fa-solid fa-up-right-from-square fa-l" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;"> DIPuj</span></a>
+
+            <a href="https://script.google.com/macros/s/AKfycbyAqz0N5XDTrRBkpTQRJx78wRVX9IUe_TV2_KCjcchV_yoNbXEg/exec" target="_blank" type="button" class="col-auto btn btn-custom bg-white mb-2 mx-2 no-print" style="text-align: left; padding-left: 0;"><i class="fa-solid fa-up-right-from-square fa-l" style="color: #E15452;margin-left: 8px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Investiční porovnávač</span></a>
+
+
+          </div>
+
+
+                  </div>
+                  </div>
+
+
+                  <!-- --------------------------------------------------------------------------- -->
+                  <!-- ### INVALIDNI ### -->
+                  <div class="row d-flex justify-content-center my-3 px-0 mx-0">
+
+                    <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Invalidní důchod</h5>
+
+                    <!-- ### KLIENT 1 -->
+                    <div class="col-sm-12 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientačně důchod I. stupně</div>
+                        <div class="prediction-value" id="invalidita_1_result"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientačně důchod II. stupně</div>
+                        <div class="prediction-value" id="invalidita_2_result"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientačně důchod III. stupně</div>
+                        <div class="prediction-value" id="invalidita_3_result"></div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+      <div class="prediction-box">
+        <div class="prediction-label">Splňuji podmínky pro výplacení?</div>
+        <div class="prediction-value" id="penze_check">Ano/Ne</div>
+      </div>
+    </div> -->
+
+                  </div>
+
+
+                  <div class="row bg-light d-none justify-content-center my-3 px-0 mx-0 client_label">
+
+                    <!-- ### KLIENT 2 -->
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientačně důchod I. stupně</div>
+                        <div class="prediction-value" id="invalidita_1_result_2"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientačně důchod II. stupně</div>
+                        <div class="prediction-value" id="invalidita_2_result_2"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientačně důchod III. stupně</div>
+                        <div class="prediction-value" id="invalidita_3_result_2"></div>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <!-- --------------------------------------------------------------------------- -->
+                  <!-- ### VDOVSKY ### -->
+                  <div class="row d-flex justify-content-center my-3 px-0 mx-0">
+                    <!-- ### PENZE VYSE -->
+                    <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Vdovský a vdovecký důchod</h5>
+
+                    <!-- ### KLIENT 1 -->
+                    <div class="col-sm-12 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientační výše důchodu </div>
+                        <div class="prediction-value" id="vdovsky_result"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Základní doba vyplácení</div>
+                        <div class="prediction-value" id="vdovsky_doba_vyplaceni">1 rok</div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE PODMINKA -->
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+      <div class="prediction-box">
+        <div class="prediction-label">Splňuji podmínky pro výplacení?</div>
+        <div class="prediction-value" id="penze_check">Ano/Ne</div>
+      </div>
+    </div> -->
+
+                  </div>
+
+                  <div class="row bg-light d-none justify-content-center my-3 px-0 mx-0 client_label">
+
+                    <!-- ### KLIENT 2 -->
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientační výše důchodu </div>
+                        <div class="prediction-value" id="vdovsky_result_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Základní doba vyplácení</div>
+                        <div class="prediction-value" id="vdovsky_doba_vyplaceni_2">1 rok</div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- =============================================================== -->
+
+
+                  <!-- --------------------------------------------------------------------------- -->
+                  <!-- ### SIROTCI ### -->
+                  <div class="row d-flex justify-content-center my-3 px-0 mx-0">
+                    <!-- ### PENZE VYSE -->
+                    <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Sirotčí důchod</h5>
+
+                    <!-- ### KLIENT 1 -->
+                    <div class="col-sm-12 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientační výše důchodu </div>
+                        <div class="prediction-value" id="sirotci_result"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Základní doba vyplácení</div>
+                        <div class="prediction-value" id="sirotci_doba_vyplaceni">do 18 let věku dítěte<br> (až do 26 let při soustavné přípravě na povolání)
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ### PENZE PODMINKA -->
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+      <div class="prediction-box">
+        <div class="prediction-label">Splňuji podmínky pro výplacení?</div>
+        <div class="prediction-value" id="penze_check">Ano/Ne</div>
+      </div>
+    </div> -->
+
+                  </div>
+
+                  <div class="row bg-light d-none justify-content-center my-3 px-0 mx-0 client_label">
+
+                    <!-- ### KLIENT 2 -->
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Orientační výše důchodu </div>
+                        <div class="prediction-value" id="sirotci_result_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Základní doba vyplácení</div>
+                        <div class="prediction-value" id="sirotci_doba_vyplaceni_2">do 18 let věku dítěte<br> (až do 26 let při soustavné přípravě na povolání)
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END CARD DUCHODY PREHLED -->
+          <!-- ========================================================================= -->
+
+
+            <!-- -------------------------------------------------------------------------- -->
+            <!-- === SMRT === -->
+            <!-- -------------------------------------------------------------------------- -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mt-5 mb-5 d-flex flex-column mx-auto" id="smrt_zobrazeni">
+
+              <div class="card bg-white page-break-avoid px-2 print" style=";border-radius: 25px;">
+                <div class="card-body">
+                  <h4 class="card-title ml-n1">Pojištění v případě smrti</h4>
+
+                  <div class="row mb-2">
+                    <div class="col-lg-12">
+
+                      <p style="color:#78909c;">
+
+                        Pomůže rodině se vyrovnat se ztrátou vašeho příjmu. Bez ohledu na to, zda k úmrtí došlo úrazem
+                        nebo
+                        kvůli nemoci, Vaše rodina dostane prostředky na náhradu nezbytných výdaju na další roky.
+                        <br><br> V případě závazků je vhodné se pojistit na jejich výši.
+                      </p>
+
+                      <div class="col-sm-12 col-lg-6 my-3 cursor-pointer">
+                        <a class="modal-trigger text-danger" data-toggle="modal"
+                          data-target="#modal_smrt"><b>Přehled pozůstalostních důchodů</b></a>
+                      </div>
+
+
+                      <div class="col-sm-12 col-lg-12 mt-3 mb-3">
+                        <a href="javascript:void(0);" onclick="zobrazit_detail_proc('detail_smrt')"
+                          style="font-weight:bold;color: #3c79b1">Jak jsme dospěli k doporučené částce?</a>
+                        <div id="detail_smrt" class="expandable-content-transform" style="display:none;color:#3c79b1">
+                          Tento výpočet vychází z odhadovaných nákladů na pokrytí běžných výdajů a závazků, které vaše
+                          rodina může mít. Je důležité zajistit, aby vaše rodina byla finančně zabezpečena a měla
+                          prostředky pro zvládnutí životních situací.
+                        </div>
+                      </div>
+                      </div>
+
+                      <!-- ------------------------------------------------------------------- -->
+                      <!-- ### KLIENT 1 -->
+
+                      <!-- ### KLIENT 1 -->
+                      <div class="col-sm-12 m-0 p-0 d-none client_label">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 1</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="smrt_header_zobrazeni_1">
+        Doporučená výše pojistné ochrany
+        <button class="info-btn" onclick="showInfo(event, 'result', 'Tento výpočet vychází z odhadovaných nákladů na pokrytí běžných výdajů a dluhů, které vaše rodina může mít. Je důležité zajistit, aby vaše rodina byla finančně zabezpečena a měla prostředky pro zvládnutí životních situací. ')" title="Více informací">
+            <i class="fa-solid fa-info fa-sm" style="color: #E15452"></i>
+        </button>
+    </h5> -->
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="smrt_header_zobrazeni_1" style="display:">Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="smrt_castka_zobrazeni_1" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_smrt"></div>
+                      </div>
+                    </div>
+
+                  <!-- === SMRT S INVESTICI -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="smrt_investice_header_zobrazeni_1" style="display:none">Doporučená výše pojistné ochrany s investicí</h5>
+                    <h6 class="card-title col-sm-12 p-2 w-100 mt-n3 ml-4" id="smrt_investice_header_zobrazeni_2" style="display:none">počítaná jako budoucí investice se zhodnocením 4% p.a. a využitím jako renta</h6>
+
+                    <!-- === POJ CASTKA SMRT S INV -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1" id="smrt_inv_castka_zobrazeni_1" style="display:none">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_smrt_inv"></div>
+                      </div>
+                    </div>
+
+                    
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="smrt_dluhy_header_zobrazeni_1" style="display:none">Výše pojistné ochrany na pokrytí závazků</h5>
+                    <h6 class="card-title col-sm-12 p-2 w-100 mt-n3 ml-4" id="smrt_dluhy_header_zobrazeni_2" style="display:none">Na závazky je potřeba se připojistit klesající částkou</h6>
+                    <!-- === SMRT NA DLUHY -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="pojisteni_smrt_dluhy" style="display:none">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Na dluhy je potřeba se připojistit klesající částkou</div> -->
+                        <div class="prediction-value" id="pojisteni_smrt_klesajici"></div>
+                      </div>
+                      </div>
+
+                  </div>
+
+                  <!-- ------------------------------------------------------------------- -->
+                  <!-- ### KLIENT 2 -->
+                  <div class="row bg-light mt-2 mb-2 d-none client_label" style="border-radius: 20px">
+
+                      <!-- ### KLIENT 2 -->
+                      <div class="col-sm-12 m-0 p-0 d-flex">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 2</div>
+                          </div>
+                        </div>
+                      </div>
+
+                    <!-- === SMRT 2 -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="smrt_header_zobrazeni_2" style="display:">Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="smrt_castka_zobrazeni_2" style="display:">
+                      <div class="prediction-box" >
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_smrt_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- === SMRT S INVESTICI -->
+                    <!-- === POJISTNA CASTKA S INVESTICI -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="smrt_investice_header_zobrazeni_3" style="display:none">Doporučená výše pojistné ochrany s investicí</h5>
+                    <h6 class="card-title col-sm-12 p-2 w-100 mt-n3 ml-4" id="smrt_investice_header_zobrazeni_4" style="display:none">počítaná jako budoucí investice se zhodnocením 4% p.a. a využitím jako renta</h6>
+
+                    <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="smrt_inv_castka_zobrazeni_2" style="display:none">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_smrt_inv_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- === SMRT NA DLUHY -->
+                        <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="smrt_dluhy_header_zobrazeni_2_1" style="display:none">Výše pojistné ochrany na pokrytí závazků</h5>
+                    <h6 class="card-title col-sm-12 p-2 w-100 mt-n3 ml-4" id="smrt_dluhy_header_zobrazeni_2_2" style="display:none">Na závazky je potřeba se připojistit klesající částkou</h6>
+
+                      <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 offset-lg-3 my-1 " id="pojisteni_smrt_dluhy_2" style="display:none">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Na dluhy je potřeba se připojistit klesající částkou</div> -->
+                        <div class="prediction-value" id="pojisteni_smrt_klesajici_2"></div>
+                      </div>
+                      </div>
+
+
+
+
+
+                  </div> <!-- END ROW -->
+
+                  <div class="custom-control custom-checkbox m-3">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_smrt">
+                    <label class="custom-control-label ml-2" for="checkbox_smrt" style="scale:1.25"><b>Chci</b></label>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- END CARD 1 -->
+
+            </div> <!-- END COL -->
+            <!-- =========================================================================== -->
+
+
+
+
+            <!-- ------------------------------------------------------------------ -->
+            <!-- === INVALIDITA === -->
+            <!-- ------------------------------------------------------------------ -->
+            <!-- <div class="column mx-auto mt-3 mb-5"> -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mb-5 mt-5 d-flex flex-column mx-auto"  id="invalidita_zobrazeni">
+
+              <div class="card bg-white page-break-avoid px-2 z-100" style=";border-radius: 25px;">
+                <div class="card-body">
+                  <h4 class="card-title ml-n1">Pojištění invalidity</h4>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+
+                      <p style="color:#78909c;">
+                        Představte si, že přijdete o celý nebo část svého příjmu na mnoho let, ať už z důvodu nemoci
+                        nebo úrazu. Právě toto pojištění Vám s tím pomůže.
+                        <br>
+                      Invaliditu může způsobit vážná nemoc nebo úraz
+                      - pravděpodobně váš příjem, na který jste zvyklí, poklesne nebo bude nulový.
+
+                      </p>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6 mb-3">
+                      <a class="modal-trigger text-danger cursor-pointer" data-toggle="modal"
+                        data-target="#modal_invalidita"><b>Chcete	vědět víc?!</b></a>
+                    </div>
+
+
+                    <div class="col-sm-12 col-lg-6 mb-3">
+                      <a href="javascript:void(0);" onclick="zobrazit_detail_proc('detail_invalidita')"
+                        style="font-weight:bold;color: #3c79b1">Jak jsme dospěli k této částce?</a>
+                      <div id="detail_invalidita" style="display:none;color:#3c79b1"
+                        class="expandable-content-transform">
+                        Vypočítali jsme to tak, aby se váš příjem co nejvíc přiblížil tomu, jaký máte teď.
+                      </div>
+                    </div>
+
+                    <!-- ------------------------------------------------------------- -->
+                    <!-- === KLIENT 1 === -->
+                    <div class="col-sm-12 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- === MESICNI DUCHOD === -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2">Měsíčně budete od státu dostávat (orientačně)</h5>
+
+
+                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 offset-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="">I. stupeň</div>
+                        <div class="prediction-label">Orientační výše</div>
+                        <div class="prediction-value" id="inv_1_duchod"></div>
+                        <div class="prediction-label mt-2" >Rozdíl oproti příjmu</div>
+                        <div class="prediction-value" id="inv_1_rozdil" ></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="">II. stupeň</div>
+                        <div class="prediction-label">Orientační výše</div>
+                        <div class="prediction-value" id="inv_2_duchod"></div>
+                        <div class="prediction-label mt-2" >Rozdíl oproti příjmu</div>
+                        <div class="prediction-value" id="inv_2_rozdil" ></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="">III. stupeň</div>
+                        <div class="prediction-label">Orientační výše</div>
+                        <div class="prediction-value" id="inv_3_duchod"></div>
+                        <div class="prediction-label mt-2" >Rozdíl oproti příjmu</div>
+                        <div class="prediction-value" id="inv_3_rozdil" ></div>
+                      </div>
+                    </div>
+
+                    <!-- === ROZDIL PRIJMU -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2">Kolik potřebuji na udržení životní úrovně</h5>
+
+
+
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3">
+    <div class="prediction-box toggle-expand cursor-pointer text-center p-3 ">
+      <div class="prediction-label mb-3" style="min-height:4.5rem;">Chybějící částka do důchodu se započtením <b>poloviny</b> příjmu</div>
+      <div class="extra-info hidden animate-expand">
+        <div class="prediction-label mb-2">Můj aktuální příjem</div>
+        <div class="prediction-value mb-3" id="klient_1_prijem"></div>
+
+        <div class="prediction-label mb-2">Invalidní důchod bude</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_1_duchod"></div>
+
+        <div class="prediction-label mb-2">Společně s <b>polovinou</b> příjmu</div>
+        <div class="prediction-value mb-3" id="klient_1_polovina_prijmu"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude měsíčně</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_1_chybi_mesicne"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude ročně</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_1_chybi_rocne" style="font-size: 1.2rem; color:;"></div>
+
+        <div class="prediction-label mb-2">Do důchodu zbývá</div>
+        <div class="prediction-value mb-3" id="klient_1_zbyva_roku"></div>
+
+        <div class="prediction-label mb-2">Kolik mi bude chybět</div>
+      </div>
+      <div class="prediction-value" id="inv_1_rozdil_celkem"></div>
+    </div>
+  </div>
+
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+    <div class="prediction-box toggle-expand cursor-pointer p-3 ">
+      <div class="prediction-label mb-3 text-center"  style="min-height:4.5rem;">Chybějící částka do důchodu se započtením <b>čtvrtiny</b> příjmu</div>
+      <div class="extra-info hidden animate-expand">
+        <div class="prediction-label mb-2">Můj aktuální příjem</div>
+        <div class="prediction-value mb-3" id="klient_1_prijem_2"></div>
+
+        <div class="prediction-label mb-2">Invalidní důchod bude</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_2_duchod"></div>
+
+        <div class="prediction-label mb-2">Společně s <b>čtvrtinou</b> příjmu</div>
+        <div class="prediction-value mb-3" id="klient_1_ctvrtina_prijmu"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude měsíčně</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_2_chybi_mesicne"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude ročně</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_2_chybi_rocne" style="font-size: 1.2rem; color:;"></div>
+
+        <div class="prediction-label mb-2">Do důchodu zbývá</div>
+        <div class="prediction-value mb-3" id="klient_1_zbyva_roku_2"></div>
+
+        <div class="prediction-label mb-2">Kolik mi bude chybět</div>
+      </div>
+      <div class="prediction-value" id="inv_2_rozdil_celkem"></div>
+    </div>
+  </div>
+
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+    <div class="prediction-box toggle-expand cursor-pointer p-3 text-center">
+      <div class="prediction-label mb-3 text-center" style="min-height:4.5rem;">Chybějící částka do důchodu <b>bez jakéhokoliv</b> příjmu</div>
+      <div class="extra-info hidden animate-expand">
+        <div class="prediction-label mb-2">Můj aktuální příjem</div>
+        <div class="prediction-value mb-3" id="klient_1_prijem_3"></div>
+
+        <div class="prediction-label mb-2">Invalidní důchod bude</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_3_duchod"></div>
+
+        <div class="prediction-label mb-2">Bez <b>jakéhokoliv</b> dalšího příjmu</div>
+        <div class="prediction-value mb-3" id="">-</div>
+
+        <div class="prediction-label mb-2">Chybět mi bude měsíčně</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_3_chybi_mesicne"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude ročně</div>
+        <div class="prediction-value mb-3" id="klient_1_inv_3_chybi_rocne" style="font-size: 1.2rem; color:;"></div>
+
+        <div class="prediction-label mb-2">Do důchodu zbývá</div>
+        <div class="prediction-value mb-3" id="klient_1_zbyva_roku_3"></div>
+
+        <div class="prediction-label mb-2">Kolik mi bude chybět</div>
+      </div>
+      <div class="prediction-value" id="inv_3_rozdil_celkem"></div>
+    </div>
+  </div>
+
+
+
+
+
+                    <!-- === POJISTNA CASTKA BEZ INVESTICE -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="inv_header_zobrazeni_1">Doporučená výše pojistné ochrany</h5>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3" id="inv_1_castka_zobrazeni_1">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_1_castka"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_2_castka_zobrazeni_1">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_2_castka"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_3_castka_zobrazeni_1">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_3_castka"></div>
+                      </div>
+                    </div>
+
+
+
+                    <!-- === POJISTNA CASTKA S INVESTICI -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="inv_investice_header_zobrazeni_1" style="display:none">Doporučená výše pojistné ochrany s investicí</h5>
+                    <h6 class="card-title col-sm-12 p-2 w-100 mt-n3 ml-4" id="inv_investice_header_zobrazeni_2" style="display:none">počítaná jako budoucí investice se zhodnocením 4% p.a. a využitím jako renta</h6>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3 " id="inv_1_inv_castka_zobrazeni_1" style="display:none">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_1_castka_inv"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_2_inv_castka_zobrazeni_1"
+                      style="display:none">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_2_castka_inv"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_3_inv_castka_zobrazeni_1"
+                      style="display:none">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_3_castka_inv"></div>
+                      </div>
+                    </div>
+
+                    <!-- <em class="col-sm-12 col-md-10 mx-auto" style="font-size:0.9rem">*Doporučená výše pojistné ochrany je počítaná jako budoucí investice se zhodnocením 5,5% p.a. a využitím jako renta</em> -->
+
+                    <!-- === POJISTNA CASTKA NA DLUH -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="inv_dluh_header_zobrazeni">Výše pojistné ochrany na pokrytí závazků</h5>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3" id="inv_dluh_zobrazeni_1">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_1_dluh"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3" id="inv_dluh_zobrazeni_2">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_2_dluh"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3" id="inv_dluh_zobrazeni_3">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_3_dluh"></div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- -------------------------------------------------------------------------------- -->
+
+
+
+
+                  <!-- -------------------------------------------------------------------------------------- -->
+                  <!-- === KLIENT 2 -->
+                  <div class="row mt-3 bg-light d-none client_label" style="border-radius: 20px">
+
+                    <!-- === KLIENT 2 -->
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <!-- === MESICNI DUCHOD -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2">Měsíčně budete od státu dostávat (orientačně)</h5>
+
+                    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 offset-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="">I. stupeň</div>
+                        <div class="prediction-label">Orientační výše</div>
+                        <div class="prediction-value" id="inv_1_duchod_2"></div>
+                        <div class="prediction-label mt-2">Rozdíl oproti příjmu</div>
+                        <div class="prediction-value" id="inv_1_rozdil_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="">II. stupeň</div>
+                        <div class="prediction-label">Orientační výše</div>
+                        <div class="prediction-value" id="inv_2_duchod_2"></div>
+                        <div class="prediction-label mt-2">Rozdíl oproti příjmu</div>
+                        <div class="prediction-value" id="inv_2_rozdil_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="">III. stupeň</div>
+                        <div class="prediction-label">Orientační výše</div>
+                        <div class="prediction-value" id="inv_3_duchod_2"></div>
+                        <div class="prediction-label mt-2">Rozdíl oproti příjmu</div>
+                        <div class="prediction-value" id="inv_3_rozdil_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- === ROZDIL PRIJMU -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2">Kolik potřebuji na udržení životní úrovně</h5>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3">
+    <div class="prediction-box toggle-expand cursor-pointer text-center p-3 ">
+      <div class="prediction-label mb-3" style="min-height:4.5rem;">Chybějící částka do důchodu se započtením <b>poloviny</b> příjmu</div>
+      <div class="extra-info hidden animate-expand">
+        <div class="prediction-label mb-2">Můj aktuální příjem</div>
+        <div class="prediction-value mb-3" id="klient_2_prijem"></div>
+
+        <div class="prediction-label mb-2">Invalidní důchod bude</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_1_duchod"></div>
+
+        <div class="prediction-label mb-2">Společně s <b>polovinou</b> příjmu</div>
+        <div class="prediction-value mb-3" id="klient_2_polovina_prijmu"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude měsíčně</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_1_chybi_mesicne"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude ročně</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_1_chybi_rocne" style="font-size: 1.2rem; color:;"></div>
+
+        <div class="prediction-label mb-2">Do důchodu zbývá</div>
+        <div class="prediction-value mb-3" id="klient_2_zbyva_roku"></div>
+
+        <div class="prediction-label mb-2">Kolik mi bude chybět</div>
+      </div>
+      <div class="prediction-value" id="inv_1_rozdil_celkem_2"></div>
+    </div>
+  </div>
+
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+    <div class="prediction-box toggle-expand cursor-pointer p-3 ">
+      <div class="prediction-label mb-3 text-center"  style="min-height:4.5rem;">Chybějící částka do důchodu se započtením <b>čtvrtiny</b> příjmu</div>
+      <div class="extra-info hidden animate-expand">
+        <div class="prediction-label mb-2">Můj aktuální příjem</div>
+        <div class="prediction-value mb-3" id="klient_2_prijem_2"></div>
+
+        <div class="prediction-label mb-2">Invalidní důchod bude</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_2_duchod"></div>
+
+        <div class="prediction-label mb-2">Společně s <b>čtvrtinou</b> příjmu</div>
+        <div class="prediction-value mb-3" id="klient_2_ctvrtina_prijmu"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude měsíčně</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_2_chybi_mesicne"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude ročně</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_2_chybi_rocne" style="font-size: 1.2rem; color:;"></div>
+
+        <div class="prediction-label mb-2">Do důchodu zbývá</div>
+        <div class="prediction-value mb-3" id="klient_2_zbyva_roku_2"></div>
+
+        <div class="prediction-label mb-2">Kolik mi bude chybět</div>
+      </div>
+      <div class="prediction-value" id="inv_2_rozdil_celkem_2"></div>
+    </div>
+  </div>
+
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+    <div class="prediction-box toggle-expand cursor-pointer p-3">
+      <div class="prediction-label mb-3 text-center" style="min-height:4.5rem;">Chybějící částka do důchodu <b>bez jakéhokoliv</b> příjmu</div>
+      <div class="extra-info hidden animate-expand">
+        <div class="prediction-label mb-2">Můj aktuální příjem</div>
+        <div class="prediction-value mb-3" id="klient_2_prijem_3"></div>
+
+        <div class="prediction-label mb-2">Invalidní důchod bude</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_3_duchod"></div>
+
+        <div class="prediction-label mb-2">Bez <b>jakéhokoliv</b> dalšího příjmu</div>
+        <div class="prediction-value mb-3" id="">-</div>
+
+        <div class="prediction-label mb-2">Chybět mi bude měsíčně</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_3_chybi_mesicne"></div>
+
+        <div class="prediction-label mb-2">Chybět mi bude ročně</div>
+        <div class="prediction-value mb-3" id="klient_2_inv_3_chybi_rocne" style="font-size: 1.2rem; color:;"></div>
+
+        <div class="prediction-label mb-2">Do důchodu zbývá</div>
+        <div class="prediction-value mb-3" id="klient_2_zbyva_roku_3"></div>
+
+        <div class="prediction-label mb-2">Kolik mi bude chybět</div>
+      </div>
+      <div class="prediction-value" id="inv_3_rozdil_celkem_2"></div>
+    </div>
+  </div>
+
+
+
+
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Potřebná částka do důchodu se započtením <b>poloviny</b> příjmu</div>
+                        <div class="prediction-value" id="inv_1_rozdil_celkem_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Potřebná částka do důchodu se započtením <b>čtvrtiny</b> příjmu</div>
+                        <div class="prediction-value" id="inv_2_rozdil_celkem_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Potřebná částka do důchodu <b>bez jakéhokoliv</b> příjmu</div>
+                        <div class="prediction-value" id="inv_3_rozdil_celkem_2"></div>
+                      </div>
+                    </div> -->
+
+                    <!-- === POJISTNA CASTKA BEZ INVESTICE -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="inv_header_zobrazeni_2">Doporučená výše pojistné ochrany</h5>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3" id="inv_1_castka_zobrazeni_2">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_1_castka_2"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_2_castka_zobrazeni_2">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_2_castka_2"></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_3_castka_zobrazeni_2">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_3_castka_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- === POJISTNA CASTKA S INVESTICI -->
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="inv_investice_header_zobrazeni_3" style="display:none">Doporučená výše pojistné ochrany s investicí</h5>
+                    <h6 class="card-title col-sm-12 p-2 w-100 mt-n3 ml-4" id="inv_investice_header_zobrazeni_4" style="display:none">počítaná jako budoucí investice se zhodnocením 4% p.a. a využitím jako renta</h6>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3 " id="inv_1_inv_castka_zobrazeni_2" style="display:none">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_1_castka_inv_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_2_inv_castka_zobrazeni_2" style="display:none">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_2_castka_inv_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3 " id="inv_3_inv_castka_zobrazeni_2" style="display:none">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_3_castka_inv_2"></div>
+                      </div>
+                    </div>
+
+                    <!-- <em class="col-sm-12 col-md-8 mx-auto">*Doporučená výše pojistné ochrany je počítaná jako budoucí investice se zhodnocením 5,5% p.a. a využitím jako renta</em> -->
+
+
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="inv_dluh_header_zobrazeni_2">Výše pojistné ochrany na pokrytí závazků</h5>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3" id="inv_dluh_zobrazeni_1_2">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_1_dluh_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3" id="inv_dluh_zobrazeni_2_2">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_2_dluh_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3" id="inv_dluh_zobrazeni_3_2">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="inv_3_dluh_2"></div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="custom-control custom-checkbox m-3">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_invalidita">
+                    <label class="custom-control-label ml-2" for="checkbox_invalidita" style="scale:1.25"><b>Chci</b></label>
+                  </div>
+
+                </div>
+              </div>
+              <!-- </div> -->
+              <!-- END CARD -->
+
+            </div> <!-- END COL -->
+            <!-- === END INVALIDITA ========================================================================= -->
+
+
+
+            <!-- ------------------------------------------------------------------------ -->
+            <!-- === PRACOVNI NESCHOPNOST -->
+            <!-- ------------------------------------------------------------------------ -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mb-5 mt-5 d-flex flex-column mx-auto" id="pn_zobrazeni">
+
+              <div class="card bg-white page-break-avoid px-2" style=";border-radius: 25px;">
+                <div class="card-body">
+                  <h4 class="card-title ml-n1">Pojištění pracovní neschopnosti</h4>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+
+                      <p style="color:#78909c;">
+                        Nahradí vám ušlý příjem, když např. kvůli zlomenině, zádům, syndromu vyhoření nebo po infarktu
+                        nemůžete delší čas pracovat. <br>
+                    Při úrazu nebo vleklé nemoci zkrátka nezůstanete bez peněz.
+                      </p>
+
+                    </div>
+
+                    <!-- ---------------------------------------------------------- -->
+                    <!-- === KLIENT 1 -->
+                    <div class="col-sm-12 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                      <a class="modal-trigger text-danger cursor-pointer" data-toggle="modal"
+                        data-target="#modal_pn"><b>Přehled nemocenské</b></a>
+                      <br>
+                      <br>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label class="label no-print" for="PN_zobrazeni_castek_group" style="font-size:" >Od kolikátého dne vám máme vyplácet peníze?</label>
+                      <div class="form-group col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-n3 mb-2 no-print">
+                        <div class="btn-group d-flex flex-column" id="pn_zobrazeni_castek_group">
+                          <div class="btn btn-custom btn-sm active" data-value="30">od 30. dne</div>
+                          <div class="btn btn-custom btn-sm" data-value="60">od 60. dne</div>
+                        </div>
+                        <input class="form-control" type="hidden" id="pn_zobrazeni_castek" name="pn_zobrazeni_castek" value="30">
+                      </div>
+                    </div>
+
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Na dorovnání výpadku příjmu je třeba</h5>
+
+                      <!-- === POJ CASTKA PN -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="pn_klient_1_30" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska"></div>
+                        <div class="prediction-label">na den (od 30. dne)</div>
+                      </div>
+                    </div>
+
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 d-none" id="pn_klient_1_60" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska_60"></div>
+                        <div class="prediction-label">na den (od 60. dne)</div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- ---------------------------------------------------------- -->
+                  <!-- === KLIENT 2 -->
+                  <div class="row mt-3 bg-light d-none client_label" style="border-radius: 20px">
+
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+
+                      <a class="modal-trigger text-danger" data-toggle="modal"
+                        data-target="#modal_pn_2"><b>Přehled nemocenské</b></a>
+                      <br>
+                      <br>
+
+                      <label class="label no-print" for="PN_zobrazeni_castek_group" style="font-size:" >Od kolikátého dne vám máme vyplácet peníze?</label>
+                      <div class="form-group col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-n3 mb-2 no-print">
+                        <div class="btn-group d-flex flex-column" id="pn_zobrazeni_castek_group_2">
+                          <div class="btn btn-custom btn-sm active" data-value="30">od 30. dne</div>
+                          <div class="btn btn-custom btn-sm" data-value="60">od 60. dne</div>
+                        </div>
+                        <input class="form-control" type="hidden" id="pn_zobrazeni_castek_2" name="pn_zobrazeni_castek_2" value="30">
+                      </div>
+
+
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Na dorovnání výpadku příjmu je třeba</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="pn_klient_2_30" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska_2"></div>
+                        <div class="prediction-label">na den (od 30. dne)</div>
+                      </div>
+                    </div>
+
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 d-none" id="pn_klient_2_60" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska_60_2"></div>
+                        <div class="prediction-label">na den (od 60. dne)</div>
+                      </div>
+                    </div>
+
+                    </div>
+                  </div>
+
+                  <div class="custom-control custom-checkbox m-3">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_PN">
+                    <label class="custom-control-label ml-2" for="checkbox_PN" style="scale:1.25"><b>Chci</b></label>
+                  </div>
+
+                </div>
+              </div>
+              <!-- END CARD 1  -->
+
+            </div> <!-- END COL -->
+
+            <!-- ------------------------------------------------------------------- -->
+            <!-- ### TNU -->
+            <!-- ------------------------------------------------------------------- -->
+            <!-- <div class="column mx-auto  mt-3 mb-5"> -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mb-5 mt-5 d-flex flex-column mx-auto" id="tnu_zobrazeni">
+
+              <div class="card bg-white page-break-avoid px-2" id="card_tnu">
+                <div class="card-body">
+                  <h4 class="card-title ml-n1">Pojištění trvalých následků úrazu </h4>
+
+                  <div class="row">
+                    <div class="col">
+
+                      <p>
+                        Připojištění pomůže v situaci, kdy díky úrazu Vám zůstanou trválé následky (jizva, omezení
+                        hybnosti nebo ztráta končetiny atp.)
+
+                      </p>
+                      <p class="no-print">
+                        <a class="modal-trigger text-danger" data-toggle="modal"
+                          data-target="#modal_TNU"><b>Příklady z oceňovacích tabulek</b></a>
+                      </p>
+
+                      <!-- === KLIENT 1 -->
+                      <div class="col-sm-12 m-0 p-0 d-none client_label">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 1</div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_TNU"></div>
+                      </div>
+                    </div>
+
+                    </div>
+                  </div>
+
+                  <!-- ---------------------------------------------------------- -->
+                  <!-- === KLIENT 2 -->
+                  <div class="row mt-3 bg-light d-none client_label" style="border-radius: 20px">
+
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+
+
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_TNU_2"></div>
+                      </div>
+                    </div>
+
+
+                    </div>
+                  </div>
+
+                  <div class="custom-control custom-checkbox m-3">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_TNU">
+                    <label class="custom-control-label ml-2" for="checkbox_TNU" style="scale:1.25"><b>Chci</b></label>
+                  </div>
+
+                </div>
+              </div>
+              <!-- END CARD 1  -->
+
+            </div> <!-- END COL -->
+            <!-- ==================================================================== -->
+
+            <!-- ----------------------------------------------------------------- -->
+            <!-- ### ZO ONEMOCNENI -->
+            <!-- ----------------------------------------------------------------- -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mb-5 mt-5 d-none flex-column mx-auto" id="card_ZO">
+
+              <div class="card bg-white page-break-avoid px-2 no-print" style=";border-radius: 25px;">
+                <div class="card-body">
+
+              <div class="card-header d-flex align-items-center no-pointer p-1 m-0" id="">
+                <h4 class="card-title my-auto no-pointer">Pojištění závažných onemocnění</h4>
+
+                <button  type="button" class="btn btn-sm ml-auto" onclick="prepnuti_ZO()">
+          <i class="fa-solid fa-eye-slash"></i>
+            </button>
+
+              </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+
+                      <p style="color:#78909c;">Pojištění
+                        závažných
+                        onemocnění pomáhá vyrovnat se s následky vážných onemocnění, jako jsou infarkt,
+                        mrtvice,
+                        různé druhy rakoviny v různých stadiích, encefalitida, ohluchnutí, oslepnutí,
+                        roztroušená skleróza a další. Seznam závažných onemocnění -
+                        <a class="modal-trigger text-danger" data-toggle="modal"
+                          data-target="#modal_zo_dospeli"><b>DOSPĚLÍ</b></a>
+                        /
+                        <a class="modal-trigger text-danger" data-toggle="modal" data-target="#modal_zo_deti"><b>DĚTI</b></a>
+                      </p>
+
+                      <!-- ------------------------ -->
+                      <!-- === KLIENT 1 -->
+                      <!-- ------------------------ -->
+                      <div class="col-sm-12 m-0 p-0 d-none client_label">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 1</div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Na dorovnání výpadku příjmu a lečení je třeba</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_ZO"></div>
+                      </div>
+                    </div>
+
+                    </div>
+                  </div>
+
+                  <!-- ------------------------ -->
+                  <!-- === KLIENT 2 -->
+                  <!-- ------------------------ -->
+                  <div class="row mt-3 bg-light d-none client_label" style="border-radius: 20px">
+
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Na dorovnání výpadku příjmu a lečení je třeba</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id="pojisteni_ZO_2"></div>
+                      </div>
+                    </div>
+
+
+                    </div>
+                  </div>
+
+                  <div class="custom-control custom-checkbox m-3">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_ZO">
+                    <label class="custom-control-label ml-2" for="checkbox_ZO" style="scale:1.25"><b>Chci</b></label>
+                  </div>
+
+                </div>
+              </div>
+              <!-- END CARD 1 =================================================================================== -->
+
+            </div> <!-- END COL -->
+
+
+
+            <!-- ------------------------------------------------------------------------------ -->
+            <!-- ### ZAVISLOT NA PECI -->
+            <!-- ------------------------------------------------------------------------------ -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mb-5 mt-5 d-none flex-column mx-auto" id="card_ZNP">
+
+              <div class="card bg-white  px-2" style=";border-radius: 25px;">
+                <div class="card-body">
+
+                  <div class="card-header d-flex align-items-center p-1 m-0" id="">
+                <h4 class="card-title my-auto no-pointer">Pojištění závislosti na péči II. - IV. stupně</h4>
+
+                <button  type="button" class="btn btn-sm ml-auto" onclick="prepnuti_ZNP()">
+          <i class="fa-solid fa-eye-slash"></i>
+            </button>
+
+              </div>
+                  <!-- <h4 class="card-title ml-n1">Závislost na péči II. - IV. stupně </h4> -->
+
+                  <div class="row">
+                    <div class="col-12">
+
+                      <p>
+                        Pojištění pomůže v situaci, kdy díky nepříznivému zdravotnímu stavu jste odkázán na pomoc jiných
+                        pro zvládání základních životních potřeb.
+                      </p>
+
+                      <a class="modal-trigger text-danger" data-toggle="modal"
+                        data-target="#modal_ZnP"><b>Co je snížená soběstačnost?</b></a>
+                      <br>
+                      <a class="modal-trigger text-danger" data-toggle="modal"
+                        data-target="#modal_ZnP_prispevky"><b>Jaké jsou příspěvky od státu?</b></a>
+                    </div>
+
+                   <div class="col-sm-12 m-0 p-0 d-none client_label">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 1</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- === KLIENT 1 -->
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" style="display:">Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA ZNP -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id=""><strong style="font-size: 1.5rem; color:#f36500;">1 000 000 Kč</strong></div>
+                      </div>
+                    </div>
+
+                    </div>
+
+          <!-- === KLIENT 2 ----------------------- -->
+          <div class="row mt-3 bg-light d-none client_label">
+
+            <div class="col-sm-12 m-0 p-0 d-flex">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 2</div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" style="display:">Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA ZNP -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id=""><strong style="font-size: 1.5rem; color:#f36500;">1 000 000 Kč</strong></div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="custom-control custom-checkbox m-3">
+                        <input type="checkbox" class="custom-control-input" id="checkbox_ZnP">
+                        <label class="custom-control-label ml-2" for="checkbox_ZnP" style="scale:1.25"><b>Chci</b></label>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- END CARD 1  -->
+
+            </div> <!-- END COL -->
+            <!-- ======================================================== -->
+
+
+            <!-- ------------------------------------------------------------------------------ -->
+            <!-- ### CELODENNI OSETROVANI -->
+            <!-- ------------------------------------------------------------------------------ -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mb-5 mt-5 d-none flex-column mx-auto" id="card_CO">
+
+              <div class="card bg-white  px-2" style=";border-radius: 25px;">
+                <div class="card-body">
+
+                  <div class="card-header d-flex align-items-center p-1 m-0" id="">
+                <h4 class="card-title my-auto no-pointer">Celodenní ošetřování </h4>
+
+                <button  type="button" class="btn btn-sm ml-auto" onclick="prepnuti_CO()">
+          <i class="fa-solid fa-eye-slash"></i>
+            </button>
+
+              </div>
+                  <!-- <h4 class="card-title ml-n1">Závislost na péči II. - IV. stupně </h4> -->
+
+                  <div class="row">
+                    <div class="col-12">
+
+                      <p>
+                        Pojištění pomůže v situaci, kdy díky nepříznivému zdravotnímu stavu z důvodu nemoci nebo úrazu potřebujete celodenní péči.<br>
+                        Ošetřujícím může být někdo z rodiny nebo ošetřovatelka.
+                      </p>
+
+                      <!-- <a class="modal-trigger text-danger" data-toggle="modal"
+                        data-target="#modal_ZnP"><b>Co je snížená soběstačnost?</b></a>
+                      <br>
+                      <a class="modal-trigger text-danger" data-toggle="modal"
+                        data-target="#modal_ZnP_prispevky"><b>Jaké jsou příspěvky od státu?</b></a> -->
+                    </div>
+
+                   <div class="col-sm-12 m-0 p-0 d-none client_label">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 1</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- === KLIENT 1 -->
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" style="display:">Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA ZNP -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id=""><strong style="font-size: 1.5rem; color:#f36500;">600 Kč na den</strong></div>
+                      </div>
+                    </div>
+
+                    </div>
+
+          <!-- === KLIENT 2 ----------------------- -->
+          <div class="row mt-3 bg-light d-none client_label">
+
+            <div class="col-sm-12 m-0 p-0 d-flex">
+                        <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                          <div class="prediction-box no-hover">
+                            <div class="prediction-label">Klient 2</div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" style="display:">Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA ZNP -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 " id="" style="display:">
+                      <div class="prediction-box">
+                        <!-- <div class="prediction-label">Vaši nejbližší dostanou jednorázově</div> -->
+                        <div class="prediction-value" id=""><strong style="font-size: 1.5rem; color:#f36500;">600 Kč na den</strong></div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="custom-control custom-checkbox m-3">
+                        <input type="checkbox" class="custom-control-input" id="checkbox_CO">
+                        <label class="custom-control-label ml-2" for="checkbox_CO" style="scale:1.25"><b>Chci</b></label>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- END CARD 1  -->
+
+            </div> <!-- END COL -->
+            <!-- ======================================================== -->
+
+<!-- ------------------------------------------------------------------------ -->
+            <!-- === DENNI ODSKODNE ZA LECENI URAZU -->
+            <!-- ------------------------------------------------------------------------ -->
+            <div class="col-sm-12 col-md-10 col-lg-10 mb-5 mt-5 d-none flex-column mx-auto" id="card_DO">
+
+              <div class="card bg-white page-break-avoid px-2" style=";border-radius: 25px;">
+                <div class="card-body">
+
+                  <div class="card-header d-flex align-items-center p-1 m-0" id="">
+
+                  <h4 class="card-title my-auto no-pointer">Pojištění léčení úrazu</h4>
+
+                  <button  type="button" class="btn btn-sm ml-auto" onclick="prepnuti_DO()">
+                    <i class="fa-solid fa-eye-slash"></i>
+                  </button>
+                    </div>
+
+
+                  <div class="row">
+                    <div class="col-sm-12">
+
+                      <p style="color:#78909c;">
+                        Připojištění pomůže v situaci, kdy díky léčení úrazu máte zvýšené náklady, nebo naopak snížený
+                        příjem.<br>
+                        Vyplácí se za každý den, kdy léčíte úraz.
+                      </p>
+
+                    </div>
+
+                    <!-- ---------------------------------------------------------- -->
+                    <!-- === KLIENT 1 -->
+                    <div class="col-sm-12 m-0 p-0 d-none client_label">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 1</div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <!-- <div class="col-sm-12">
+                      <label class="label no-print" for="PN_zobrazeni_castek_group" style="font-size:" >Od kolikátého dne vám máme vyplácet peníze?</label>
+                      <div class="form-group col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-n3 mb-2 no-print">
+                        <div class="btn-group d-flex flex-column" id="pn_zobrazeni_castek_group">
+                          <div class="btn btn-custom btn-sm active" data-value="30">od 30. dne</div>
+                          <div class="btn btn-custom btn-sm" data-value="60">od 60. dne</div>
+                        </div>
+                        <input class="form-control" type="hidden" id="pn_zobrazeni_castek" name="pn_zobrazeni_castek" value="30">
+                      </div>
+                    </div> -->
+
+                    <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA PN -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pc_do_klient_1"></div>
+                        <div class="prediction-label">na den (od 1. dne)</div>
+                      </div>
+                    </div>
+
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 d-none" id="pn_klient_1_60" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska_60"></div>
+                        <div class="prediction-label">na den (od 60. dne)</div>
+                      </div>
+                    </div> -->
+
+                  </div>
+
+                  <!-- ---------------------------------------------------------- -->
+                  <!-- === KLIENT 2 -->
+                  <div class="row mt-3 bg-light d-none client_label" style="border-radius: 20px">
+
+                    <div class="col-sm-12 m-0 p-0 d-flex">
+                      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="prediction-box no-hover">
+                          <div class="prediction-label">Klient 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+
+                      <!-- <label class="label no-print" for="PN_zobrazeni_castek_group" style="font-size:" >Od kolikátého dne vám máme vyplácet peníze?</label>
+                      <div class="form-group col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-n3 mb-2 no-print">
+                        <div class="btn-group d-flex flex-column" id="pn_zobrazeni_castek_group_2">
+                          <div class="btn btn-custom btn-sm active" data-value="30">od 30. dne</div>
+                          <div class="btn btn-custom btn-sm" data-value="60">od 60. dne</div>
+                        </div>
+                        <input class="form-control" type="hidden" id="pn_zobrazeni_castek_2" name="pn_zobrazeni_castek_2" value="30">
+                      </div> -->
+
+
+                      <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Doporučená výše pojistné ochrany</h5>
+
+                      <!-- === POJ CASTKA SMRT -->
+                      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pc_do_klient_2"></div>
+                        <div class="prediction-label">na den (od 1. dne)</div>
+                      </div>
+                    </div>
+
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 d-none" id="pn_klient_2_60" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska_60_2"></div>
+                        <div class="prediction-label">na den (od 60. dne)</div>
+                      </div>
+                    </div> -->
+
+                    </div>
+                  </div>
+
+                  <div class="custom-control custom-checkbox m-3">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_DO">
+                    <label class="custom-control-label ml-2" for="checkbox_DO" style="scale:1.25"><b>Chci</b></label>
+                  </div>
+
+                </div>
+              </div>
+              <!-- END CARD 1  -->
+
+            </div> <!-- END COL -->
+
+
+          </div>
+
+          <div class="row d-flex flex-row justify-content-center">
+
+          <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_ZO" onclick="prepnuti_ZO()" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-plus fa-xl" style="color: #E15452;margin-left: 4px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Pojištění závažných onemocnění</span></button>
+
+          <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_ZNP" onclick="prepnuti_ZNP()" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-plus fa-xl" style="color: #E15452;margin-left: 4px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Pojištění závislosti na péči II. - IV. stupně</span></button>
+
+          <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_CO" onclick="prepnuti_CO()" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-plus fa-xl" style="color: #E15452;margin-left: 4px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Celodenní ošetřování</span></button>
+
+          <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_DO" onclick="prepnuti_DO()" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-plus fa-xl" style="color: #E15452;margin-left: 4px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Pojištění léčení úrazu</span></button>
+
+          <!-- <input class="form-control" type="hidden" id="zobrazeni_ZO_2" name="zobrazeni_ZO_2" value="0">
+          <input class="form-control" type="hidden" id="zobrazeni_ZNP_2" name="zobrazeni_ZNP_2" value="0"> -->
+          </div>
+
+          <hr class="custom-hr">
+
+          <div class="row d-none">
+
+
+
+
+            <!-- ------------------------------------------------------------------------ -->
+            <div class="col-lg-4 mx-auto mb-4">
+
+              <div class="card bg-white  px-2" style=";border-radius: 25px;">
+                <div class="card-body">
+                  <h4 class="card-title ml-n1">Denní odškodné za léčení úrazu </h4>
+
+                  <div class="row">
+                    <div class="col">
+
+                      <p>
+                        Připojištění pomůže v situaci, kdy díky léčení úrazu máte zvýšené náklady, nebo naopak snížený
+                        příjem.
+                      </p>
+
+
+
+                      <div class="custom-control custom-switch custom-switch-xl mt-2">
+                        <input type="checkbox" class="custom-control-input" id="customSwitches_2">
+                        <label class="custom-control-label" for="customSwitches_2"><b>Chci</b></label>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- END CARD 1  -->
+
+            </div> <!-- END COL -->
+            <!-- ======================================================================= -->
+
+
+          </div>
+          <!-- END ROW -->
+
+
+
+
+          <div class="row d-none">
+
+            <div class="col-12 mx-auto mt-5 mb-1 p-4 d-flex justify-content-center">
+              <h2 class="">Přehledy </h2>
+            </div>
+
+
+
+
+
+
+            <!-- ---------------------------------------------------------------------------------- -->
+            <!-- ### CARD DUCHODY xxx ### -->
+            <!-- ---------------------------------------------------------------------------------- -->
+            <div class="col-sm-12 col-md-10 col-lg-8 mb-4 d-flex flex-column mx-auto">
+              <div class="card bg-white  p-0 m-0 h-100">
+                <div class="card-header collapsed" id="heading_penze" data-toggle="collapse"
+                  data-target="#collapse_penze" aria-expanded="false" aria-controls="collapse_penze">
+                  <h4 class="card-title my-auto">Penze & Renta</h4>
+                </div>
+
+                <div id="collapse_penze" class="collapse" aria-labelledby="heading_penze" data-parent=".card">
+                  <div class="card-body p-0 m-0">
+
+
+                    <!-- ---------------------------------------------------------------------------------- -->
+                    <!-- ### STAROBNI ### -->
+                    <div class="row d-flex justify-content-center px-0 mx-0 my-4">
+                      <!-- ### PENZE VYSE -->
+                      <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">ve vystavbě</h5>
+
+
+                    </div>
+
+                    <!-- --------------------------------------------------------------------------- -->
+                    <!-- ### INVALIDNI ### -->
+                    <div class="row d-flex justify-content-center my-3 px-0 mx-0">
+
+                      <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">---</h5>
+
+
+
+                    </div>
+
+
+                    <!-- --------------------------------------------------------------------------- -->
+                    <!-- ### VDOVSKY ### -->
+                    <div class="row d-flex justify-content-center my-3 px-0 mx-0">
+                      <!-- ### PENZE VYSE -->
+                      <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">---</h5>
+
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ========================================================================= -->
+
+
+          </div> <!-- END ROW -->
+
+          <hr class="custom-hr">
+
+
+        </div> <!-- END CONTAINER -->
+      </div> <!-- END print -->
+    </main> <!-- END OF PAGE  -->
+    <!-- ################################################################################ -->
+
+
+  </form>
+
+  <!-- ------------------------------------------------------------- -->
+  <!-- ### FOOTER ### -->
+  <footer class="footer mt-auto py-3">
+    <div class="container">
+      <hr>
+      <span class="text-black-50">© 2024 F!Dos - All rights reserved</span>
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+  <!-- ============================================================== -->
+
+
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODALS - POPUPS - NAPOVEDY ### -->
+  <!-- -------------------------------------------------------------- -->
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL SMRT ### -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_smrt" class="modal fade" role="dialog">
+    <div class="modal-dialog ">
+      <div class="modal-content" style="">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">PŘEHLED POZŮSTALOSTNÍCH DŮCHODŮ</h5>
+        </div>
+        <div class="modal-body p-0 m-0">
+          <!-- --------------------------------------------------------------------------- -->
+          <!-- ### VDOVSKY ### -->
+          <div class="row d-flex justify-content-center my-0 px-0 mx-0">
+            <!-- ### PENZE VYSE -->
+            <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Vdovský a vdovecký důchod</h5>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Orientační výše důchodu </div>
+                <div class="prediction-value" id="vdovsky_result_1_2"></div>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Základní doba vyplácení</div>
+                <div class="prediction-value" id="vdovsky_doba_vyplaceni">1 rok</div>
+              </div>
+            </div>
+
+            <!-- ### PENZE PODMINKA -->
+            <!-- <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+      <div class="prediction-box">
+        <div class="prediction-label">Splňuji podmínky pro výplacení?</div>
+        <div class="prediction-value" id="penze_check">Ano/Ne</div>
+      </div>
+    </div> -->
+
+          </div>
+
+          <!-- --------------------------------------------------------------------------- -->
+          <!-- ### SIROTCI ### -->
+          <div class="row d-flex justify-content-center my-3 px-0 mx-0">
+            <!-- ### PENZE VYSE -->
+            <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Sirotčí důchod</h5>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Orientační výše důchodu </div>
+                <div class="prediction-value" id="sirotci_result_1_2"></div>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Základní doba vyplácení</div>
+                <div class="prediction-value" id="sirotci_doba_vyplaceni">do 18 let věku dítěte<br> (až do 26 let při soustavné přípravě na povolání)
+                </div>
+              </div>
+            </div>
+
+            <!-- ### PENZE PODMINKA -->
+            <!-- <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+      <div class="prediction-box">
+        <div class="prediction-label">Splňuji podmínky pro výplacení?</div>
+        <div class="prediction-value" id="penze_check">Ano/Ne</div>
+      </div>
+    </div> -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================================================================= -->
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL ZO DOSPELI ### -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_zo_dospeli" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#cc5500">
+          PŘEHLED ZÁVAŽNÝCH ONEMOCNĚNÍ PRO ŽIVOTNÍ POJIŠTĚNÍ
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p><u><b>DOSPĚLÍ</b></u></p>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div style="flex: 1 1 45%;">
+            <b>Skupina Nervová a pohybová soustava</b><br>
+            1. <a href="https://www.google.com/search?q=Alzheimerova+choroba" target="_blank">Alzheimerova choroba</a><br>
+            2. <a href="https://www.google.com/search?q=Parkinsonova+choroba" target="_blank">Parkinsonova choroba</a><br>
+            3. <a href="https://www.google.com/search?q=Bakteriální+meningitida" target="_blank">Bakteriální meningitida</a><br>
+            4. <a href="https://www.google.com/search?q=Bechtěrevova+choroba" target="_blank">Bechtěrevova choroba</a><br>
+            5. <a href="https://www.google.com/search?q=Roztroušená+skleróza" target="_blank">Roztroušená skleróza</a><br>
+            6. <a href="https://www.google.com/search?q=Ochrnutí" target="_blank">Ochrnutí</a><br>
+            7. <a href="https://www.google.com/search?q=Ztráta+končetin" target="_blank">Ztráta končetin</a><br>
+            8. <a href="https://www.google.com/search?q=Klíšťová+encefalitida" target="_blank">Klíšťová encefalitida</a><br>
+            9. <a href="https://www.google.com/search?q=Kóma" target="_blank">Kóma</a><br><br>
+
+            <b>Skupina Rakovina</b><br>
+            10. <a href="https://www.google.com/search?q=Mozkový+nádor" target="_blank">Mozkový nádor</a><br>
+            11. <a href="https://www.google.com/search?q=Zhoubný+nádor" target="_blank">Zhoubný nádor</a><br>
+            12. <a href="https://www.google.com/search?q=Transplantace+kostní+dřeně" target="_blank">Transplantace kostní dřeně</a><br><br>
+
+            <b>Skupina HIV</b><br>
+            13. <a href="https://www.google.com/search?q=HIV+při+transfuzi" target="_blank">HIV při transfuzi</a><br>
+            14. <a href="https://www.google.com/search?q=HIV+z+napadení+nebo+zaměstnání" target="_blank">HIV z napadení nebo zaměstnání</a><br><br>
+
+            <b>Kardiovaskulární soustava</b><br>
+            15. <a href="https://www.google.com/search?q=Mozková+příhoda" target="_blank">Mozková příhoda</a><br>
+            16. <a href="https://www.google.com/search?q=Náhrada+srdeční+chlopně" target="_blank">Náhrada srdeční chlopně</a><br>
+            17. <a href="https://www.google.com/search?q=Operace+aorty" target="_blank">Operace aorty</a><br>
+          </div>
+
+          <div style="flex: 1 1 45%;">
+            18. <a href="https://www.google.com/search?q=Operace+věnčitých+tepen" target="_blank">Operace věnčitých tepen</a><br>
+            19. <a href="https://www.google.com/search?q=Infarkt+myokardu" target="_blank">Infarkt myokardu</a><br><br>
+
+            <b>Skupina Vnitřní orgány</b><br>
+            20. <a href="https://www.google.com/search?q=Chronická+obstrukční+plicní+nemoc" target="_blank">Chronická obstrukční plicní nemoc</a><br>
+            21. <a href="https://www.google.com/search?q=Selhání+ledvin" target="_blank">Selhání ledvin</a><br>
+            22. <a href="https://www.google.com/search?q=Transplantace+životně+důležitých+orgánů" target="_blank">Transplantace životně důležitých orgánů</a><br>
+            23. <a href="https://www.google.com/search?q=Systémová+sklerodermie" target="_blank">Systémová sklerodermie</a><br><br>
+
+            <b>Skupina Smysly</b><br>
+            24. <a href="https://www.google.com/search?q=Oslepnutí" target="_blank">Oslepnutí</a><br>
+            25. <a href="https://www.google.com/search?q=Hluchota" target="_blank">Hluchota</a><br>
+            26. <a href="https://www.google.com/search?q=Ztráta+řeči" target="_blank">Ztráta řeči</a><br><br>
+
+            <b>Skupina Nervová a pohybová soustava</b><br>
+            27. <a href="https://www.google.com/search?q=Laterární+skleróza" target="_blank">Laterární skleróza</a><br>
+            28. <a href="https://www.google.com/search?q=Creutzfeldtova-Jakobova+nemoc" target="_blank">Creutzfeldtova-Jakobova nemoc</a><br>
+            29. <a href="https://www.google.com/search?q=Typy+demence" target="_blank">Další typy demence</a><br>
+            30. <a href="https://www.google.com/search?q=Epilepsie" target="_blank">Epilepsie</a><br><br>
+
+            <b>Skupina Kardiovaskulární soustava</b><br>
+            31. <a href="https://www.google.com/search?q=Aplastická+anemie" target="_blank">Aplastická anemie</a><br>
+            32. <a href="https://www.google.com/search?q=Kardiomyopatie" target="_blank">Kardiomyopatie</a><br><br>
+
+            <b>Skupina Vnitřní orgány</b><br>
+            33. <a href="https://www.google.com/search?q=Crohnova+choroba" target="_blank">Crohnova choroba</a><br>
+            34. <a href="https://www.google.com/search?q=Plicní+hypertenze" target="_blank">Plicní hypertenze</a><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ================================================================= -->
+
+  <!-- ------------------------------------------------------------------- -->
+  <!-- ### MODAL ZO DETI ### -->
+  <!-- ------------------------------------------------------------------- -->
+  <div id="modal_zo_deti" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#cc5500">
+          PŘEHLED ZÁVAŽNÝCH ONEMOCNĚNÍ PRO ŽIVOTNÍ POJIŠTĚNÍ
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p><u><b>DĚTI</b></u></p>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div style="flex: 1 1 45%;">
+            <b>Skupina Nervová a pohybová soustava</b><br>
+            1. <a href="https://www.google.com/search?q=Bakteriální+meningitida" target="_blank">Bakteriální meningitida</a><br>
+            2. <a href="https://www.google.com/search?q=Roztroušená+skleróza" target="_blank">Roztroušená skleróza</a><br>
+            3. <a href="https://www.google.com/search?q=Ochrnutí" target="_blank">Ochrnutí</a><br>
+            4. <a href="https://www.google.com/search?q=Ztráta+končetin" target="_blank">Ztráta končetin</a><br>
+            5. <a href="https://www.google.com/search?q=Klíšťová+encefalitida" target="_blank">Klíšťová encefalitida</a><br>
+            6. <a href="https://www.google.com/search?q=Kóma" target="_blank">Kóma</a><br>
+            7. <a href="https://www.google.com/search?q=Dětská+mozková+obrna" target="_blank">Dětská mozková obrna</a><br>
+            8. <a href="https://www.google.com/search?q=Myopatie" target="_blank">Myopatie</a><br>
+            9. <a href="https://www.google.com/search?q=Epilepsie" target="_blank">Epilepsie</a><br><br>
+
+            <b>Skupina Rakovina</b><br>
+            10. <a href="https://www.google.com/search?q=Mozkový+nádor" target="_blank">Mozkový nádor</a><br>
+            11. <a href="https://www.google.com/search?q=Zhoubný+nádor" target="_blank">Zhoubný nádor</a><br>
+            12. <a href="https://www.google.com/search?q=Transplantace+kostní+dřeně" target="_blank">Transplantace kostní dřeně</a><br><br>
+
+            <b>Skupina HIV</b><br>
+            13. <a href="https://www.google.com/search?q=HIV+při+transfuzi" target="_blank">HIV při transfuzi</a><br>
+            14. <a href="https://www.google.com/search?q=HIV+z+napadení+nebo+zaměstnání" target="_blank">HIV z napadení nebo zaměstnání</a><br>
+          </div>
+
+          <div style="flex: 1 1 45%;">
+            <b>Kardiovaskulární soustava</b><br>
+            15. <a href="https://www.google.com/search?q=Operace+aorty" target="_blank">Operace aorty</a><br>
+            16. <a href="https://www.google.com/search?q=Operace+věnčitých+tepen" target="_blank">Operace věnčitých tepen</a><br>
+            17. <a href="https://www.google.com/search?q=Náhrada+srdeční+chlopně" target="_blank">Náhrada srdeční chlopně</a><br><br>
+
+            <b>Skupina Vnitřní orgány</b><br>
+            18. <a href="https://www.google.com/search?q=Chronická+obstrukční+plicní+nemoc" target="_blank">Chronická obstrukční plicní nemoc</a><br>
+            19. <a href="https://www.google.com/search?q=Selhání+ledvin" target="_blank">Selhání ledvin</a><br>
+            20. <a href="https://www.google.com/search?q=Transplantace+životně+důležitých+orgánů" target="_blank">Transplantace životně důležitých orgánů</a><br>
+            21. <a href="https://www.google.com/search?q=Systémová+sklerodermie" target="_blank">Systémová sklerodermie</a><br>
+            22. <a href="https://www.google.com/search?q=Astma" target="_blank">Astma</a><br><br>
+
+            <b>Skupina Smysly</b><br>
+            23. <a href="https://www.google.com/search?q=Oslepnutí" target="_blank">Oslepnutí</a><br>
+            24. <a href="https://www.google.com/search?q=Hluchota" target="_blank">Hluchota</a><br>
+            25. <a href="https://www.google.com/search?q=Ztráta+řeči" target="_blank">Ztráta řeči</a><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ===================================================== -->
+
+
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- ### MODAL INVALIDITA ### -->
+  <!-- ----------------------------------------------------------- -->
+  <!-- <div class="modal-content" style=""> -->
+  <div id="modal_invalidita" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Stupně invalidity</h5>
+        </div>
+        <div class="modal-body">
+          <!-- <h5>Stupně invalidity</h5> -->
+          <div class="col-sm-12">
+
+            <p>Invalidita vám bude přiznána, pokud klesne vaše schopnost pracovat v důsledku
+              dlouhodobého nepříznivého zdravotního stavu.<br>
+Při posuzování poklesu pracovní schopnosti se přihlíží k dosaženému vzdělání,
+zkušenostem, znalostem a předchozím výdělečným činnostem pojištěného.<br>
+              <br>
+              <b>1. stupeň:</b> O invaliditu prvního stupně se jedná v případě, že dojde k poklesu pracovní
+              schopnosti o 35 % až 49 %. <br>
+              <b>2. stupeň: </b>Pokud nastal pokles pracovní schopnosti o 50 % až 69 %, jde o invaliditu
+              druhého stupně. <br>
+              <b>3. stupeň:</b> V případě poklesu pracovní schopnosti o 70 % a více je přiznána invalidita
+              třetího stupně.<br>
+              <br>
+Po přiznání prvního a druhého stupné invalidity, je možné, aby pojištěný vykonával ještě
+nějaké zaměstnání. U třetího stupně invalidity s tím už nepočítáme.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ========================================================================== -->
+
+
+
+  <!-- ---------------------------------------------------------------------------- -->
+  <!-- ### MODAL PN KLIENT 2 ### -->
+  <!-- ---------------------------------------------------------------------------- -->
+  <div id="modal_pn_2" class="modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Přehled vyplácené nemocenské</h5>
+        </div>
+        <div class="modal-body px-0 mx-0">
+          <!-- <h5>Přehled vyplácené nemocenské</h5> -->
+          <div class="col-sm-12">
+
+            <p>
+              Stát a zaměstnavatel vám vyplatí přibližně 60 % vašeho měsíčního příjmu,
+              a to už od 1. dne neschopnosti. Pokud budete stonat 30 dní a více, začneme i my každý
+              měsíc vyplácet dohodnuté krytí.
+
+              Náhradu mzdy poskytuje zaměstnavatel během prvních 14 kalendářních dnů, ale jen za každou zameškanou
+              směnu.
+              OSVČ při nemoci náhradu mzdy od nikoho nedostávají. <br>
+Nemocenské vyplácí stát od 15. kalendářního dne nemoci. Tato dávka náleží za každý kalendářní den nemoci, pokud se účastníte nemocenského pojištění.<br>
+              <br>
+              <!-- <div class="field col s12 m12 l12"> -->
+            <table class="table table-hover table-sm w-100" id="tabulka_nemocenska_2" name="tabulka_nemocenska_2">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="text-center">1. měsíc</th>
+                  <th class="text-center">2. měsíc</th>
+                  <th class="text-center">Každý další měsíc</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Výše nemocenské (+náhrady mzdy v 1. měsíci)</th>
+                  <td id="pn_1_nemocenska_2" class="text-center"></td>
+                  <td id="pn_2_nemocenska_2" class="text-center"></td>
+                  <td id="pn_3_nemocenska_2" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Na výdaje bude scházet</th>
+                  <td id="pn_1_rozdil_2" class="text-center"></td>
+                  <td id="pn_2_rozdil_2" class="text-center"></td>
+                  <td id="pn_3_rozdil_2" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Denní rozdíl</th>
+                  <td id="pn_1_rozdil_denni_2" class="text-center"></td>
+                  <td id="pn_2_rozdil_denni_2" class="text-center"></td>
+                  <td id="pn_3_rozdil_denni_2" class="text-center"></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- </div> -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================================================================== -->
+
+  <!-- ---------------------------------------------------------------------------- -->
+  <!-- ### MODAL PN KLIENT 1 ### -->
+  <!-- ---------------------------------------------------------------------------- -->
+  <div id="modal_pn" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Přehled vyplácené nemocenské</h5>
+        </div>
+        <div class="modal-body px-0 mx-0">
+          <!-- <h5>Přehled vyplácené nemocenské</h5> -->
+          <div class="col-sm-12">
+
+            <p>
+              Stát a zaměstnavatel vám vyplatí přibližně 60 % vašeho měsíčního příjmu,
+              a to už od 1. dne neschopnosti. Pokud budete stonat 30 dní a více, začneme i my každý
+              měsíc vyplácet dohodnuté krytí.
+
+              Náhradu mzdy poskytuje zaměstnavatel během prvních 14 kalendářních dnů, ale jen za každou zameškanou
+              směnu.
+              OSVČ při nemoci náhradu mzdy od nikoho nedostávají. <br>
+Nemocenské vyplácí stát od 15. kalendářního dne nemoci. Tato dávka náleží za každý kalendářní den nemoci, pokud se účastníte nemocenského pojištění.<br>
+              <br>
+              <!-- <div class="field col s12 m12 l12"> -->
+            <table class="table table-hover table-sm w-100" id="tabulka_nemocenska" name="tabulka_nemocenska">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="text-center">1. měsíc</th>
+                  <th class="text-center">2. měsíc</th>
+                  <th class="text-center">Každý další měsíc</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Výše nemocenské (+náhrady mzdy v 1. měsíci)</th>
+                  <td id="pn_1_nemocenska" class="text-center"></td>
+                  <td id="pn_2_nemocenska" class="text-center"></td>
+                  <td id="pn_3_nemocenska" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Na výdaje bude scházet</th>
+                  <td id="pn_1_rozdil" class="text-center"></td>
+                  <td id="pn_2_rozdil" class="text-center"></td>
+                  <td id="pn_3_rozdil" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Denní rozdíl</th>
+                  <td id="pn_1_rozdil_denni" class="text-center"></td>
+                  <td id="pn_2_rozdil_denni" class="text-center"></td>
+                  <td id="pn_3_rozdil_denni" class="text-center"></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- </div> -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================================================================== -->
+
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL TNU -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_TNU" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Příklady z oceňovacích tabulek</h5>
+        </div>
+        <div class="modal-body">
+
+          <p style="font-family:Comfortaa; font-size:1rem">
+            Oceňovací tabulky obsahují většinou stovky položek. Ale najdou se i případy, kdy má pojišťovna rozsah velmi
+            omezený. <br><br>
+Níže jsou uvedené příklady, jak mají pojišťovny ohodnoceny jednotlivé úrazy a jak by vypadalo progresivní plnění při doporučené pojistné ochraně
+            <!-- <br>
+            <em id="client_1_TNU_zobrazeni"> &nbsp 1. klienta &nbsp</em> <strong id="result_TNU_tabulka" ></strong>
+            <em class="d-none client_label" id="client_2_TNU_zobrazeni">&nbsp a &nbsp 2. klienta &nbsp</em>
+            <strong id="result_TNU_tabulka_2" ></strong>
+            <br><br> -->
+          </p>
+
+          <div class="col-sm-12">
+            <table class="table table-hover" id="dataTable">
+            </table>
+          </div>
+
+
+
+
+          <!-- </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END TNU -->
+  <!-- ====================================================================================== -->
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL ZAVISLOST NA PECI -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_ZnP" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Co je snížená soběstačnost?</h5>
+        </div>
+        <div class="modal-body">
+          <!-- <h5>Co je snížená soběstačnost?</h5> -->
+
+          <p class="text-wrap" style="font-family:Comfortaa; font-size:1rem">
+            Při posuzování příspěvku na péči se zkoumá schopnost žadatele zvládat deset tzv. základních životních
+            potřeb. Každá z nich se skládá z několika činností, přičemž pokud váš blízký některou z nich nedokáže, měla
+            by být za nezvládnutou posouzena celá potřeba. <br>
+            <br>
+            <b>Mobilita:</b> Vstávání a usedání, stoj, zaujímat polohy, pohybovat se chůzí krok za krokem, popřípadě i s
+            přerušováním zastávkami, v dosahu alespoň 200 m, a to i po nerovném povrchu, chůze po schodech v rozsahu
+            jednoho patra směrem nahoru i dolů, používat dopravní prostředky včetně bariérových.
+            <br>
+            <br>
+            <b>Orientace:</b> Poznávat a rozeznávat zrakem a sluchem, mít přiměřené duševní kompetence, orientovat se
+            časem, místem a osobou, orientovat se v obvyklém prostředí a situacích a přiměřeně v nich reagovat.
+            <br>
+            <br>
+            <b>Komunikace:</b> Dorozumět se a porozumět, a to mluvenou srozumitelnou řečí a psanou zprávou, porozumět
+            všeobecně používaným základním obrazovým symbolům nebo zvukovým signálům, používat běžné komunikační
+            prostředky.
+            <br>
+            <br>
+            <b>Stravování:</b> Vybrat si ke konzumaci hotový nápoj a potraviny, nápoj nalít, stravu naporcovat,
+            naservírovat, najíst se a napít, dodržovat stanovený dietní režim.
+            <br>
+            <br>
+            <b>Oblékání a obouvání:</b> Vybrat si oblečení a obutí přiměřené okolnostem, oblékat se a obouvat se,
+            svlékat se a zouvat se, manipulovat s oblečením v souvislosti s denním režimem.
+            <br>
+            <br>
+            <b>Tělesná hygiena:</b> Použít hygienické zařízení, mýt si a osušovat si jednotlivé části těla, provádět
+            celkovou hygienu, česat se, provádět ústní hygienu, holit se.
+            Výkon fyziologické potřeby: Včas používat WC, vyprázdnit se, provést očistu, používat hygienické pomůcky.
+            <br>
+            <br>
+            <b>Péče o zdraví:</b> Dodržovat stanovený léčebný režim, provádět stanovená léčebná a ošetřovatelská
+            opatření a používat k tomu potřebné léky, pomůcky.
+            <br>
+            <br>
+            <b>Osobní aktivity:</b> Vstupovat do vztahů s jinými osobami, stanovit si a dodržet denní program, vykonávat
+            aktivity obvyklé věku a prostředí jako např. vzdělávání, zaměstnání, volnočasové aktivity, vyřizovat své
+            záležitosti.
+            <br>
+            <br>
+            <b>Péče o domácnost:</b> Nakládat s penězi v rámci osobních příjmů a domácnosti, manipulovat s předměty
+            denní potřeby, obstarat si běžný nákup, ovládat běžné domácí spotřebiče, uvařit si teplé jídlo a nápoj,
+            vykonávat běžné domácí práce, obsluhovat topení a udržovat pořádek. Desátá základní životní potřeba péče o
+            domácnost se u osob do 18 let neposuzuje.
+            <br>
+            <br>
+            <b>Jak se vypočítá stupeň závislosti u osob do 18 let:</b><br>
+tři nezvládané základní životní potřeby = I. stupeň závislosti<br>
+čtyři nebo pět nezvládaných základních životních potřeb = II. stupeň závislosti<br>
+šest nebo sedm nezvládaných základních životních potřeb = III. stupeň závislosti<br>
+osm nebo devět nezvládaných základních životních potřeb = IV. stupeň závislosti<br>
+            <br><br>
+            <b>Jak se vypočítá stupeň závislosti u osob nad 18 let:</b><br>
+tři nebo čtyři nezvládané základní životní potřeby = I. stupeň závislosti<br>
+pět nebo šest nezvládaných základních životních potřeb = II. stupeň závislosti<br>
+sedm nebo osm nezvládaných základních životních potřeb = III. stupeň závislosti<br>
+devět nebo deset nezvládaných základních životních potřeb = IV. stupeň závislosti<br>
+
+          </p>
+
+
+
+
+          <!-- </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END ZnP -->
+  <!-- ====================================================================================== -->
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL ZnP PRISPEVKY -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_ZnP_prispevky" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#cc5500">Jaké jsou příspěvky státu na péči?</h5>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="text-center w-50">Stupeň závislosti</th>
+              <th class="text-center w-50">Výše příspěvku na péči</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center w-50">stupeň I</td>
+              <td class="text-center w-50">3 300 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň II</td>
+              <td class="text-center w-50">7 400 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň III</td>
+              <td class="text-center w-50">16 100 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň IV</td>
+              <td class="text-center w-50">23 000 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň IV+</td>
+              <td class="text-center w-50">27 000 Kč</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- END TNU -->
+  <!-- ====================================================================================== -->
+
+  <!-- === END MODALS -->
+  <!-- =============================================================== -->
+
+
+
+
+
+
+  </section>

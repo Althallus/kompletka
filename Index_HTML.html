@@ -7,6 +7,7 @@
     <title>Finanční Aplikace</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
     <?!= include('Styles_CSS.html'); ?>
 </head>
@@ -19,6 +20,14 @@
     </section>
 
     <nav class="navbar" id="navbar">
+
+        <div class="nav-item">
+        <button class="nav-btn" id="homeBtn">
+            <i class="ti ti-home"></i>
+            <span>Domů</span>
+        </button>
+    </div>
+
         <div class="nav-item">
             <button class="nav-btn" data-menu="rozhovor">
                 <i class="ti ti-message-circle"></i>
@@ -26,7 +35,7 @@
             </button>
             <div class="dropdown" id="dropdown-rozhovor">
                 <button class="dropdown-item" data-page="bilance">Bilance</button>
-                <button class="dropdown-item" data-page="optimalizace">Optimalizace</button>
+                <a href="https://script.google.com/macros/s/AKfycbz8fNqv4WtwPlYx375Ql3DkU0jEkuCyiI80_2BEIFdEmnG01IAPzvcisUa07mOY-mSDag/exec" class="dropdown-item" target="_blank" rel="noopener noreferrer">Optimalizace</a>
                 <button class="dropdown-item" data-page="zdravotni">Zdravotní dotazník</button>
             </div>
         </div>
@@ -38,8 +47,8 @@
             </button>
             <div class="dropdown" id="dropdown-nabidkovace">
                 <button class="dropdown-item" data-page="investice">Investice</button>
-                <button class="dropdown-item" data-page="zivotko">Životko</button>
-                <button class="dropdown-item" href="https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec" target="_blank">DIPuj</button>
+                <button class="dropdown-item" data-page="zivotko">Život & zdraví</button>
+                <a href="https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec" class="dropdown-item" target="_blank" rel="noopener noreferrer">DIPuj</a>
             </div>
         </div>
 
@@ -80,7 +89,6 @@
         <?!= include('Zdravotni_dotaznik_HTML'); ?>
         <?!= include('Investicni_porovnavac_HTML'); ?>
         <?!= include('Zivot_zdravi_HTML'); ?>
-        <?!= include('html/stranky/dipuj'); ?>
         <?!= include('Investicni_kalkulatory_HTML'); ?>
         <?!= include('Porovnani_produktu_HTML'); ?>
         <?!= include('Stavebko_HTML'); ?>
@@ -90,7 +98,7 @@
 
     <?!= include('Scripts_JS'); ?>
     <?!= include('Zdravotni_dotaznik_JS'); ?>
-    <?!= include('Kalkulacky_JS'); ?>
+    <?!= include('Zivot_zdravi_JS'); ?>
     <?!= include('Kalkulacky_JS'); ?>
 </body>
 </html>

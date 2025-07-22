@@ -1,0 +1,1947 @@
+<script>
+
+  document.title = 'F!Dos ŽIVOT & ZDRAVÍ';
+// --- PREVENCE PRESMEROVANI --------------------------------------
+ function preventFormSubmit() {
+let forms = document.querySelectorAll('form');
+for (let i = 0; i < forms.length; i++) {
+forms[i].addEventListener('submit', function(event) {
+event.preventDefault();
+});
+}
+}
+// === END PREVENCE PRESMEROVANI =======================================
+document.addEventListener("DOMContentLoaded", function() {
+  logAnonymousAccess();
+});
+
+function logAnonymousAccess() {
+  let anonId = localStorage.getItem('anonId');
+  if (!anonId) {
+    anonId = 'anon-' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('anonId', anonId);
+  }
+
+  // Ignoruj vlastní ID
+  const myIgnoredId = 'anon-6s5dlcun8';
+  if (anonId === myIgnoredId) return;
+
+  google.script.run.logSimpleAccess(anonId);
+}
+
+// document.addEventListener("keydown", function(event) {
+//     if (event.key === "Enter" && document.activeElement.tagName === "INPUT") {
+//         event.preventDefault();
+//         mySubmitFunction();
+//     }
+// });
+
+document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // zamezí odeslání formuláře
+          document.getElementById('odeslatFormular').click(); // klikne na tlačítko
+        }
+      });
+
+document.querySelectorAll('.toggle-expand').forEach(box => {
+    box.addEventListener('click', () => {
+      const extra = box.querySelector('.extra-info');
+      if (extra) {
+        extra.classList.toggle('hidden');
+      }
+    });
+  });
+
+
+function toggleCard(event) {
+            event.preventDefault();
+            const card = document.getElementById('rentaCard');
+            const toggleButton = document.getElementById('toggleButton');
+            card.classList.toggle('show');
+            if (card.classList.contains('show')) {
+                toggleButton.classList.add('hidden');
+            } else {
+                toggleButton.classList.remove('hidden');
+            }
+        }
+
+        function formatovani_na_tisicovky(input) {
+            let value = input.value.replace(/\s/g, '');
+            if (!isNaN(value) && value !== "") {
+                value = Number(value).toLocaleString('cs-CZ');
+            }
+            $(input).val(value);
+        }
+
+        function calculateTotalNeeded() {
+            let renta = parseFloat(document.getElementById("renta").value.replace(/\s/g, '')) || 0;
+            let years = parseFloat(document.getElementById("years").value) || 0;
+            let returnRate = parseFloat(document.getElementById("returnRate").value) || 0;
+
+            let months = years * 12;
+            let monthlyReturn = returnRate / 100 / 12;
+            let totalNeeded = 0;
+
+            if (returnRate > 0) {
+                totalNeeded = renta * ((1 - Math.pow(1 + monthlyReturn, -months)) / monthlyReturn);
+            } else {
+                totalNeeded = renta * months;
+            }
+            
+            totalNeeded = Math.round(totalNeeded / 10000) * 10000;
+            document.getElementById("result").textContent = `${totalNeeded.toLocaleString('cs-CZ')} Kč`;
+        }
+
+        function showInfo(event, static1, dynamic1, unit1, static2, dynamic2, unit2) {
+    event.preventDefault();
+    const infoCard = document.getElementById('infoCard');
+    const overlay = document.getElementById('overlay');
+    let value1 = document.getElementById(dynamic1)?.value || document.getElementById(dynamic1)?.textContent || '0';
+    let value2 = document.getElementById(dynamic2)?.value || document.getElementById(dynamic2)?.textContent || '0';
+
+    document.getElementById('infoText').innerHTML = 
+        `<p>${static1} <strong>${value1} ${unit1}</strong></p>
+         <p>${static2} <strong>${value2} ${unit2}</strong></p>`;
+
+    infoCard.classList.add('show');
+    overlay.classList.add('show');
+}
+        
+        function hideInfoCard() {
+            document.getElementById('infoCard').classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        document.addEventListener("click", function(event) {
+            const infoCard = document.getElementById('infoCard');
+            if (!infoCard.contains(event.target) && !event.target.classList.contains('info-btn')) {
+                infoCard.classList.remove('show');
+            }
+        });
+
+        window.addEventListener('scroll', function() {
+            const toggleButton = document.getElementById('toggleButton');
+            if (window.scrollY > 900) {
+                toggleButton.classList.add('visible');
+            } else {
+                toggleButton.classList.remove('visible');
+            }
+        });
+
+
+// ----------------------------------------------------------------------------------------------
+// === PREPOCTY PRIJMU NA HRUBOU A CELKOVE A VYDAJU NA CELKOVE ===
+// ----------------------------------------------------------------------------------------------
+function prepocty_vydaje_prijmy(){
+let client_vydaje = Number(document.getElementById("client_vydaje").value.replace(/\s/g, ''));
+let client_vydaje_2 = Number(document.getElementById("client_vydaje_2").value.replace(/\s/g, ''));
+let client_prijem = Number(document.getElementById("client_prijem").value.replace(/\s/g, ''));
+let client_prijem_2 = Number(document.getElementById("client_prijem_2").value.replace(/\s/g, ''));
+let client_vydaje_rocni = document.getElementById("client_vydaje_rocni");
+let client_prijem_rocni = document.getElementById("client_prijem_rocni");
+//POLE
+// let client_vydaje_rocni = document.getElementById("client_vydaje_rocni");
+
+// === PREPOCET NA HRUBOU MZDU ===
+// === KLIENT 1
+    let hruba_mzda_vypocet = (Number(client_prijem)-2570)*1.362397820;
+    let format_hruba_mzda_result = Math.round(hruba_mzda_vypocet / 500) * 500;
+if (format_hruba_mzda_result > 0) {
+    document.getElementById("client_hruba_mzda").value = format_hruba_mzda_result.toLocaleString("cs-CZ");
+  } else {
+    document.getElementById("client_hruba_mzda").value = "";
+  }
+
+// === KLIENT 2
+    let hruba_mzda_vypocet_2 = (Number(client_prijem_2)-2570)*1.362397820;
+    let format_hruba_mzda_result_2 = Math.round(hruba_mzda_vypocet_2 / 500) * 500;
+if (format_hruba_mzda_result_2 > 0) {
+    document.getElementById("client_hruba_mzda_2").value = format_hruba_mzda_result_2.toLocaleString("cs-CZ");
+  } else {
+    document.getElementById("client_hruba_mzda_2").value = "";
+  }
+
+// === PREPOCET NA ROCNI VYDAJE
+let client_vydaje_rocni_result = client_vydaje * 12 + client_vydaje_2 * 12;
+let format_vydaje_rocni_result = Math.round(client_vydaje_rocni_result/ 1000) * 1000;
+client_vydaje_rocni.innerHTML = '<span>' + format_vydaje_rocni_result.toLocaleString("cs-CZ") +' Kč</span>';
+
+// === PREPOCET NA ROCNI VYDAJE
+let client_prijmy_rocni_result = client_prijem * 12 + client_prijem_2 * 12;
+let format_prijmy_rocni_result = Math.round(client_prijmy_rocni_result/ 1000) * 1000;
+client_prijem_rocni.innerHTML = '<span>' + format_prijmy_rocni_result.toLocaleString("cs-CZ") +' Kč</span>';
+
+  } 
+// =============================================================================================
+
+
+// ------------------------------------------------------------------------------------------
+// === VYPOCET VEKU
+// ------------------------------------------------------------------------------------------
+function calculateAge(datumNarozeniInput, vekInput) {
+  const datumNarozeni = new Date(datumNarozeniInput.value);
+  const today = new Date();
+
+  if (isNaN(datumNarozeni.getTime())) {
+    vekInput.value = '';
+    return;
+  }
+
+  let vek = today.getFullYear() - datumNarozeni.getFullYear();
+  const mesicniRozdil = today.getMonth() - datumNarozeni.getMonth();
+
+  if (mesicniRozdil < 0 || (mesicniRozdil === 0 && today.getDate() < datumNarozeni.getDate())) {
+    vek--;
+  }
+
+  vekInput.value = vek;
+}
+// ----------------------------------------------------------------------------------------------------------
+// AKTIVACE VYPOCTU VEKU PRO VSECHNA POLE
+document.querySelectorAll('.client-narozeni').forEach(function(input) {
+  input.addEventListener('blur', function() {
+    const vekInput = input.closest('.form-group').nextElementSibling.querySelector('.client-vek');
+    calculateAge(input, vekInput);
+
+      // const klient_1_details = document.getElementById('klient_1_details');
+      // const klient_2_details = document.getElementById('klient_2_details');
+      const client_narozeni_1 = document.getElementById('client_narozeni').value;
+      const client_narozeni_2 = document.getElementById('client_narozeni_2').value;
+
+    const inputNarozeniValue = input.value;
+    const date_1 = new Date(client_narozeni_1);
+    const date_2 = new Date(client_narozeni_2);
+    const date = new Date(inputNarozeniValue);
+    const cutoffDate = new Date('1973-01-01');
+
+
+    // Kontrola platnosti data
+    if (!isNaN(date.getTime())) {
+      // Zobraz nebo skryj řádek na základě data
+
+      if (date_1 < cutoffDate) {
+      document.getElementById('klient_1_details').classList.remove('d-none');
+      document.getElementById('klient_1_details').classList.add('d-flex');
+        // duchodyDetails.style.display = 'flex'; // Oprava třídy pro zobrazení
+      } else {
+      document.getElementById('klient_1_details').classList.remove('d-flex');
+      document.getElementById('klient_1_details').classList.add('d-none');
+        // duchodyDetails.style.display = 'none'; // Oprava třídy pro skrytí
+      }
+
+      if (date_2 < cutoffDate) {
+      document.getElementById('klient_2_details').classList.remove('d-none');
+      document.getElementById('klient_2_details').classList.add('d-flex');
+        // duchodyDetails.style.display = 'flex'; // Oprava třídy pro zobrazení
+      } else {
+      document.getElementById('klient_2_details').classList.remove('d-flex');
+      document.getElementById('klient_2_details').classList.add('d-none');
+        // duchodyDetails.style.display = 'none'; // Oprava třídy pro skrytí
+      }
+
+    }
+
+
+  });
+});
+// ==================================================================================================
+
+
+
+// -----------------------------------------------------------------------
+// === ZPRACOVANI ZADANI
+// === PREVOD DO FORMOBJECT
+// ------------------------------------------------------------------------
+function handleFormSubmit(formObject) {
+
+   // Zobrazíme načítací obrazovku
+        showLoading();
+
+     // CLIENT 1
+      // let selectedJob = document.querySelector('input[name="typ_prijmu_selected"]:checked');
+      // let selectedGender = document.querySelector('input[name="pohlavi_selected"]:checked');
+
+      // CLIENT 2
+      // let selectedJob_2 = document.querySelector('input[name="typ_prijmu_selected_2"]:checked');
+      // let selectedGender_2 = document.querySelector('input[name="pohlavi_selected_2"]:checked');
+
+      // Rodinný stav
+      // let selectedFamily = document.querySelector('input[name="stav_selected"]:checked');
+
+      // Přidání dat do formObject
+      // formObject.typ_prijmu_selected = selectedJob ? selectedJob.value : null;
+      // formObject.pohlavi_selected = selectedGender ? selectedGender.value : null;
+
+      // formObject.typ_prijmu_selected_2 = selectedJob_2 ? selectedJob_2.value : null;
+      // formObject.pohlavi_selected_2 = selectedGender_2 ? selectedGender_2.value : null;
+
+      // formObject.stav_selected = selectedFamily ? selectedFamily.value : null;
+// Get checkbox value
+    // const isCheckboxChecked = document.getElementById('checkbox_dluh_rozdeleni').checked;
+
+    // Create formObject with the checkbox value
+    // const formObject = {};
+    // if (isCheckboxChecked) {
+    //    let rozdeleniDluhu = "TRUE";
+    //   // formObject.rozdeleniDluhu = "TRUE";
+    // } else {
+    //   let rozdeleniDluhu = "FALSE";
+    //   // formObject.rozdeleniDluhu = "FALSE";
+    // }
+
+    // // Log or use the formObject
+    // alert(formObject.rozdeleniDluhu);
+
+
+
+
+
+      // Získání hodnoty checkboxu "Rozdělit dluh mezi oba?"
+      // const checkbox_1 = document.querySelector('input[name="checkbox_dluh_rozdeleni"]');
+      // formObject.rozdeleniDluhu = checkbox_1.checked;
+      // let checkbox = document.getElementById('checkbox_dluh_rozdeleni');
+      // formObject.rozdeleniDluhu = checkbox.checked;
+
+    //   const checkbox = document.getElementById("checkbox_dluh_rozdeleni");
+    // formObject.checkbox_dluh_rozdeleni = checkbox.checked;
+
+      // const checkbox = document.getElementById('switch_dluh_rozdeleni');
+      // formObject.rozdeleniDluhu = checkbox && checkbox.checked === true;
+
+      // alert("Checkbox found:", !!checkbox_1);
+      // alert(document.querySelector('#checkbox_dluh_rozdeleni'));
+
+      // document.querySelector('#checkbox_dluh_rozdeleni')
+    // alert("Checkbox checked:", checkbox.checked);
+
+      //  const switchElement = document.getElementById('switch_dluh_rozdeleni');
+      // formObject.rozdeleniDluhu = switchElement && switchElement.checked === true;
+
+google.script.run.withSuccessHandler(generate_pojistne_castky).processZivotForm(formObject);
+
+}
+// ===================================================
+  
+// let inv_castky_dluh = document.getElementById("inv_castky_dluh");
+
+let pojisteni_smrt = document.getElementById("pojisteni_smrt");
+let pojisteni_smrt_2 = document.getElementById("pojisteni_smrt_2");
+let pojisteni_smrt_klesajici = document.getElementById("pojisteni_smrt_klesajici");
+let pojisteni_smrt_klesajici_2 = document.getElementById("pojisteni_smrt_klesajici_2");
+let smrt_dluhy_header_zobrazeni_1 = document.getElementById("smrt_dluhy_header_zobrazeni_1");
+let smrt_dluhy_header_zobrazeni_2 = document.getElementById("smrt_dluhy_header_zobrazeni_2");
+let pojisteni_smrt_dluhy = document.getElementById("pojisteni_smrt_dluhy");
+// let pojisteni_smrt_dluhy_3 = document.getElementById("pojisteni_smrt_dluhy_3");
+let smrt_dluhy_header_zobrazeni_2_1 = document.getElementById("smrt_dluhy_header_zobrazeni_2_1");
+let smrt_dluhy_header_zobrazeni_2_2 = document.getElementById("smrt_dluhy_header_zobrazeni_2_2");
+let pojisteni_smrt_dluhy_2 = document.getElementById("pojisteni_smrt_dluhy_2");
+// let pojisteni_smrt_dluhy_4 = document.getElementById("pojisteni_smrt_dluhy_4");
+let pojisteni_nemocenska = document.getElementById("pojisteni_nemocenska");
+let pojisteni_ZO = document.getElementById("pojisteni_ZO");
+let pojisteni_TNU = document.getElementById("pojisteni_TNU");
+
+// ----------------------INVALIDITA TABULKA-------------------
+let inv_1_duchod = document.getElementById("inv_1_duchod");
+let inv_2_duchod = document.getElementById("inv_2_duchod");
+let inv_3_duchod = document.getElementById("inv_3_duchod");
+
+let inv_1_rozdil = document.getElementById("inv_1_rozdil");
+let inv_2_rozdil = document.getElementById("inv_2_rozdil");
+let inv_3_rozdil = document.getElementById("inv_3_rozdil");
+
+let inv_1_castka = document.getElementById("inv_1_castka");
+let inv_2_castka = document.getElementById("inv_2_castka");
+let inv_3_castka = document.getElementById("inv_3_castka");
+
+let inv_1_castka_inv = document.getElementById("inv_1_castka_inv");
+let inv_2_castka_inv = document.getElementById("inv_2_castka_inv");
+let inv_3_castka_inv = document.getElementById("inv_3_castka_inv");
+
+let inv_1_dluh = document.getElementById("inv_1_dluh");
+let inv_2_dluh = document.getElementById("inv_2_dluh");
+let inv_3_dluh = document.getElementById("inv_3_dluh");
+
+// var duchod_vek = document.getElementById("duchod_vek");
+// var duchod_roky = document.getElementById("duchod_roky");
+// var duchod_prijem = document.getElementById("duchod_prijem");
+// var duchod_rozdil = document.getElementById("duchod_rozdil");
+
+let pn_1_nemocenska = document.getElementById("pn_1_nemocenska");
+let pn_2_nemocenska = document.getElementById("pn_2_nemocenska");
+let pn_3_nemocenska = document.getElementById("pn_3_nemocenska");
+
+let pn_1_rozdil = document.getElementById("pn_1_rozdil");
+let pn_2_rozdil = document.getElementById("pn_2_rozdil");
+let pn_3_rozdil = document.getElementById("pn_3_rozdil");
+
+let pn_1_rozdil_denni = document.getElementById("pn_1_rozdil_denni");
+let pn_2_rozdil_denni = document.getElementById("pn_2_rozdil_denni");
+let pn_3_rozdil_denni = document.getElementById("pn_3_rozdil_denni");
+
+// ### CASTKY DO PREHLEDU
+// ### STAROBNI
+// ### KLIENT 1
+let penze_datum = document.getElementById("penze_datum");
+let penze_vek = document.getElementById("penze_vek");
+let penze_za_jak_dlouho = document.getElementById("penze_za_jak_dlouho");
+let penze_result = document.getElementById("penze_result");
+
+// ### KLIENT 2
+let penze_datum_2 = document.getElementById("penze_datum_2");
+let penze_vek_2 = document.getElementById("penze_vek_2");
+let penze_za_jak_dlouho_2 = document.getElementById("penze_za_jak_dlouho_2");
+let penze_result_2 = document.getElementById("penze_result_2");
+
+
+// ### INVALIDNI
+let invalidita_1_result = document.getElementById("invalidita_1_result");
+let invalidita_2_result = document.getElementById("invalidita_2_result");
+let invalidita_3_result = document.getElementById("invalidita_3_result");
+
+// ### POZUSTALOSTNI
+let vdovsky_result = document.getElementById("vdovsky_result");
+let sirotci_result = document.getElementById("sirotci_result");
+let vdovsky_result_2 = document.getElementById("vdovsky_result_2");
+let sirotci_result_2 = document.getElementById("sirotci_result_2");
+
+// ### ZOBRAZENI INV DLUH
+let inv_dluh_header_zobrazeni = document.getElementById("inv_dluh_header_zobrazeni");
+let inv_dluh_zobrazeni_1 = document.getElementById("inv_dluh_zobrazeni_1");
+let inv_dluh_zobrazeni_2 = document.getElementById("inv_dluh_zobrazeni_2");
+let inv_dluh_zobrazeni_3 = document.getElementById("inv_dluh_zobrazeni_3");
+
+
+
+
+
+// --------------------------------------------------------------------------------------
+// === PROPIS POJISTNYCH CASTEK DO HTML ===
+// --------------------------------------------------------------------------------------
+function generate_pojistne_castky(data){
+
+for (let i = 0; i < data.length; i++) {
+
+ /*  if ( (data[i] <= 0) ) {
+      data[i] = 0;
+      } else {
+        
+        } */
+// --------------------------------------------------------------
+// === KLIENT 1 SMRT
+let pojisteni_smrt_result =  Math.round(data[31][0]/ 10000) * 10000;
+$('#pojisteni_smrt').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_smrt_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// === SMRT S INV
+let pojisteni_smrt_inv_result =  Math.round(data[76][0]/ 10000) * 10000;
+$('#pojisteni_smrt_inv').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_smrt_inv_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+
+let pojisteni_smrt_klesajici_result =  Math.round(data[32][0]/ 10000) * 10000;
+if (pojisteni_smrt_klesajici_result <= 0){
+  pojisteni_smrt_dluhy.style.display = 'none';
+  smrt_dluhy_header_zobrazeni_1.style.display = 'none';
+  smrt_dluhy_header_zobrazeni_2.style.display = 'none';
+} else {
+  smrt_dluhy_header_zobrazeni_1.style.display = 'block';
+  smrt_dluhy_header_zobrazeni_2.style.display = 'block';
+  pojisteni_smrt_dluhy.style.display = 'block';
+$('#pojisteni_smrt_klesajici').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_smrt_klesajici_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+}
+// --------------------------------------------------------------
+// === KLIENT 2 SMRT
+let pojisteni_smrt_result_2 =  Math.round(data[31][1]/ 10000) * 10000;
+$('#pojisteni_smrt_2').html('<div><strong style="font-size: 1.5rem;; color:#f36500;">' + pojisteni_smrt_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// === SMRT S INV 2
+let pojisteni_smrt_inv_result_2 =  Math.round(data[76][1]/ 10000) * 10000;
+$('#pojisteni_smrt_inv_2').html('<div><strong style="font-size: 1.5rem;; color:#f36500;">' + pojisteni_smrt_inv_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+
+let pojisteni_smrt_klesajici_result_2 =  Math.round(data[32][1]/ 10000) * 10000;
+if (pojisteni_smrt_klesajici_result_2 <= 0){
+  smrt_dluhy_header_zobrazeni_2_1.style.display = 'none';
+  smrt_dluhy_header_zobrazeni_2_2.style.display = 'none';
+  pojisteni_smrt_dluhy_2.style.display = 'none';
+} else {
+  pojisteni_smrt_dluhy_2.style.display = 'block';
+  smrt_dluhy_header_zobrazeni_2_1.style.display = 'block';
+  smrt_dluhy_header_zobrazeni_2_2.style.display = 'block';
+$('#pojisteni_smrt_klesajici_2').html('<div><strong style="font-size: 1.5rem;; color:#f36500;">' + pojisteni_smrt_klesajici_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+}
+// ------------------------------------------------------------------------
+
+
+
+// -------------------------------------------------------------------------------
+// === INVALIDITA
+// -------------------------------------------------------------------------------
+// === KLIENT 1
+let inv_1_duchod_result =  Math.round(data[7][0]/ 100) * 100;
+inv_1_duchod.innerHTML = '<div style="font-size: 20px; ">' + inv_1_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+let inv_2_duchod_result =  Math.round(data[8][0]/ 100) * 100;
+inv_2_duchod.innerHTML = '<div style="font-size: 20px; ">' + inv_2_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+let inv_3_duchod_result =  Math.round(data[9][0]/ 100) * 100;
+inv_3_duchod.innerHTML = '<div style="font-size: 20px; ">' + inv_3_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+// === KLIENT 2
+let inv_1_duchod_result_2 =  Math.round(data[7][1]/ 100) * 100;
+inv_1_duchod_2.innerHTML = '<div style="font-size: 20px; ">' + inv_1_duchod_result_2.toLocaleString("cs-CZ") +' Kč</div>';
+let inv_2_duchod_result_2 =  Math.round(data[8][1]/ 100) * 100;
+inv_2_duchod_2.innerHTML = '<div style="font-size: 20px; ">' + inv_2_duchod_result_2.toLocaleString("cs-CZ") +' Kč</div>';
+let inv_3_duchod_result_2 =  Math.round(data[9][1]/ 100) * 100;
+inv_3_duchod_2.innerHTML = '<div style="font-size: 20px; ">' + inv_3_duchod_result_2.toLocaleString("cs-CZ") +' Kč</div>';
+
+
+
+// === KLIENT 1
+// === INV ROZDILY
+let inv_1_rozdil_result =  Math.round(data[10][0]/ 100) * 100;
+inv_1_rozdil.innerHTML = '<div style="font-size: 20px;color:#cc0000 "><b>' + inv_1_rozdil_result.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_1_rozdil_celkem_result =  Math.round(data[15][0]/ 1000) * 1000;
+inv_1_rozdil_celkem.innerHTML = '<div style="font-size: 20px; "><b>' + inv_1_rozdil_celkem_result.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_2_rozdil_result =  Math.round(data[11][0]/ 100) * 100;
+inv_2_rozdil.innerHTML = '<div style="font-size: 20px; color:#cc0000"><b>' + inv_2_rozdil_result.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_2_rozdil_celkem_result =  Math.round(data[18][0]/ 1000) * 1000;
+inv_2_rozdil_celkem.innerHTML = '<div style="font-size: 20px; "><b>' + inv_2_rozdil_celkem_result.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_3_rozdil_result =  Math.round(data[12][0]/ 100) * 100;
+inv_3_rozdil.innerHTML = '<div style="font-size: 20px; color:#cc0000"><b>' + inv_3_rozdil_result.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_3_rozdil_celkem_result =  Math.round(data[21][0]/ 1000) * 1000;
+inv_3_rozdil_celkem.innerHTML = '<div style="font-size: 20px; "><b>' + inv_3_rozdil_celkem_result.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+
+// === KLIENT 2
+let inv_1_rozdil_result_2 =  Math.round(data[10][1]/ 100) * 100;
+inv_1_rozdil_2.innerHTML = '<div style="font-size: 20px; color:#cc0000"><b>' + inv_1_rozdil_result_2.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_1_rozdil_celkem_result_2 =  Math.round(data[15][1]/ 1000) * 1000;
+inv_1_rozdil_celkem_2.innerHTML = '<div style="font-size: 20px; "><b>' + inv_1_rozdil_celkem_result_2.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_2_rozdil_result_2 =  Math.round(data[11][1]/ 100) * 100;
+inv_2_rozdil_2.innerHTML = '<div style="font-size: 20px; color:#cc0000"><b>' + inv_2_rozdil_result_2.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_2_rozdil_celkem_result_2 =  Math.round(data[18][1]/ 1000) * 1000;
+inv_2_rozdil_celkem_2.innerHTML = '<div style="font-size: 20px; "><b>' + inv_2_rozdil_celkem_result_2.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_3_rozdil_result_2 =  Math.round(data[12][1]/ 100) * 100;
+inv_3_rozdil_2.innerHTML = '<div style="font-size: 20px; color:#cc0000"><b>' + inv_3_rozdil_result_2.toLocaleString("cs-CZ") +' Kč</b></div>';
+
+let inv_3_rozdil_celkem_result_2 =  Math.round(data[21][1]/ 1000) * 1000;
+inv_3_rozdil_celkem_2.innerHTML = '<div style="font-size: 20px; "><b>' + inv_3_rozdil_celkem_result_2.toLocaleString("cs-CZ") +' Kč</b></div>';
+// ---------------------------------------------------------------------------------
+
+
+// ---------------------------------------------------------------------------------
+// === KLIENT 1
+// === INVALIDITA BEZ INVESTICE
+let inv_1_castka_result =  Math.round(data[33][0]/ 1000) * 1000;
+inv_1_castka.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_castka_result.toLocaleString("cs-CZ") +' Kč</strong></div>';
+let inv_2_castka_result =  Math.round(data[36][0]/ 1000) * 1000;
+inv_2_castka.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_2_castka_result.toLocaleString("cs-CZ") +' Kč</strong></div>';
+let inv_3_castka_result =  Math.round(data[39][0]/ 1000) * 1000;
+inv_3_castka.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_3_castka_result.toLocaleString("cs-CZ") +' Kč</strong></div>';
+
+// === INVALIDITA S INVESTICI
+let inv_1_castka_inv_result =  Math.round(data[34][0]/ 1000) * 1000;
+inv_1_castka_inv.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_castka_inv_result.toLocaleString("cs-CZ") +' Kč</strong> </div>';
+let inv_2_castka_inv_result =  Math.round(data[37][0]/ 1000) * 1000;
+inv_2_castka_inv.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_2_castka_inv_result.toLocaleString("cs-CZ") +' Kč</strong> </div>';
+let inv_3_castka_inv_result =  Math.round(data[40][0]/ 1000) * 1000;
+inv_3_castka_inv.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_3_castka_inv_result.toLocaleString("cs-CZ") +' Kč</strong> </div>';
+// --------------------------------------------------
+
+// === KLIENT 2
+// === INVALIDITA BEZ INVESTICE
+let inv_1_castka_result_2 =  Math.round(data[33][1]/ 1000) * 1000;
+inv_1_castka_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_castka_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+let inv_2_castka_result_2 =  Math.round(data[36][1]/ 1000) * 1000;
+inv_2_castka_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_2_castka_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+let inv_3_castka_result_2 =  Math.round(data[39][1]/ 1000) * 1000;
+inv_3_castka_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_3_castka_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+
+// === INVALIDITA S INVESTICI
+let inv_1_castka_inv_result_2 =  Math.round(data[34][1]/ 1000) * 1000;
+inv_1_castka_inv_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_castka_inv_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+let inv_2_castka_inv_result_2 =  Math.round(data[37][1]/ 1000) * 1000;
+inv_2_castka_inv_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_2_castka_inv_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+let inv_3_castka_inv_result_2 =  Math.round(data[40][1]/ 1000) * 1000;
+inv_3_castka_inv_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_3_castka_inv_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// ------------------------------------------------------------
+
+let client_prijem = Number(document.getElementById("client_prijem").value.replace(/\s/g, ''));
+let client_prijem_2 = Number(document.getElementById("client_prijem_2").value.replace(/\s/g, ''));
+// let klient_inv_1_zbyva_result =  data[59][0];
+// let klient_inv_1_zbyva_result = parseInt(data[46][1]) || 0;
+
+// === INVALIDITA PODROBNOSTI =========
+// === KLIENT 1
+// === INV 1
+$('#klient_1_prijem').html('<div><strong style="font-size:">' + client_prijem.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_1_duchod').html('<div><strong style="font-size: ">' + inv_1_duchod_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_polovina_prijmu').html('<div><strong style="font-size: ">' + (client_prijem/2).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_1_chybi_mesicne').html('<div><strong style="font-size: ">' + Math.min(0, (inv_1_duchod_result + client_prijem / 2 - client_prijem)).toLocaleString("cs-CZ") + ' Kč</strong></div>');
+$('#klient_1_inv_1_chybi_rocne').html('<div><strong style="font-size: ">' + Math.min(0, ((inv_1_duchod_result + client_prijem / 2 - client_prijem) * 12)).toLocaleString("cs-CZ") + ' Kč</strong></div>');
+$('#klient_1_zbyva_roku').html('<div><strong style="font-size: ">' + data[59][0] +'</strong></div>');
+// === INV 2
+$('#klient_1_prijem_2').html('<div><strong style="font-size:">' + client_prijem.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_2_duchod').html('<div><strong style="font-size: ">' + inv_2_duchod_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_ctvrtina_prijmu').html('<div><strong style="font-size: ">' + (client_prijem/4).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_2_chybi_mesicne').html('<div><strong style="font-size: ">' + Math.min(0,(inv_2_duchod_result+client_prijem/4-client_prijem)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_2_chybi_rocne').html('<div><strong style="font-size: ">' + Math.min(0,((inv_2_duchod_result+client_prijem/4-client_prijem)*12)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_zbyva_roku_2').html('<div><strong style="font-size: ">' + data[59][0] +'</strong></div>');
+// === INV 3
+$('#klient_1_prijem_3').html('<div><strong style="font-size:">' + client_prijem.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_3_duchod').html('<div><strong style="font-size: ">' + inv_3_duchod_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// $('#klient_1_bez_prijmu').html('<div><strong style="font-size: ">' + (client_prijem/4).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_3_chybi_mesicne').html('<div><strong style="font-size: ">' + Math.min(0,(inv_3_duchod_result-client_prijem)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_inv_3_chybi_rocne').html('<div><strong style="font-size: ">' + Math.min(0,((inv_3_duchod_result-client_prijem)*12)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_1_zbyva_roku_3').html('<div><strong style="font-size: ">' + data[59][0] +'</strong></div>');
+
+// === KLIENT 2
+// === INV 1
+$('#klient_2_prijem').html('<div><strong style="font-size:">' + client_prijem_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_1_duchod').html('<div><strong style="font-size: ">' + inv_1_duchod_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_polovina_prijmu').html('<div><strong style="font-size: ">' + (client_prijem_2/2).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_1_chybi_mesicne').html('<div><strong style="font-size: ">' + Math.min(0,(inv_1_duchod_result_2+client_prijem_2/2-client_prijem_2)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_1_chybi_rocne').html('<div><strong style="font-size: ">' + Math.min(0,((inv_1_duchod_result_2+client_prijem_2/2-client_prijem_2)*12)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_zbyva_roku').html('<div><strong style="font-size: ">' + data[59][1] +'</strong></div>');
+// === INV 2
+$('#klient_2_prijem_2').html('<div><strong style="font-size:">' + client_prijem_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_2_duchod').html('<div><strong style="font-size: ">' + inv_2_duchod_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_ctvrtina_prijmu').html('<div><strong style="font-size: ">' + (client_prijem_2/4).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_2_chybi_mesicne').html('<div><strong style="font-size: ">' + Math.min(0,(inv_2_duchod_result_2+client_prijem_2/4-client_prijem_2)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_2_chybi_rocne').html('<div><strong style="font-size: ">' + Math.min(0,((inv_2_duchod_result_2+client_prijem_2/4-client_prijem_2)*12)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_zbyva_roku_2').html('<div><strong style="font-size: ">' + data[59][1] +'</strong></div>');
+// === INV 3
+$('#klient_2_prijem_3').html('<div><strong style="font-size:">' + client_prijem_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_3_duchod').html('<div><strong style="font-size: ">' + inv_3_duchod_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// $('#klient_1_bez_prijmu').html('<div><strong style="font-size: ">' + (client_prijem/4).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_3_chybi_mesicne').html('<div><strong style="font-size: ">' + Math.min(0,(inv_3_duchod_result_2-client_prijem_2)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_inv_3_chybi_rocne').html('<div><strong style="font-size: ">' + Math.min(0,((inv_3_duchod_result_2-client_prijem_2)*12)).toLocaleString("cs-CZ") +' Kč</strong></div>');
+$('#klient_2_zbyva_roku_3').html('<div><strong style="font-size: ">' + data[59][1] +'</strong></div>');
+
+
+
+// ----------------------------------------------------------------
+
+// === INVALIDITA NA DLUH
+// === KLIENT 1
+let inv_1_dluh_result =  Math.round(data[32][0]/ 10000) * 10000;
+if (inv_1_dluh_result <= 0 ) {
+  inv_dluh_header_zobrazeni.style.display = 'none';
+  inv_dluh_zobrazeni_1.style.display = 'none';
+  inv_dluh_zobrazeni_2.style.display = 'none';
+  inv_dluh_zobrazeni_3.style.display = 'none';
+} else {
+  inv_dluh_header_zobrazeni.style.display = 'block';
+  inv_dluh_zobrazeni_1.style.display = 'block';
+  inv_dluh_zobrazeni_2.style.display = 'block';
+  inv_dluh_zobrazeni_3.style.display = 'block';
+}
+// === KLIENT 2
+let inv_1_dluh_result_2 =  Math.round(data[32][1]/ 10000) * 10000;
+if (inv_1_dluh_result_2 <= 0 ) {
+  inv_dluh_header_zobrazeni_2.style.display = 'none';
+  inv_dluh_zobrazeni_1_2.style.display = 'none';
+  inv_dluh_zobrazeni_2_2.style.display = 'none';
+  inv_dluh_zobrazeni_3_2.style.display = 'none';
+} else {
+  inv_dluh_header_zobrazeni_2.style.display = 'block';
+  inv_dluh_zobrazeni_1_2.style.display = 'block';
+  inv_dluh_zobrazeni_2_2.style.display = 'block';
+  inv_dluh_zobrazeni_3_2.style.display = 'block';
+}
+
+// === KLIENT 1
+inv_1_dluh.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_dluh_result.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// let inv_2_dluh_result =  Math.round(data[32][0]/ 10) * 10;
+inv_2_dluh.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_dluh_result.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// let inv_3_dluh_result =  Math.round(data[32][0]/ 10) * 10;
+inv_3_dluh.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_dluh_result.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// === KLIENT 2
+inv_1_dluh_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_dluh_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// let inv_2_dluh_result_2 =  Math.round(data[32][0]/ 10) * 10;
+inv_2_dluh_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_dluh_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// let inv_3_dluh_result_2 =  Math.round(data[32][0]/ 10) * 10;
+inv_3_dluh_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + inv_1_dluh_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// --------------------------------------------------------------------------------------------------
+
+// --------------------------------------------------------
+// === NEMOCENSKA
+// --------------------------------------------------------
+// ------------------------------------------------------------------------
+// === NEMOCENSKA
+// === KLIENT 1
+let pojisteni_nemocenska_result =  Math.round(data[44][0]/ 10) * 10;
+$('#pojisteni_nemocenska').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_nemocenska_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+let pojisteni_nemocenska_60_result =  Math.round(data[45][0]/ 10) * 10;
+$('#pojisteni_nemocenska_60').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_nemocenska_60_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// === KLIENT 2
+let pojisteni_nemocenska_result_2 =  Math.round(data[44][1]/ 10) * 10;
+$('#pojisteni_nemocenska_2').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_nemocenska_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+let pojisteni_nemocenska_result_60_2 =  Math.round(data[45][1]/ 10) * 10;
+$('#pojisteni_nemocenska_60_2').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_nemocenska_result_60_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+
+// ------------------------------------------------------------------------
+// === ZO
+// === KLIENT 1
+let pojisteni_ZO_result =  Math.round(data[42][0]/ 1000) * 1000;
+$('#pojisteni_ZO').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_ZO_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// === KLIENT 1
+let pojisteni_ZO_result_2 =  Math.round(data[42][1]/ 1000) * 1000;
+$('#pojisteni_ZO_2').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pojisteni_ZO_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// ------------------------------------------------------------------------
+
+// === KLIENT 1
+let pn_1_nemocenska_result =  Math.round(data[22][0]/ 100) * 100;
+pn_1_nemocenska.innerHTML = '<td style="font-size: 1.2rem; color:#f36500;">' + pn_1_nemocenska_result.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_2_nemocenska_result =  Math.round(data[23][0]/ 100) * 100;
+pn_2_nemocenska.innerHTML = '<td style="font-size: 1.2rem; color:#f36500;">' + pn_2_nemocenska_result.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_3_nemocenska_result =  Math.round(data[24][0]/ 100) * 100;
+pn_3_nemocenska.innerHTML = '<td style="font-size: 1.2rem; color:#f36500;">' + pn_3_nemocenska_result.toLocaleString("cs-CZ") +' Kč</td>';
+// === KLIENT 2
+let pn_1_nemocenska_result_2 =  Math.round(data[22][1]/ 100) * 100;
+pn_1_nemocenska_2.innerHTML = '<td style="font-size: 1.2rem; color:#f36500;">' + pn_1_nemocenska_result_2.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_2_nemocenska_result_2 =  Math.round(data[23][1]/ 100) * 100;
+pn_2_nemocenska_2.innerHTML = '<td style="font-size: 1.2rem; color:#f36500;">' + pn_2_nemocenska_result_2.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_3_nemocenska_result_2 =  Math.round(data[23][1]/ 100) * 100;
+pn_3_nemocenska_2.innerHTML = '<td style="font-size: 1.2rem; color:#f36500;">' + pn_3_nemocenska_result_2.toLocaleString("cs-CZ") +' Kč</td>';
+
+// ---------------------------------------------------------
+// === PN
+// --------------------------------------------------------
+// === KLIENT 1
+let pn_1_rozdil_result =  Math.round(data[25][0]/ 100) * 100;
+pn_1_rozdil.innerHTML = '<td><strong style="font-size: 1.2rem; color:#cc0000;">' + pn_1_rozdil_result.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_2_rozdil_result =  Math.round(data[27][0]/ 100) * 100;
+pn_2_rozdil.innerHTML = '<td><strong style="font-size: 1.2rem; color:#cc0000;">' + pn_2_rozdil_result.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_3_rozdil_result =  Math.round(data[29][0]/ 100) * 100;
+pn_3_rozdil.innerHTML = '<td><strong style="font-size: 1.2rem; color:#cc0000;">' + pn_3_rozdil_result.toLocaleString("cs-CZ") +' Kč</td>';
+// === KLIENT 2
+let pn_1_rozdil_result_2 =  Math.round(data[25][1]/ 100) * 100;
+pn_1_rozdil_2.innerHTML = '<td><strong style="font-size: 1.2rem; color:#cc0000;">' + pn_1_rozdil_result_2.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_2_rozdil_result_2 =  Math.round(data[27][1]/ 100) * 100;
+pn_2_rozdil_2.innerHTML = '<td><strong style="font-size: 1.2rem; color:#cc0000;">' + pn_2_rozdil_result_2.toLocaleString("cs-CZ") +' Kč</td>';
+let pn_3_rozdil_result_2 =  Math.round(data[29][1]/ 100) * 100;
+pn_3_rozdil_2.innerHTML = '<td><strong style="font-size: 1.2rem; color:#cc0000;">' + pn_3_rozdil_result_2.toLocaleString("cs-CZ") +' Kč</td>';
+
+// --------------------------------------------------------
+// === KLIENT 1
+let pn_1_rozdil_denni_result =  Math.round(data[43][0]/ 10) * 10;
+pn_1_rozdil_denni.innerHTML = '<td><strong style="font-size: 1.2rem; color:#f36500;">' + pn_1_rozdil_denni_result.toLocaleString("cs-CZ") +' </strong> Kč</td>';
+let pn_2_rozdil_denni_result =  Math.round(data[44][0]/ 10) * 10;
+pn_2_rozdil_denni.innerHTML = '<td><strong style="font-size: 1.2rem; color:#f36500;">' + pn_2_rozdil_denni_result.toLocaleString("cs-CZ") +' </strong> Kč</td>';
+let pn_3_rozdil_denni_result =  Math.round(data[45][0]/ 10) * 10;
+pn_3_rozdil_denni.innerHTML = '<td><strong style="font-size: 1.2rem; color:#f36500;">' + pn_3_rozdil_denni_result.toLocaleString("cs-CZ") +' </strong> Kč</td>';
+// === KLIENT 2
+let pn_1_rozdil_denni_result_2 =  Math.round(data[43][1]/ 10) * 10;
+pn_1_rozdil_denni_2.innerHTML = '<td><strong style="font-size: 1.2rem; color:#f36500;">' + pn_1_rozdil_denni_result_2.toLocaleString("cs-CZ") +' </strong> Kč</td>';
+let pn_2_rozdil_denni_result_2 =  Math.round(data[44][1]/ 10) * 10;
+pn_2_rozdil_denni_2.innerHTML = '<td><strong style="font-size: 1.2rem; color:#f36500;">' + pn_2_rozdil_denni_result_2.toLocaleString("cs-CZ") +' </strong> Kč</td>';
+let pn_3_rozdil_denni_result_2 =  Math.round(data[45][1]/ 10) * 10;
+pn_3_rozdil_denni_2.innerHTML = '<td><strong style="font-size: 1.2rem; color:#f36500;">' + pn_3_rozdil_denni_result_2.toLocaleString("cs-CZ") +' </strong> Kč</td>';
+
+
+// --------------------------------------------------------
+// === DO LECENI URAZU
+// --------------------------------------------------------
+// ------------------------------------------------------------------------
+// === DO LU
+// === KLIENT 1
+let pc_do_klient_1_result =  Math.round(data[44][0]/2 / 10) * 10;
+$('#pc_do_klient_1').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pc_do_klient_1_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+// === KLIENT 2
+let pc_do_klient_2_result =  Math.round(data[44][1]/2 / 10) * 10;
+$('#pc_do_klient_2').html('<div><strong style="font-size: 1.5rem; color:#f36500;">' + pc_do_klient_2_result.toLocaleString("cs-CZ") +' Kč</strong></div>');
+
+// ---------------------------------------------------------
+// === TNU
+// ---------------------------------------------------------
+// === KLIENT 1
+let tnu_castka_result =  Math.round((inv_3_castka_inv_result / 2) / 100000) * 100000;
+// pro dolní hranici
+if (tnu_castka_result < 1000000) {
+  tnu_castka_result = 1000000; 
+} 
+
+// pro horní hranici
+if (tnu_castka_result > 2000000) {
+  tnu_castka_result = 2000000; 
+}
+
+// pojisteni_TNU.innerHTML = '<strong style="font-size: 36px; color:#f36500;">' + tnu_castka_result.toLocaleString("cs-CZ") +'</strong>';
+// let inv_3_castka_inv_result_2 =  Math.round(data[40][1]/ 1000) * 1000;
+pojisteni_TNU.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + tnu_castka_result.toLocaleString("cs-CZ") +' Kč</strong></div>';
+
+// === KLIENT 2
+let tnu_castka_result_2 =  Math.round((inv_3_castka_inv_result_2 / 2) / 100000) * 100000;
+// pro dolní hranici
+if (tnu_castka_result_2 < 1000000) {
+  tnu_castka_result_2 = 1000000; 
+} 
+
+// pro horní hranici
+if (tnu_castka_result_2 > 2000000) {
+  tnu_castka_result_2 = 2000000; 
+}
+
+pojisteni_TNU_2.innerHTML = '<div><strong style="font-size: 1.5rem; color:#f36500;">' + tnu_castka_result_2.toLocaleString("cs-CZ") +' Kč</strong></div>';
+// pojisteni_TNU_2.innerHTML = '<strong style="font-size: 36px; color:#f36500;">' + tnu_castka_result_2.toLocaleString("cs-CZ") +'</strong>';
+// ============================================================
+
+
+
+// ---------------------------------------------------------------------------
+// ### CASTKY DO PREHLEDU
+// ---------------------------------------------------------------------------
+// ### KLIENT 1
+
+// ### STAROBNI DUCHOD
+let duchod_roky_result =  data[1][0];
+let duchod_za_roky_result =  data[46][0];
+let duchod_result =  Math.round((data[2][0])/ 500) * 500;
+
+// Hodnota z tabulky
+let google_datum = Number(data[0][0]);
+
+// Google Sheets počítá od 30. prosince 1899, přičteme tedy dny k tomuto datu
+let datum_google_zacatku = new Date(1899, 11, 30); // 30. prosince 1899
+datum_google_zacatku.setDate(datum_google_zacatku.getDate() + google_datum);
+
+let vysledneDatum = formatDate(datum_google_zacatku);
+
+penze_datum.innerHTML = '<div>' + vysledneDatum +' </div>';
+penze_vek.innerHTML = '<div>' + duchod_roky_result +'</div>';
+penze_za_jak_dlouho.innerHTML = '<div>' + duchod_za_roky_result +' let</div>';
+penze_result.innerHTML = '<div>' + duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+
+// === KLIENT 1
+// PRO RENTU
+let penze_rozdil =  Math.round((data[3][0])/ 500) * 500;
+let penze_renta_celkem =  Math.round((data[74][0])/ 10000) * 10000;
+let penze_zhodnoceni =  data[73][0] * 100;
+let penze_renta_platba =  Math.round((data[75][0])/ 100) * 100;
+// NA RENTU
+$('#penze_rozdil').html('<div style="color:#cc0000;">' + penze_rozdil.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#penze_renta').html('<div>' +  Math.abs(penze_rozdil).toLocaleString("cs-CZ") + ' Kč</div>');
+$('#penze_renta_celkem').html('<div>' + penze_renta_celkem.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#penze_zhodnoceni').html('<div>' + penze_zhodnoceni.toLocaleString("cs-CZ") + ' % ročně</div>');
+$('#penze_renta_platba').html('<div style="font-size: 1.5;">' + penze_renta_platba.toLocaleString("cs-CZ") + ' Kč</div>');
+
+
+
+// ### INVALIDNI
+// invalidita_1_result.innerHTML = '<div>' + inv_1_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+// invalidita_2_result.innerHTML = '<div>' + inv_2_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+// invalidita_3_result.innerHTML = '<div>' + inv_3_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+$('#invalidita_1_result').html('<div>' + inv_1_duchod_result.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#invalidita_2_result').html('<div>' + inv_2_duchod_result.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#invalidita_3_result').html('<div>' + inv_3_duchod_result.toLocaleString("cs-CZ") + ' Kč</div>');
+
+// ### POZUSTALOSTNI DUCHODY
+let duchod_vdovsky_result =  Math.round((data[47][0])/ 500) * 500;
+let duchod_sirotci_result =  Math.round((data[48][0])/ 500) * 500;
+
+// === PREHLED DUCHODU
+vdovsky_result.innerHTML = '<div>' + duchod_vdovsky_result.toLocaleString("cs-CZ") +' Kč</div>';
+sirotci_result.innerHTML = '<div>' + duchod_sirotci_result.toLocaleString("cs-CZ") +' Kč</div>';
+// === PREHLED SMRT
+vdovsky_result_1_2.innerHTML = '<div>' + duchod_vdovsky_result.toLocaleString("cs-CZ") +' Kč</div>';
+sirotci_result_1_2.innerHTML = '<div>' + duchod_sirotci_result.toLocaleString("cs-CZ") +' Kč</div>';
+// ============================================================================================
+
+
+// ---------------------------------------------------------------------------
+// ### CASTKY DO PREHLEDU
+// ---------------------------------------------------------------------------
+// ### KLIENT 2
+
+// ### STAROBNI DUCHOD
+let duchod_roky_result_2 =  data[1][1];
+let duchod_za_roky_result_2 =  data[46][1];
+let duchod_result_2 =  Math.round((data[2][1])/ 500) * 500;
+
+// Hodnota z tabulky
+let google_datum_2 = Number(data[0][1]);
+
+// Google Sheets počítá od 30. prosince 1899, přičteme tedy dny k tomuto datu
+let datum_google_zacatku_2 = new Date(1899, 11, 30); // 30. prosince 1899
+datum_google_zacatku_2.setDate(datum_google_zacatku_2.getDate() + google_datum_2);
+
+let vysledneDatum_2 = formatDate(datum_google_zacatku_2);
+
+penze_datum_2.innerHTML = '<div>' + vysledneDatum_2 +' </div>';
+penze_vek_2.innerHTML = '<div>' + duchod_roky_result_2 +'</div>';
+penze_za_jak_dlouho_2.innerHTML = '<div>' + duchod_za_roky_result_2 +' let</div>';
+penze_result_2.innerHTML = '<div>' + duchod_result_2.toLocaleString("cs-CZ") +' Kč</div>';
+
+// PRO RENTU
+let penze_rozdil_2 =  Math.round((data[3][1])/ 500) * 500;
+let penze_renta_celkem_2 =  Math.round((data[74][1])/ 10000) * 10000;
+let penze_zhodnoceni_2 =  data[73][1] * 100;
+let penze_renta_platba_2 =  Math.round((data[75][1])/ 100) * 100;
+// NA RENTU
+$('#penze_rozdil_2').html('<div style="color:#cc0000;">' + penze_rozdil_2.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#penze_renta_2').html('<div>' +  Math.abs(penze_rozdil_2).toLocaleString("cs-CZ") + ' Kč</div>');
+$('#penze_renta_celkem_2').html('<div>' + penze_renta_celkem_2.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#penze_zhodnoceni_2').html('<div>' + penze_zhodnoceni_2.toLocaleString("cs-CZ") + ' % ročně</div>');
+$('#penze_renta_platba_2').html('<div style="font-size: 1.5;">' + penze_renta_platba_2.toLocaleString("cs-CZ") + ' Kč</div>');
+
+// ### INVALIDNI
+// invalidita_1_result.innerHTML = '<div>' + inv_1_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+$('#invalidita_1_result_2').html('<div>' + inv_1_duchod_result_2.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#invalidita_2_result_2').html('<div>' + inv_2_duchod_result_2.toLocaleString("cs-CZ") + ' Kč</div>');
+$('#invalidita_3_result_2').html('<div>' + inv_3_duchod_result_2.toLocaleString("cs-CZ") + ' Kč</div>');
+
+// invalidita_2_result.innerHTML = '<div>' + inv_2_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+// invalidita_3_result.innerHTML = '<div>' + inv_3_duchod_result.toLocaleString("cs-CZ") +' Kč</div>';
+
+// ### POZUSTALOSTNI DUCHODY
+let duchod_vdovsky_result_2 =  Math.round((data[47][1])/ 500) * 500;
+let duchod_sirotci_result_2 =  Math.round((data[48][1])/ 500) * 500;
+
+// === PREHLED DUCHODU
+vdovsky_result_2.innerHTML = '<div>' + duchod_vdovsky_result_2.toLocaleString("cs-CZ") +' Kč</div>';
+sirotci_result_2.innerHTML = '<div>' + duchod_sirotci_result_2.toLocaleString("cs-CZ") +' Kč</div>';
+// === PREHLED SMRT
+// vdovsky_result_2_2.innerHTML = '<div>' + duchod_vdovsky_result.toLocaleString("cs-CZ") +' Kč</div>';
+// sirotci_result_2_2.innerHTML = '<div>' + duchod_sirotci_result.toLocaleString("cs-CZ") +' Kč</div>';
+// ============================================================================================
+
+
+
+    };
+google.script.run.withSuccessHandler(displayTable).getTableData();
+
+hideLoading();
+}
+// === END NAHRANI DAT A CASTEK ===
+// ========================================================================================================
+
+
+
+
+
+
+
+
+
+// $('#radioBtn a').on('click', function(){
+//     var sel = $(this).data('title');
+//     var tog = $(this).data('toggle');
+//     $('#'+tog).prop('value', sel);
+    
+//     $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+//     $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+// })
+
+
+
+
+// document.addEventListener('click', function (event) {
+//     // Check if the clicked element is within a btn-group and has the "btn" class
+//     if (event.target.classList.contains('btn') && event.target.closest('.btn-group')) {
+//         const btnGroup = event.target.closest('.btn-group'); // Identify the parent button group
+//         const buttons = btnGroup.querySelectorAll('.btn');   // Get all buttons within the group
+
+//         // Remove the active class from all buttons in the group
+//         buttons.forEach(btn => btn.classList.remove('active'));
+
+//         // Add the active class to the clicked button
+//         event.target.classList.add('active');
+//     }
+// });
+
+
+
+
+
+
+// ----------------------------------------------------------------------------------------
+// === BTN GROUP PREPINANI
+// ----------------------------------------------------------------------------------------
+// === DETI
+// ----------------------------------------------------------------------------------------
+// Defaultní hodnota
+  // window.pocetDeti = 0;
+  // window.pocetDeti = 0;
+
+
+  // Vyber box s tlačítky
+  // const buttonGroup = document.getElementById('pocetDetiBox');
+  // const buttons = buttonGroup.querySelectorAll('.btn');
+  // const hiddenInput = document.getElementById('pocet_deti');
+
+  // // Přidání event listeneru na každé tlačítko
+  // buttons.forEach(button => {
+  //   button.addEventListener('click', function() {
+  //     // Nastavit hodnotu ve window.pocetDeti
+  //     const value = this.getAttribute('data-value');
+  //     // window.pocetDeti = value === '5+' ? 5 : parseInt(value);
+  //      hiddenInput.value = value === '5+' ? 5 : parseInt(value);
+
+  //     // hiddenInput.value = window.pocetDeti;
+
+  //     // Odstranit třídu 'active' ze všech tlačítek
+  //     buttons.forEach(btn => btn.classList.remove('active'));
+
+  //     // Přidat třídu 'active' na kliknuté tlačítko
+  //     this.classList.add('active');
+
+  //     // Debug (kontrola hodnoty)
+  //     // alert('Počet dětí:'+ window.pocetDeti);
+  //   });
+  // });
+
+
+
+
+
+
+// function initialize() {
+//         loadTableData();
+//       }
+
+//       function loadTableData() {
+//         google.script.run.withSuccessHandler(displayTable).getTableData();
+//       }
+
+        // Zpracování prvního řádku jako hlavičky
+        // const headerRow = data[0];
+        // const header = document.createElement('tr');
+        // headerRow.forEach(cell => {
+        //   const th = document.createElement('th');
+        //   th.textContent = cell;
+        //   header.appendChild(th);
+        // });
+        // table.appendChild(header);
+            // td.textContent = cell;
+
+
+// ---------------------------------------------------------------------------------------------
+// === VYPLNENI TABULKY TNU
+// ---------------------------------------------------------------------------------------------
+  //     function displayTable(data) {
+  //       const table = document.getElementById('dataTable');
+  //       let zobrazeni_klienta_2 = document.getElementById('zobrazeni_klienta_2').value;
+
+  //        const rows = table.getElementsByTagName('tr');
+  // while (rows.length > 0) {
+  //   table.deleteRow(0);
+  // }
+        
+  //       data.forEach(row => {
+  //         const tr = document.createElement('tr');
+  //         row.forEach((cell, index) => {
+  //           const td = document.createElement('td');
+
+
+
+  //         if (index === 1) {
+  //             const strong = document.createElement('strong');
+  //             strong.textContent = (cell * 100).toFixed(0) + '%'; // Převod na procenta a zaokrouhlení na dvě desetinná místa
+  //             td.appendChild(strong);
+  //       } else if (index === 2 || index === 3) {
+  //       td.textContent = new Intl.NumberFormat('cs-CZ', {
+  //         style: 'currency',
+  //         currency: 'CZK',
+  //         minimumFractionDigits: 0,
+  //         maximumFractionDigits: 0
+  //       }).format(cell);
+
+  //       // Pokud jde o čtvrtý sloupec, přidáme třídu
+  //       if (index === 3 && zobrazeni_klienta_2 === 0) {
+  //         td.classList.add('d-none', 'client_label_2');
+  //       } else {
+  //         td.classList.add('d-inline-block','client_label_2');
+
+  //       }
+
+  //           } else {
+  //             td.textContent = cell;
+  //           }
+
+
+  //           tr.appendChild(td);
+  //         });
+  //         table.appendChild(tr);
+  //       });
+  //     }
+
+
+//   <div class="col-sm-12">
+//   <table class="table table-hover" id="dataTable"></table>
+// </div>
+
+
+  function displayTable(data) {
+    const table = document.getElementById('dataTable');
+    const zobrazeni_klienta_2 = document.getElementById('zobrazeni_klienta_2').value;
+
+    // Clear existing rows
+    while (table.firstChild) {
+      table.removeChild(table.firstChild);
+    }
+
+    // Add two new rows
+    const newRows = [
+      ["", "", "KLIENT 1", "KLIENT 2"],
+      [
+        "",
+        "",
+        new Intl.NumberFormat('cs-CZ', {
+          style: 'currency',
+          currency: 'CZK',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        }).format(data[0][2]) || "",
+        new Intl.NumberFormat('cs-CZ', {
+          style: 'currency',
+          currency: 'CZK',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        }).format(data[0][3]) || ""
+      ]
+    ];
+
+    newRows.forEach((rowData, rowIndex) => {
+      const tr = document.createElement('tr');
+      rowData.forEach((cell, colIndex) => {
+        const td = document.createElement('td');
+        td.textContent = cell;
+
+        // Apply bold and orange styling to specific cells
+        if (rowIndex === 1 && (colIndex === 2 || colIndex === 3)) {
+          td.classList.add('table-highlighted');
+        }
+
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+
+    // Populate the rest of the table starting from index [1][0]
+    data.slice(1).forEach(row => {
+      const tr = document.createElement('tr');
+      row.forEach((cell, index) => {
+        const td = document.createElement('td');
+
+        if (index === 1) {
+          const strong = document.createElement('strong');
+          strong.textContent = (cell * 100).toFixed(0) + '%'; // Convert to percentage
+          td.appendChild(strong);
+        } else if (index === 2 || index === 3) {
+          td.textContent = new Intl.NumberFormat('cs-CZ', {
+            style: 'currency',
+            currency: 'CZK',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+          }).format(cell);
+        } else {
+          td.textContent = cell;
+        }
+
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+
+    if (zobrazeni_klienta_2 === "0") {
+      const allRows = table.querySelectorAll('tr');
+      allRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells[3]) {
+          cells[3].classList.add('hidden-column');
+        }
+      });
+    }
+  }
+
+
+
+      // ----------------------------------------------------------------------------
+
+
+        
+        // Zpracování ostatních řádků jako těla tabulky
+        // data.slice(1).forEach(row => {
+        //   const tr = document.createElement('tr');
+        //   row.forEach((cell, index) => {
+        //     const td = document.createElement('td');
+            
+        //     // Formátujeme první sloupec jako procenta a tučně
+        //     if (index === 1) {
+        //       const strong = document.createElement('strong');
+        //       strong.textContent = (cell * 100).toFixed(0) + '%'; // Převod na procenta a zaokrouhlení na dvě desetinná místa
+        //       td.appendChild(strong);
+        //     } else {
+        //       td.textContent = cell;
+        //     }
+            
+        //     tr.appendChild(td);
+        //   });
+        //   table.appendChild(tr);
+        // });
+
+
+ 
+
+// -----------------------------------------------------------------------------
+// === AKTIVATORY
+// === PRIDANI STINU NA NAVBAR PO SJETI DOLU
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const navbar = document.querySelector('.navbar');
+    
+    if (navbar) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {  // Pokud uživatel sjede o více než 50px
+          navbar.classList.add('navbar-shadow');
+        } else {
+          navbar.classList.remove('navbar-shadow');
+        }
+      });
+    } else {
+      console.log('Navbar prvek nebyl nalezen.');
+    }
+    });
+// -----------------------------------------------------------------------------
+
+
+    
+
+
+
+// ---------------------------------------------------------------------------------------------------
+// === ZORAZOVACE
+// ------------------------------------------------------------------------------------------------------
+
+    // ---------------------------------------------------------------------------------------------------
+    // === Funkce, která ovládá zobrazení prvků
+
+
+// === ZOBRAZENI VYDAJU
+function zobrazeni_vydaju(){
+$('#vydaje_2_zobrazeni').toggle();
+}
+
+// ------------------------------------------------------------------------------
+// === OZNACENI KARET CHCI
+$('.custom-checkbox .custom-control-input').on('click', function() {
+  $(this).closest('.card').toggleClass('chosen');
+});
+// --------------------------------------------
+
+// ------------------------------------------------------------
+// === ZOBRAZENI PARTNERA
+// ------------------------------------------------------------
+function zobrazeni_partnera(){
+    const table = document.getElementById('dataTable');
+    const allRows = table.querySelectorAll('tr');
+
+  // === KONTROLA ZOBRAZENI KLIENT 2 
+  let currentValue = $('#zobrazeni_klienta_2').val();
+  $('#zobrazeni_klienta_2').val(currentValue === "0" ? "1" : "0");
+  
+  // Přepnutí tříd pro všechny prvky s třídou 'client_label'
+  $('.client_label').each(function() {
+    $(this).toggleClass("d-none").toggleClass("d-flex");
+  });
+  // $('.client_label_2').each(function() {
+  //   $(this).toggleClass("d-none").toggleClass("d-inlíne-block");
+  // });
+    $('#btn_partner').toggle();
+
+
+      allRows.forEach(row => {
+        const cells = row.querySelectorAll('td, th');
+        if (cells[3]) {
+          cells[3].classList.toggle('hidden-column');
+        }
+      });
+
+
+}
+// -----------------------------------------------------------------
+// === PREPINANI ZOBRAZENI POJ RIZIK
+// ------------------------------------------------------------------
+// === ZOBRAZENI ZO
+function prepnuti_ZO(){
+
+    $('#card_ZO').toggleClass("d-none");
+    $('#btn_ZO').toggle();
+
+    let switchElement = $("#zobrazeni_ZO");
+    switchElement.prop("checked", !switchElement.prop("checked"));
+
+}
+function prepnuti_ZO_2(){
+
+    $('#card_ZO').toggleClass("d-none");
+    $('#btn_ZO').toggle();
+
+}
+// === ZOBRAZENI ZNP
+function prepnuti_ZNP(){
+
+    $('#card_ZNP').toggleClass("d-none");
+    $('#btn_ZNP').toggle();
+
+    let switchElement = $("#zobrazeni_ZNP");
+    switchElement.prop("checked", !switchElement.prop("checked"));
+
+}
+
+function prepnuti_ZNP_2(){
+
+    $('#card_ZNP').toggleClass("d-none");
+    $('#btn_ZNP').toggle();
+
+}
+
+function prepnuti_CO(){
+
+    $('#card_CO').toggleClass("d-none");
+    $('#btn_CO').toggle();
+
+    let switchElement = $("#zobrazeni_CO");
+    switchElement.prop("checked", !switchElement.prop("checked"));
+
+}
+
+function prepnuti_CO_2(){
+
+    $('#card_CO').toggleClass("d-none");
+    $('#btn_CO').toggle();
+
+}
+
+// === ZOBRAZENI ZNP
+function prepnuti_DO(){
+
+    $('#card_DO').toggleClass("d-none");
+    $('#btn_DO').toggle();
+
+    let switchElement = $("#zobrazeni_DO");
+    switchElement.prop("checked", !switchElement.prop("checked"));
+
+}
+function prepnuti_DO_2(){
+
+    $('#card_DO').toggleClass("d-none");
+    $('#btn_DO').toggle();
+
+}
+
+function prepnuti_smrt(){
+
+    $('#smrt_zobrazeni').toggleClass("d-flex d-none");
+
+}
+function prepnuti_invalidita(){
+
+    $('#invalidita_zobrazeni').toggleClass("d-flex d-none");
+
+}
+function prepnuti_pn(){
+
+    $('#pn_zobrazeni').toggleClass("d-flex d-none");
+
+}
+function prepnuti_tnu(){
+
+    $('#tnu_zobrazeni').toggleClass("d-flex d-none");
+
+}
+
+
+
+// ---------------------------------------------------------------------------
+// === PREPINANI BTN GROUP A VYPLNENI HIDDEN INPUTU
+// ---------------------------------------------------------------------------
+document.addEventListener('click', function (event) {
+  // 1) Ověříme, jestli jsme klikli na .btn uvnitř .btn-group
+const pn_zobrazeni_castek   = document.getElementById("pn_zobrazeni_castek");
+  const pn_zobrazeni_castek_2 = document.getElementById("pn_zobrazeni_castek_2");
+  if (
+    event.target.classList.contains('btn') &&
+    event.target.closest('.btn-group')
+  ) {
+    const btnGroup  = event.target.closest('.btn-group');
+    const buttons   = btnGroup.querySelectorAll('.btn');
+    const formGroup = btnGroup.closest('.form-group');
+    const input     = formGroup.querySelector('input'); // jen v daném formGroup
+
+    // 2) Odebereme "active" a přidáme ho kliku
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // 3) Nastavíme value z data-value
+    if (input) {
+      input.value = event.target.getAttribute('data-value');
+    }
+
+    // 4) Je to "Jiné"? (tedy ID tlačítka obsahuje "jine")
+    if (event.target.id.includes('jine')) {
+      input.setAttribute('type', 'number');
+      input.focus();
+    } else {
+      input.setAttribute('type', 'hidden');
+      // input.value = ''; // volitelně vymažete obsah
+    }
+
+
+  // ====================
+  // === KLIENT 1
+  // ====================
+  if (pn_zobrazeni_castek.value == "30") {
+    // Zobrazit 30, skrýt 60
+    $('#pn_klient_1_30')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_1_60')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  } else if (pn_zobrazeni_castek.value == "60") {
+    // Zobrazit 60, skrýt 30
+    $('#pn_klient_1_60')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_1_30')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  }
+
+  // ====================
+  // === KLIENT 2
+  // ====================
+  if (pn_zobrazeni_castek_2.value == "30") {
+    // Zobrazit 30, skrýt 60
+    $('#pn_klient_2_30')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_2_60')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  } else if (pn_zobrazeni_castek_2.value == "60") {
+    // Zobrazit 60, skrýt 30
+    $('#pn_klient_2_60')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_2_30')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  }
+
+
+  }
+});
+// =========================================================
+
+//----------------------------------------------------
+// === PREPINAC ZOBRAZENI PN 60/30 DEN
+function prepinac_pn_od_dne() {
+  // 1) Získat oba inputy
+  const pn_zobrazeni_castek   = document.getElementById("pn_zobrazeni_castek");
+  const pn_zobrazeni_castek_2 = document.getElementById("pn_zobrazeni_castek_2");
+
+  // ====================
+  // === KLIENT 1
+  // ====================
+  if (pn_zobrazeni_castek.value == "30") {
+    // Zobrazit 30, skrýt 60
+    $('#pn_klient_1_30')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_1_60')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  } else if (pn_zobrazeni_castek.value == "60") {
+    // Zobrazit 60, skrýt 30
+    $('#pn_klient_1_60')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_1_30')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  }
+
+  // ====================
+  // === KLIENT 2
+  // ====================
+  if (pn_zobrazeni_castek_2.value == "30") {
+    // Zobrazit 30, skrýt 60
+    $('#pn_klient_2_30')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_2_60')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  } else if (pn_zobrazeni_castek_2.value == "60") {
+    // Zobrazit 60, skrýt 30
+    $('#pn_klient_2_60')
+      .removeClass("d-none")
+      .addClass("d-flex-inline");
+    $('#pn_klient_2_30')
+      .removeClass("d-flex-inline")
+      .addClass("d-none");
+  }
+}
+
+    // $('#btn_partner').toggle();
+
+    // ---------------------------------------------------------------------------------------------------
+    // === Připojení na všechny radio buttony
+        const radios = document.querySelectorAll('input[name="invalidita_zobrazeni_castek"]');
+    // ---------------------------------------------------------------------------------------------------
+    function handleVisibility() {
+        const value = document.querySelector('input[name="invalidita_zobrazeni_castek"]:checked').value;
+
+        // === KLIENT 1
+        const inv_header_zobrazeni_1 = document.getElementById('inv_header_zobrazeni_1');
+        const inv_investice_header_zobrazeni_1 = document.getElementById('inv_investice_header_zobrazeni_1');
+        const inv_investice_header_zobrazeni_2 = document.getElementById('inv_investice_header_zobrazeni_2');
+
+        const inv_1_castka_zobrazeni_1 = document.getElementById('inv_1_castka_zobrazeni_1');
+        const inv_2_castka_zobrazeni_1 = document.getElementById('inv_2_castka_zobrazeni_1');
+        const inv_3_castka_zobrazeni_1 = document.getElementById('inv_3_castka_zobrazeni_1');
+
+        const inv_1_inv_castka_zobrazeni_1 = document.getElementById('inv_1_inv_castka_zobrazeni_1');
+        const inv_2_inv_castka_zobrazeni_1 = document.getElementById('inv_2_inv_castka_zobrazeni_1');
+        const inv_3_inv_castka_zobrazeni_1 = document.getElementById('inv_3_inv_castka_zobrazeni_1');
+        // ---------------------------------------------------------
+
+        // === KLIENT 2
+        const inv_header_zobrazeni_2 = document.getElementById('inv_header_zobrazeni_2');
+        const inv_investice_header_zobrazeni_3 = document.getElementById('inv_investice_header_zobrazeni_3');
+        const inv_investice_header_zobrazeni_4 = document.getElementById('inv_investice_header_zobrazeni_4');
+
+        const inv_1_castka_zobrazeni_2 = document.getElementById('inv_1_castka_zobrazeni_2');
+        const inv_2_castka_zobrazeni_2 = document.getElementById('inv_2_castka_zobrazeni_2');
+        const inv_3_castka_zobrazeni_2 = document.getElementById('inv_3_castka_zobrazeni_2');
+
+        const inv_1_inv_castka_zobrazeni_2 = document.getElementById('inv_1_inv_castka_zobrazeni_2');
+        const inv_2_inv_castka_zobrazeni_2 = document.getElementById('inv_2_inv_castka_zobrazeni_2');
+        const inv_3_inv_castka_zobrazeni_2 = document.getElementById('inv_3_inv_castka_zobrazeni_2');
+        // ---------------------------------------------------------
+
+        // === Přepínání viditelnosti podle zvolené hodnoty
+        if (value === '1') {
+
+            // KLIENT 1
+            inv_header_zobrazeni_1.style.display = 'block';
+            inv_investice_header_zobrazeni_1.style.display = 'none';
+            inv_investice_header_zobrazeni_2.style.display = 'none';
+
+            inv_1_castka_zobrazeni_1.style.display = 'block';
+            inv_2_castka_zobrazeni_1.style.display = 'block';
+            inv_3_castka_zobrazeni_1.style.display = 'block';
+
+            inv_1_inv_castka_zobrazeni_1.style.display = 'none';
+            inv_2_inv_castka_zobrazeni_1.style.display = 'none';
+            inv_3_inv_castka_zobrazeni_1.style.display = 'none';
+            
+            // KLIENT 2
+            inv_header_zobrazeni_2.style.display = 'block';
+            inv_investice_header_zobrazeni_3.style.display = 'none';
+            inv_investice_header_zobrazeni_4.style.display = 'none';
+
+            inv_1_castka_zobrazeni_2.style.display = 'block';
+            inv_2_castka_zobrazeni_2.style.display = 'block';
+            inv_3_castka_zobrazeni_2.style.display = 'block';
+
+            inv_1_inv_castka_zobrazeni_2.style.display = 'none';
+            inv_2_inv_castka_zobrazeni_2.style.display = 'none';
+            inv_3_inv_castka_zobrazeni_2.style.display = 'none';
+
+        } else if (value === '2') {
+
+            inv_header_zobrazeni_1.style.display = 'none';
+            inv_investice_header_zobrazeni_1.style.display = 'block';
+            inv_investice_header_zobrazeni_2.style.display = 'block';
+
+            inv_1_castka_zobrazeni_1.style.display = 'none';
+            inv_2_castka_zobrazeni_1.style.display = 'none';
+            inv_3_castka_zobrazeni_1.style.display = 'none';
+
+            inv_1_inv_castka_zobrazeni_1.style.display = 'block';
+            inv_2_inv_castka_zobrazeni_1.style.display = 'block';
+            inv_3_inv_castka_zobrazeni_1.style.display = 'block';
+
+            // KLIENT 2
+            inv_header_zobrazeni_2.style.display = 'none';
+            inv_investice_header_zobrazeni_3.style.display = 'block';
+            inv_investice_header_zobrazeni_4.style.display = 'block';
+
+            inv_1_castka_zobrazeni_2.style.display = 'none';
+            inv_2_castka_zobrazeni_2.style.display = 'none';
+            inv_3_castka_zobrazeni_2.style.display = 'none';
+
+            inv_1_inv_castka_zobrazeni_2.style.display = 'block';
+            inv_2_inv_castka_zobrazeni_2.style.display = 'block';
+            inv_3_inv_castka_zobrazeni_2.style.display = 'block';
+
+        } else if (value === '3') {
+
+            inv_header_zobrazeni_1.style.display = 'block';
+            inv_investice_header_zobrazeni_1.style.display = 'block';
+            inv_investice_header_zobrazeni_2.style.display = 'block';
+
+            inv_1_castka_zobrazeni_1.style.display = 'block';
+            inv_2_castka_zobrazeni_1.style.display = 'block';
+            inv_3_castka_zobrazeni_1.style.display = 'block';
+
+            inv_1_inv_castka_zobrazeni_1.style.display = 'block';
+            inv_2_inv_castka_zobrazeni_1.style.display = 'block';
+            inv_3_inv_castka_zobrazeni_1.style.display = 'block';
+
+            // KLIENT 2
+            inv_header_zobrazeni_2.style.display = 'block';
+            inv_investice_header_zobrazeni_3.style.display = 'block';
+            inv_investice_header_zobrazeni_4.style.display = 'block';
+
+            inv_1_castka_zobrazeni_2.style.display = 'block';
+            inv_2_castka_zobrazeni_2.style.display = 'block';
+            inv_3_castka_zobrazeni_2.style.display = 'block';
+
+            inv_1_inv_castka_zobrazeni_2.style.display = 'block';
+            inv_2_inv_castka_zobrazeni_2.style.display = 'block';
+            inv_3_inv_castka_zobrazeni_2.style.display = 'block';
+
+        }
+    }
+
+    // Připojení událostí změny ke všem radio buttonům
+    radios.forEach(function (radio) {
+        radio.addEventListener('change', handleVisibility);
+    });
+// =========================================================================
+
+
+
+
+// === ZOBRAZENI TYPU CASTEK U SMRTI =========================================
+// === Připojení na všechny radio buttony
+        const radios_2 = document.querySelectorAll('input[name="smrt_zobrazeni_castek"]');
+    // ---------------------------------------------------------------------------------------------------
+    function handleVisibility_2() {
+        const value = document.querySelector('input[name="smrt_zobrazeni_castek"]:checked').value;
+
+        // === KLIENT 1
+        const smrt_header_zobrazeni_1 = document.getElementById('smrt_header_zobrazeni_1');
+        const smrt_investice_header_zobrazeni_1 = document.getElementById('smrt_investice_header_zobrazeni_1');
+        const smrt_investice_header_zobrazeni_2 = document.getElementById('smrt_investice_header_zobrazeni_2');
+
+        const smrt_castka_zobrazeni_1 = document.getElementById('smrt_castka_zobrazeni_1');
+
+        const smrt_inv_castka_zobrazeni_1 = document.getElementById('smrt_inv_castka_zobrazeni_1');
+        // ---------------------------------------------------------
+
+        // === KLIENT 2
+        const smrt_header_zobrazeni_2 = document.getElementById('smrt_header_zobrazeni_2');
+        const smrt_investice_header_zobrazeni_3 = document.getElementById('smrt_investice_header_zobrazeni_3');
+        const smrt_investice_header_zobrazeni_4 = document.getElementById('smrt_investice_header_zobrazeni_4');
+
+        const smrt_castka_zobrazeni_2 = document.getElementById('smrt_castka_zobrazeni_2');
+
+        const smrt_inv_castka_zobrazeni_2 = document.getElementById('smrt_inv_castka_zobrazeni_2');
+        // ---------------------------------------------------------
+
+        // === Přepínání viditelnosti podle zvolené hodnoty
+        if (value === '1') {
+
+            // KLIENT 1
+            smrt_header_zobrazeni_1.style.display = 'block';
+            smrt_investice_header_zobrazeni_1.style.display = 'none';
+            smrt_investice_header_zobrazeni_2.style.display = 'none';
+
+            smrt_castka_zobrazeni_1.style.display = 'block';
+
+            smrt_inv_castka_zobrazeni_1.style.display = 'none';
+            
+            // KLIENT 2
+            smrt_header_zobrazeni_2.style.display = 'block';
+            smrt_investice_header_zobrazeni_3.style.display = 'none';
+            smrt_investice_header_zobrazeni_4.style.display = 'none';
+
+            smrt_castka_zobrazeni_2.style.display = 'block';
+
+            smrt_inv_castka_zobrazeni_2.style.display = 'none';
+
+        } else if (value === '2') {
+
+            smrt_header_zobrazeni_1.style.display = 'none';
+            smrt_investice_header_zobrazeni_1.style.display = 'block';
+            smrt_investice_header_zobrazeni_2.style.display = 'block';
+
+            smrt_castka_zobrazeni_1.style.display = 'none';
+
+            smrt_inv_castka_zobrazeni_1.style.display = 'block';
+
+            // KLIENT 2
+            smrt_header_zobrazeni_2.style.display = 'none';
+            smrt_investice_header_zobrazeni_3.style.display = 'block';
+            smrt_investice_header_zobrazeni_4.style.display = 'block';
+
+            smrt_castka_zobrazeni_2.style.display = 'none';
+
+            smrt_inv_castka_zobrazeni_2.style.display = 'block';
+
+        } else if (value === '3') {
+
+            smrt_header_zobrazeni_1.style.display = 'block';
+            smrt_investice_header_zobrazeni_1.style.display = 'block';
+            smrt_investice_header_zobrazeni_2.style.display = 'block';
+
+            smrt_castka_zobrazeni_1.style.display = 'block';
+
+            smrt_inv_castka_zobrazeni_1.style.display = 'block';
+
+            // KLIENT 2
+            smrt_header_zobrazeni_2.style.display = 'block';
+            smrt_investice_header_zobrazeni_3.style.display = 'block';
+            smrt_investice_header_zobrazeni_4.style.display = 'block';
+
+            smrt_castka_zobrazeni_2.style.display = 'block';
+
+            smrt_inv_castka_zobrazeni_2.style.display = 'block';
+
+        }
+    }
+
+    // Připojení událostí změny ke všem radio buttonům
+    radios_2.forEach(function (radio_2) {
+        radio_2.addEventListener('change', handleVisibility_2);
+    });
+
+
+
+
+
+    // Spustit kontrolu při načtení stránky (pro přednastavenou možnost)
+  //   handleVisibility();
+
+  // });
+  // ================================================================================================
+
+// ------------------------------------------------------------------------------------------------------
+// === ZOBRAZENI PODROBNOSTI KLIENTA
+// ------------------------------------------------------------------------------------------------------
+  document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.arrow-toggle').forEach(button => {
+    const collapseTarget = document.querySelector(button.getAttribute('data-target'));
+
+    // Inicializace šipky podle výchozího stavu
+    if (collapseTarget.classList.contains('show')) {
+      button.setAttribute('aria-expanded', 'true');
+      button.querySelector('i').style.transform = 'rotate(180deg)';
+    } else {
+      button.setAttribute('aria-expanded', 'false');
+      button.querySelector('i').style.transform = 'rotate(0deg)';
+    }
+
+    // Přepnutí při kliknutí
+    button.addEventListener('click', () => {
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', !isExpanded);
+
+      if (!isExpanded) {
+        button.querySelector('i').style.transform = 'rotate(180deg)';
+      } else {
+        button.querySelector('i').style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+});
+// -----------------------------------------------------------------------------
+
+
+
+
+// document.addEventListener('click', function (event) {
+//     // Check if the clicked element is a button within the btn-group
+//     if (event.target.classList.contains('btn') && event.target.closest('.btn-group')) {
+//         const btnGroup = event.target.closest('.btn-group'); // Identify the parent button group
+//         const buttons = btnGroup.querySelectorAll('.btn');   // Get all buttons in the group
+//         const formGroup = btnGroup.closest('.form-group');   // Find the closest form-group
+//         const input = formGroup.querySelector('input');      // Get the input within the same form-group
+
+//         // Remove the active class from all buttons in the group
+//         buttons.forEach(btn => btn.classList.remove('active'));
+
+//         // Add the active class to the clicked button
+//         event.target.classList.add('active');
+
+//         // Update the input value with the clicked button's data-value
+//         if (input) {
+//             input.value = event.target.getAttribute('data-value');
+//         }
+
+//         // Zobrazit/skrýt textový input pro volbu "Jiné"
+//     if (event.target.id === 'smrt_nasobek_jine') {
+//       // Zobrazit textový input
+//       input.setAttribute('type', 'text');
+//       // Přesunout focus na textový input
+//       input.focus();
+//     } else {
+//       // Schovat textový input, pokud je právě viditelný
+//       // input.value = '';
+//       input.setAttribute('type', 'hidden');
+//     }
+
+//      if (event.target.id === 'smrt_nasobek_jine_2') {
+//       // Zobrazit textový input
+//       input.setAttribute('type', 'text');
+//       // Přesunout focus na textový input
+//       input.focus();
+//     } else {
+//       // Schovat textový input, pokud je právě viditelný
+//       // input.value = '';
+//       input.setAttribute('type', 'hidden');
+//     }
+
+
+//     }
+
+// });
+
+
+// ===================================================================================
+
+// ------------------------------------------------------------
+// === FORMATOVANI CISLA NA TISICOVKY 
+// -----------------------------------------------------------
+  function formatovani_na_tisicovky(input) {
+  let value = input.value.replace(/\s/g, '');
+value = Number(value).toLocaleString('cs-CZ');
+  $(input).val(value);
+}
+// -----------------------------------------------------------------------------------
+// FORMATOVANI DATUMU NA dd.mm.yyyy
+function formatDate(datum) {
+  let den = datum.getDate();
+  let mesic = datum.getMonth() + 1; // Měsíce v JS začínají od 0, proto přičítáme 1
+  let rok = datum.getFullYear();
+
+  // Přidáme nulu před den a měsíc, pokud je třeba
+  den = den < 10 ? '0' + den : den;
+  mesic = mesic < 10 ? '0' + mesic : mesic;
+
+  return den + '.' + mesic + '.' + rok;
+}
+// =====================================================================================
+
+// --------------------------------------------------------------------
+// === ZOBRAZENI DETAILU PROC / JAK JSME DOSLY NA TYTO CASTKY
+ function zobrazit_detail_proc(elementId) {
+
+    const element = document.getElementById(elementId);
+    if (element.style.display === "none") {
+      element.style.display = "block";
+    } else {
+      element.style.display = "none";
+    }
+    
+  }
+  // ================================================================
+
+
+
+// ------------------------------------------------------------------------------------
+// === TISK DO PDF
+// ------------------------------------------------------------------------------------
+function generatePagedPDF() {
+
+  showLoading();
+
+      const elementsToHide = document.querySelectorAll('.no-print');
+      const elementsToPrint = document.querySelectorAll('.print');
+
+      // Získání aktuálního data
+const today = new Date();
+const day = String(today.getDate()).padStart(2, '0'); // Den ve formátu 2 číslic
+const month = String(today.getMonth() + 1).padStart(2, '0'); // Měsíc (0-indexovaný, proto +1)
+const year = today.getFullYear();
+
+// Sestavení data ve formátu dd.mm.yyyy
+const formattedDate = `${day}.${month}.${year}`;
+
+      elementsToHide.forEach(element => {
+        element.style.display = 'none';
+      });
+
+       // Změň barvu pozadí u prvků s třídou .print na požadovanou barvu
+      elementsToPrint.forEach(element => {
+        element.dataset.originalBackground = element.style.backgroundColor; // Ulož původní barvu
+        element.style.backgroundColor = '#eff2f8'; // Nastav novou barvu pro tisk
+      });
+
+      const element = document.getElementById('content_to_print');
+      const options = {
+        margin: [0, 0, 0, 0],  // Menší okraje pro úsporu místa
+        filename: 'Kalkulace pojištění '+formattedDate+'.pdf',
+        html2canvas: { scale: 3, useCORS: true, scrollY: 0, scrollX: 0 },  // Vyšší rozlišení pro kvalitní tisk
+        // jsPDF: { unit: 'pt', format: [842 * 1.5, 595], orientation: 'landscape' }  // Širší formát na šířku
+         jsPDF: { unit: 'pt', format: [595 *1.5, 842 * 1.5], orientation: 'portrait' } 
+      };
+
+      elementsToPrint.forEach(element => {
+          element.style.backgroundColor = element.dataset.originalBackground || ''; // Obnov původní barvu pozadí
+        });
+
+      html2pdf().from(element).set(options).save().then(() => {
+        elementsToHide.forEach(element => {
+          element.style.display = '';
+        });
+      });
+
+      hideLoading();
+    }
+    // ========================================================================================
+
+
+//----------------------------------------------------------------------------------------------
+// === SPOUSTECE / POSLUCHACI
+//----------------------------------------------------------------------------------------------
+// document.getElementById("cons_name").addEventListener("change",getName);
+ // Detekce kliknutí na modal-content
+  // document.getElementById('modalContent').addEventListener('click', function(event) {
+  //   // Pokud není kliknuto na kartu (nebo žádný z jejích potomků)
+  //   if (!event.target.closest('.card')) {
+  //     // Zavíráme modal
+  //     $('#zivot_details').modal('hide');
+  //   }
+  // });
+
+//  window.addEventListener('scroll', function() {
+//     var navbar = document.querySelector('.navbar');
+//     if (window.scrollY > 50) {  // Pokud uživatel sjede o více než 50px
+//       navbar.classList.add('navbar-shadow');
+//     } else {
+//       navbar.classList.remove('navbar-shadow');
+//     }
+//   });
+
+  // ------------------------------------------------------------------------------------------
+  // === ZOBRAZENI SPINNER / OVERLAY
+  function showLoading() {
+        document.getElementById('loadingOverlay').style.display = 'flex';
+      }
+
+      function hideLoading() {
+        document.getElementById('loadingOverlay').style.display = 'none';
+      }
+
+// === END ZOBRAZOVACE
+// ===================================================================================================
+// -----------------------------------------------------------------
+
+  window.addEventListener('load', preventFormSubmit);  
+  // document.addEventListener("DOMContentLoaded", initialize);
+  document.getElementById("client_prijem").addEventListener("blur",prepocty_vydaje_prijmy);
+  document.getElementById("client_prijem_2").addEventListener("blur",prepocty_vydaje_prijmy);
+  document.getElementById("client_vydaje").addEventListener("blur",prepocty_vydaje_prijmy);
+  document.getElementById("client_vydaje_2").addEventListener("blur",prepocty_vydaje_prijmy);
+
+// === END POSLLUCHACI ==========================================================
+    
+</script>

@@ -2,25 +2,94 @@
 
 ### Přístup k vývoji
 
-- **První verze**: Vytvoř kompletní ukázku v artefaktu pro rychlé testování
+- **~~První verze**: Vytvoř kompletní ukázku v artefaktu pro rychlé testování~~ - Hotovo✅
 - **Následný vývoj**: Rozděl kód do samostatných částí pro snadnou správu větších aplikací
 - **GitHub integrace**: Počítej s tím, že kód bude verzován na GitHubu pro lepší přehled změn
 
 ### Struktura kódu
 
-**Základní rozdělení:**
+stranyk s css, javascriptem mají koncovku html pro Google apps script (jiné koncovky tam nejsou možné) 
+Propojení do index.html pomocí **include**
 
-- `Code.gs` - hlavní Google Apps Script logika
-- `index.html` - základní HTML struktura
-- `styles.css` - všechny styly (micro-framework)
-- `script.js` - frontend JavaScript
+### **Základní rozdělení:**
 
-**Pro větší aplikace dodatečně:**
+- **`Code.gs`** hlavní Google Apps Script logika - Hlavní serverový soubor (doGet, include funkce)
+- **`ZpracovaniFormulare.gs`**
+- **`appsscript.json`** # Manifest aplikace
 
-- `components/` - jednotlivé UI komponenty
-- `modules/` - specifické funkcionality (kalkulačky, pluginy)
-- `utils/` - pomocné funkce
-- `config.js` - konfigurace a konstanty
+- **`Index_HTML.html`** - základní HTML struktura
+- **`Styles_CSS.html`** - všechny styly (micro-framework)
+- **`Script_JS.html`** - frontend JavaScript - pro všeobecné a společné skripty
+
+**Utility javascripty:**
+
+Společné javascripty
+
+- **`Modals_JS.html`**
+- **`Kalkulacky_JS.html`**
+
+**Stránky/sekce aplikace** *(rozdelené dle tlačítek na navbaru)***:**
+
+### *Rozhovor*
+
+- Optimalizace - zrušíme - bude pouze jako odkaz na externí aplikaci
+    - **`Optimalizace_HTML.html`**
+    - 
+- Bilance
+    - **`Bilance_HTML.html`**
+    - **`Bilance_JS.html`**
+- Zdravotní dotazník -  bude samostatně - pouze funkce vytvoření draftu emailu v gmailu pro odeslání odkazu klientovi na vyplnění
+    - **`Zdravotni_dotaznik_HTML.html`**
+    - **`Zdravotni_dotaznik_JS.html`**
+
+### *Nabídkovače*
+
+- Život a zdraví
+    - **`Zivot_zdravi_HTML.html`**
+    - **`Zivot_zdravi_JS.html`**
+- **Investiční porovnávač**
+    - **`Investicni_porovnavac_HTML.html`**
+    - **`Investicni_porovnavac_JS.html`**
+- **DIPuj** - pouze odkaz na externí aplikaci
+
+### *Kalkulačky*
+
+- **Inflace vs. Zhodnocení**
+    - **`Inflace_HTML.html`**
+    - **`Inflace_JS.html`**
+- **Investiční kalkulátory**
+    - **`Investicni_kalkulatory_HTML.html`**
+    - **`Investicni_kalkulatory_JS.html`**
+- **Mzdové kalkulačky**
+    - Zatím chybí
+- **Porovnání produktů**
+    - Zatím chybí
+- **Stavebko vs. Investice**
+    - Zatím chybí
+
+### *Pomůcky*
+
+- **Přehledovka**
+    - stránka sloužící pro vytvoření přehledu rozdělení portfolia. Zadání až deseti různých investičních produktů (smluv)
+        - v rámci produktů výběr až 10 investičních nástrojů/fondů
+        - zadání
+            - počátku smlouvy
+            - čísla smlouvy
+            - investovaná částka
+            - aktuální hodnota na smlouvě
+            - 
+    - **`Prehledovka_HTML.html`**
+    - **`Prehledovka_JS.html`**
+
+- **Platby**
+    - Pomůcka pro zadání plateb na produkty a vytvoření pdf s qr kódy
+    - Propojení do google tabulky s databází nastavení plateb
+        - Výběr produktů z tabulky
+        - zadání platby
+        - zadání variabilních, konstantních a specifických symbolů
+        - datum platby
+        - Výběr plateb dle četnosti
+    - **`Platby_HTML.html`**
 
 ### Design a CSS Framework
 
@@ -41,8 +110,9 @@
 
 **Ikony:**
 
-- **Výhradně Tabler Icons**: `https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons.min.css`
-- 4,500+ ikon zdarma, konzistentní design
+- **Výhradně Tabler Icons**:
+- `https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css`
+- konzistentní design
 - Použití: `<i class="ti ti-plus"></i>`
 - Velikosti: `icon-sm`, `icon`, `icon-lg`, `icon-xl`
 
@@ -77,20 +147,6 @@
 
 Komplexní webová aplikace s přepínáním stránek. Bude sloužit k různým výpočtům a nabídkám pro klienty.
 
-### Hlavní části
-
-- Finanční kalkulátory pro různé výpočty
-    - Výpočet budoucí hodnoty
-    - Výpočet
-- Investiční porovnávač
-- Kalkulátor pojistných částek pro životní pojištění
-- Bilance klienta
-- Cross-sell - cíle a stav portfolia klienta
-- Kalkulátor pro výpočet a porovnání **Dlouhodobého investičního produktu** a **Doplňkového penzijního spoření**
-- Porovnání spořících produktů
-- Porovnání stavebního spoření a investice
-- Platby - Pomůcka pro vytvoření přehledu plateb klientovi včetně QR
-
 ### Funcionalita
 
 - Pro GAS
@@ -101,25 +157,18 @@ Komplexní webová aplikace s přepínáním stránek. Bude sloužit k různým 
     - databáze
     - zdroj nabídky k tisku do pdf
 
-První verze rozdělení:
-.
-├── Kód.gs             # Hlavní serverový soubor (doGet, include funkce)
-├── appsscript.json    # Manifest aplikace
-├── README.md
-├── html/
-│   ├── Index.html     # Hlavní kostra stránky (shell)
-│   └── stranky/
-│       ├── bilance.html
-│       ├── optimalizace.html
-│       ├── zdravotni.html
-│       └── ... (a další jednotlivé stránky)
-│
-├── css/
-│   └── styl.css       # Všechny globální styly a utility třídy
-│
-└── js/
-    ├── script.js      # Hlavní klientský skript (navigace, motiv vzhledu)
-    └── moduly/
-        └── kalkulacky.js # Příklad modulu pro budoucí kalkulačky
-
 **Instrukce budou doplňovány průběžně, jak bude vytvářen projekt**
+
+### Instrukce pro naprogramování
+
+1. Přidat tlačítko domů
+    - Vrátí uživatele na úvodní stránku
+2. Do navbaru odkaz na DIPuj - https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec
+3. Do navbaru odkaz na Optimalizaci - https://script.google.com/macros/s/AKfycbz8fNqv4WtwPlYx375Ql3DkU0jEkuCyiI80_2BEIFdEmnG01IAPzvcisUa07mOY-mSDag/exec
+4. Zdravotní dotazník - Upravit stránku
+    - smazat formulář
+    - přidat možnost vytvoření draftu do gmailu pro odeslání odkazu na zdravotní dotazník pro odeslání klientovi - (budeme umět odeslat rovnou?)
+5. Přidat nabídkovač Život & zdraví
+    - modelace životního pojištění - viz jiný projekt - jak napojíme do chatu pro zdroj kodu?
+6. Přidat Investiční porovnávač
+    - Viz kód jiný projekt - jak napojíme do chatu pro zdroj kodu?

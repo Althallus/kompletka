@@ -1,89 +1,83 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Tato funkce se spustí, až když je načten celý obsah stránky.
-    // Tím předejdeme chybám, kdyby se skript snažil pracovat s prvky, které ještě neexistují.
-    
-    function initializeForm() {
-        // Logika pro radio butony, které zobrazují/skrývají hlavní sekce
-        const radioToggles = document.querySelectorAll('input[type="radio"][data-target]');
-        radioToggles.forEach(radio => {
-            radio.addEventListener('change', function() {
-                const targetElement = document.getElementById(this.dataset.target);
-                if (!targetElement) return;
+    const form = document.getElementById('draft-creator-form');
+    if (!form) return;
 
-                // Zobrazíme, jen pokud je hodnota "Ano"
-                targetElement.style.display = (this.value === 'Ano' && this.checked) ? 'block' : 'none';
-            });
-        });
+    const clientNameInput = document.getElementById('clientName');
+    const clientEmailInput = document.getElementById('clientEmail');
+    const submitButton = document.getElementById('create-draft-btn');
+    const statusDiv = document.getElementById('draft-status');
+    const autocompleteResults = document.getElementById('autocomplete-results');
 
-        // Logika pro checkboxy, které zobrazují/skrývají pod-sekce (otázka 7)
-        const checkboxToggles = document.querySelectorAll('input[type="checkbox"][data-sub-target]');
-        checkboxToggles.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const subTargetElement = document.getElementById(this.dataset.subTarget);
-                if (subTargetElement) {
-                    subTargetElement.style.display = this.checked ? 'block' : 'none';
-                }
-            });
-        });
-
-        // Logika pro odeslání formuláře
-        const form = document.getElementById('health-questionnaire-form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const submitButton = document.getElementById('submit-button');
-                const statusDiv = document.getElementById('status');
-                submitButton.disabled = true;
-                statusDiv.textContent = 'Odesílám data...';
-                statusDiv.className = 'text-center';
-
-                const formData = new FormData(form);
-                const formObject = {};
-                const checkboxGroups = {};
-
-                formData.forEach((value, key) => {
-                    const elements = form.querySelectorAll(`[name="${key}"]`);
-                    if (elements.length > 0 && elements[0].type === 'checkbox') {
-                        if (!checkboxGroups[key]) {
-                            checkboxGroups[key] = [];
-                        }
-                        checkboxGroups[key].push(value);
-                    } else {
-                        formObject[key] = value;
-                    }
+    function showAutocompleteResults(results) {
+        autocompleteResults.innerHTML = '';
+        if (results && results.length > 0) {
+            results.forEach(person => {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                item.innerHTML = `<div class="name">${person.name}</div><div class="email">${person.email}</div>`;
+                item.addEventListener('click', () => {
+                    clientNameInput.value = person.name;
+                    clientEmailInput.value = person.email;
+                    autocompleteResults.style.display = 'none';
                 });
-                Object.assign(formObject, checkboxGroups);
-
-                google.script.run
-                    .withSuccessHandler(onSuccess)
-                    .withFailureHandler(onFailure)
-                    .processForm(formObject);
+                autocompleteResults.appendChild(item);
             });
+            autocompleteResults.style.display = 'block';
+        } else {
+            autocompleteResults.style.display = 'none';
         }
     }
+    
+    let debounceTimer;
+    clientEmailInput.addEventListener('keyup', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchText = clientEmailInput.value;
+            if (searchText.length < 2) {
+                autocompleteResults.style.display = 'none';
+                return;
+            }
+            google.script.run
+                .withSuccessHandler(showAutocompleteResults)
+                .searchContacts(searchText);
+        }, 300);
+    });
 
-    function onSuccess(response) {
-        const statusDiv = document.getElementById('status');
-        const submitButton = document.getElementById('submit-button');
-        statusDiv.textContent = response.message;
-        statusDiv.className = 'text-center success-message'; // Třída pro úspěch
-        submitButton.disabled = false;
-        document.getElementById('health-questionnaire-form').reset();
-        document.querySelectorAll('.details-group, .sub-details-group').forEach(el => el.style.display = 'none');
-        window.scrollTo(0, 0);
-    }
-
-    function onFailure(error) {
-        const statusDiv = document.getElementById('status');
-        const submitButton = document.getElementById('submit-button');
-        statusDiv.textContent = 'Chyba: ' + error.message;
-        statusDiv.className = 'text-center error-message'; // Třída pro chybu
-        submitButton.disabled = false;
-    }
-
-    // Spustíme inicializaci formuláře
-    initializeForm();
+    document.addEventListener('click', function (e) {
+        if (!form.contains(e.target)) {
+            autocompleteResults.style.display = 'none';
+        }
+    });
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const clientName = clientNameInput.value.trim();
+        const clientEmail = clientEmailInput.value.trim();
+        if (!clientEmail) {
+            statusDiv.textContent = 'Prosím, zadejte e-mail klienta.';
+            statusDiv.className = 'text-center error-message';
+            return;
+        }
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Vytvářím...';
+        statusDiv.textContent = '';
+        autocompleteResults.style.display = 'none';
+        google.script.run
+            .withSuccessHandler(function(response) {
+                statusDiv.textContent = response.message;
+                statusDiv.className = response.status === 'success' ? 'text-center success-message' : 'text-center error-message';
+                if(response.status === 'success') { form.reset(); }
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="ti ti-mail"></i> Vytvořit koncept v Gmailu';
+            })
+            .withFailureHandler(function(error) {
+                statusDiv.textContent = 'Chyba: ' + error.message;
+                statusDiv.className = 'text-center error-message';
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="ti ti-mail"></i> Vytvořit koncept v Gmailu';
+            })
+            .createQuestionnaireDraft(clientName, clientEmail);
+    });
 });
 </script>
