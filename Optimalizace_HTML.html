@@ -1,7 +1,7 @@
-<section class="content-section active" id="optimalizace">
+<section class="content-section" id="optimalizace">
     <div class="container">
         <div class="sections-grid">
-            <div class="section full-width-section active">
+            <div class="section full-width-section">
                 <div class="section-header" onclick="toggleSection(this)">
                     <div class="section-title">
                         <i class="ti ti-target section-icon"></i>
@@ -9,7 +9,7 @@
                     </div>
                     <span class="toggle-arrow">▼</span>
                 </div>
-                <div class="section-content" style="max-height: none; padding: 1.5rem;">
+                <div class="section-content">
                     <div class="section-inner">
                         <div style="text-align: left; color: var(--neutral-800); line-height: 1.6;">
                             <p style="margin-bottom: 20px; font-weight: 500;">
@@ -239,6 +239,41 @@
         </div>
     </div>
 
+    <!-- Ikona poznámky -->
+    <button class="note-icon" onclick="openNotePanel()">
+        <i class="ti ti-note"></i>
+    </button>
+
+    <!-- Poznámková karta -->
+    <div class="note-panel" id="notePanel">
+        <div class="note-header">
+            <div class="note-title">Poznámka</div>
+            <button class="note-close" onclick="closeNotePanel()">×</button>
+        </div>
+        <div class="note-content">
+            <textarea class="note-textarea" placeholder="Zde si můžete psát poznámky...">Motivy / cíle z finančního hlediska
+Krátkodobý:
+Střednědobý:
+Dlouhodobý:
+
+Životní/Úrazové pojištění:
+Pojištění domácnosti/domu:
+Odpovědnost občan/zaměstnavatel:
+Vozidlo:
+
+Penzijní fond:
+DIP:
+Investice:
+Zlato:
+
+Účet:
+Spořící účet:
+Stavební spoření:
+Úvěr/Hypotéka/Půjčka:</textarea>
+            <button class="note-save-btn" onclick="saveNote()">Uložit poznámku</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="savings-modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -272,7 +307,7 @@
                             <label for="targetSlider" class="form-label">Kolik potřebuji (Kč)</label>
                             <span class="control-value" id="targetDisplay"></span>
                         </div>
-                        <input type="range" id="targetSlider" class="slider" min="100000" max="5000000" step="50000" value="1145000">
+                        <input type="range" id="targetSlider" class="slider" min="100000" max="5000000" step="50000" value="1000000">
                         <div class="quick-btn-group">
                             <button class="quick-btn" onclick="setTarget(500000)">500k</button>
                             <button class="quick-btn" onclick="setTarget(1000000)">1M</button>
@@ -285,7 +320,7 @@
                             <label for="initialSlider" class="form-label">Už mám (Kč)</label>
                             <span class="control-value" id="initialDisplay"></span>
                         </div>
-                        <input type="range" id="initialSlider" class="slider" min="0" max="2000000" step="10000" value="278000">
+                        <input type="range" id="initialSlider" class="slider" min="0" max="2000000" step="10000" value="0">
                          <div class="quick-btn-group">
                             <button class="quick-btn" onclick="setInitial(0)">0</button>
                             <button class="quick-btn" onclick="setInitial(100000)">100k</button>
@@ -298,7 +333,7 @@
                             <label for="yearsSlider" class="form-label">Za jak dlouho (roky)</label>
                             <span class="control-value" id="yearsDisplay"></span>
                         </div>
-                        <input type="range" id="yearsSlider" class="slider" min="1" max="50" step="1" value="23">
+                        <input type="range" id="yearsSlider" class="slider" min="1" max="50" step="1" value="10">
                          <div class="quick-btn-group">
                             <button class="quick-btn" onclick="setYears(5)">5</button>
                             <button class="quick-btn" onclick="setYears(10)">10</button>
@@ -311,7 +346,7 @@
                             <label for="returnSlider" class="form-label">S výnosem (% p.a)</label>
                             <span class="control-value" id="returnDisplay"></span>
                         </div>
-                        <input type="range" id="returnSlider" class="slider" min="0" max="15" step="0.1" value="7.6">
+                        <input type="range" id="returnSlider" class="slider" min="0" max="15" step="0.1" value="7">
                         <div class="quick-btn-group">
                             <button class="quick-btn" onclick="setReturn(3)">3%</button>
                             <button class="quick-btn" onclick="setReturn(5)">5%</button>

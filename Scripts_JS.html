@@ -122,6 +122,7 @@ const pageSubtitles = {
     prehledovka: 'Přehledové nástroje a reporty'
 };
 
+// JEDINÝ event listener pro přepínání stránek
 dropdownItems.forEach(item => {
     item.addEventListener('click', () => {
         const pageName = item.getAttribute('data-page');
@@ -145,6 +146,9 @@ dropdownItems.forEach(item => {
             navbar.classList.add('is-hidden');
         }
         
+        // Kontrola zobrazení poznámkového tlačítka
+        toggleNoteButton();
+        
         // Zavři dropdown
         dropdowns.forEach(dropdown => {
             dropdown.classList.remove('show');
@@ -167,6 +171,134 @@ function toggleSection(header) {
         section.classList.add('active');
     }
 }
+
+// --- POZNÁMKOVÁ KARTA ---
+
+// Funkce pro kontrolu zobrazení tlačítka poznámky
+function toggleNoteButton() {
+    const noteIcon = document.querySelector('.note-icon');
+    const notePanel = document.querySelector('.note-panel');
+    const optimalizaceSection = document.getElementById('optimalizace');
+    
+    if (noteIcon && notePanel) {
+        if (optimalizaceSection && optimalizaceSection.classList.contains('active')) {
+            noteIcon.style.display = 'flex';
+            notePanel.style.display = 'flex';
+        } else {
+            noteIcon.style.display = 'none';
+            notePanel.style.display = 'none';
+            // Zavřít poznámku, pokud je otevřená při přepnutí sekce
+            closeNotePanel();
+        }
+    }
+}
+
+// Funkce pro otevření poznámkové karty
+function openNotePanel() {
+    const notePanel = document.getElementById('notePanel');
+    const noteIcon = document.querySelector('.note-icon');
+    
+    if (notePanel && noteIcon) {
+        notePanel.classList.add('open');
+        noteIcon.classList.add('hidden');
+        
+        // ŽÁDNÉ načítání z localStorage - poznámka je vždy prázdná při otevření
+    }
+}
+
+// Funkce pro zavření poznámkové karty
+function closeNotePanel() {
+    const notePanel = document.getElementById('notePanel');
+    const noteIcon = document.querySelector('.note-icon');
+    
+    if (notePanel && noteIcon) {
+        notePanel.classList.remove('open');
+        noteIcon.classList.remove('hidden');
+    }
+}
+
+// Funkce pro uložení poznámky
+function saveNote() {
+    const textarea = document.querySelector('.note-textarea');
+    if (!textarea) return;
+    
+    const noteContent = textarea.value;
+    
+    // JEN zkopírování do schránky počítače - žádné localStorage
+    navigator.clipboard.writeText(noteContent).then(() => {
+        // Zobrazení zpětné vazby při úspěchu
+        const saveBtn = document.querySelector('.note-save-btn');
+        if (saveBtn) {
+            const originalText = saveBtn.textContent;
+            
+            saveBtn.textContent = 'Zkopírováno!';
+            saveBtn.style.backgroundColor = '#10b981';
+            
+            setTimeout(() => {
+                saveBtn.textContent = originalText;
+                saveBtn.style.backgroundColor = '';
+            }, 2000);
+        }
+    }).catch((err) => {
+        // Fallback při chybě kopírování
+        console.error('Chyba při kopírování do schránky:', err);
+        
+        const saveBtn = document.querySelector('.note-save-btn');
+        if (saveBtn) {
+            const originalText = saveBtn.textContent;
+            
+            saveBtn.textContent = 'Chyba kopírování';
+            saveBtn.style.backgroundColor = '#ef4444';
+            
+            setTimeout(() => {
+                saveBtn.textContent = originalText;
+                saveBtn.style.backgroundColor = '';
+            }, 2000);
+        }
+    });
+}
+
+// Zavření karty klávesou Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const notePanel = document.getElementById('notePanel');
+        if (notePanel && notePanel.classList.contains('open')) {
+            closeNotePanel();
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    /**
+     * Formátuje hodnotu v inputu na český formát čísel (s mezerou jako oddělovačem tisíců).
+     * @param {HTMLInputElement} inputElement - Input, který se má formátovat.
+     */
+    function formatNumberInput(inputElement) {
+        // 1. Získáme čistou hodnotu bez mezer
+        let value = inputElement.value.replace(/\s/g, '');
+
+        // 2. Pokud hodnota není číslo nebo je prázdná, nic neděláme
+        if (isNaN(Number(value)) || value.trim() === '') {
+            return;
+        }
+
+        // 3. Převedeme na číslo a naformátujeme pomocí vestavěného API prohlížeče
+        const number = Number(value);
+        const formattedValue = number.toLocaleString('cs-CZ');
+
+        // 4. Vložíme naformátovanou hodnotu zpět do pole
+        inputElement.value = formattedValue;
+    }
+
+    // 5. Najdeme všechny inputy, které mají třídu "format-number" a připojíme k nim posluchač
+    document.querySelectorAll('.format-number').forEach(input => {
+        // Formátujeme, když uživatel opustí pole (ideální pro vkládání a finální úpravy)
+        input.addEventListener('blur', (e) => {
+            formatNumberInput(e.target);
+        });
+    });
+});
+
 
 // Add toggle function to global scope
 window.toggleSection = toggleSection;

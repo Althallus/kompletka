@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <script src="https://code.highcharts.com/highcharts.js"></script>
     
-    <?!= include('css/styl'); ?>
+    <?!= include('Styles_CSS.html'); ?>
 </head>
 <body>
     <section class="hero" id="hero">
         <div class="hero-content">
-            <h1 id="heroTitle">Finanční Aplikace</h1>
+            <h1 id="heroTitle">FiDos</h1>
             <p id="heroSubtitle">Komplexní nástroj pro finanční poradenství a kalkulace</p>
         </div>
     </section>
@@ -39,7 +39,7 @@
             <div class="dropdown" id="dropdown-nabidkovace">
                 <button class="dropdown-item" data-page="investice">Investice</button>
                 <button class="dropdown-item" data-page="zivotko">Životko</button>
-                <button class="dropdown-item" data-page="dipuj">DIPuj</button>
+                <button class="dropdown-item" href="https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec" target="_blank">DIPuj</button>
             </div>
         </div>
 
@@ -75,23 +75,22 @@
     </button>
 
     <main>
-        <?!= include('html/stranky/bilance'); ?>
-        <?!= include('html/stranky/optimalizace'); ?>
-        <?!= include('html/stranky/zdravotni'); ?>
-        <?!= include('html/stranky/investice'); ?>
-        <?!= include('html/stranky/zivotko'); ?>
+        <?!= include('Bilance_HTML'); ?>
+        <?!= include('Optimalizace_HTML'); ?>
+        <?!= include('Zdravotni_dotaznik_HTML'); ?>
+        <?!= include('Investicni_porovnavac_HTML'); ?>
+        <?!= include('Zivot_zdravi_HTML'); ?>
         <?!= include('html/stranky/dipuj'); ?>
-        <?!= include('html/stranky/investicni'); ?>
-        <?!= include('html/stranky/porovnani'); ?>
-        <?!= include('html/stranky/stavebko'); ?>
-        <?!= include('html/stranky/platby'); ?>
-        <?!= include('html/stranky/prehledovka'); ?>
+        <?!= include('Investicni_kalkulatory_HTML'); ?>
+        <?!= include('Porovnani_produktu_HTML'); ?>
+        <?!= include('Stavebko_HTML'); ?>
+        <?!= include('Platby_HTML'); ?>
+        <?!= include('Prehledovka_HTML'); ?>
     </main>
 
-    <?!= include('js/script'); ?>
-    <?!= include('js/dotaznik'); ?>
-    <?!= include('js/formatters'); ?>
-    <?!= include('js/modals'); ?>
-    <?!= include('js/kalkulacka'); ?>
+    <?!= include('Scripts_JS'); ?>
+    <?!= include('Zdravotni_dotaznik_JS'); ?>
+    <?!= include('Kalkulacky_JS'); ?>
+    <?!= include('Kalkulacky_JS'); ?>
 </body>
 </html>
