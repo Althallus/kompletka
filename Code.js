@@ -1,3 +1,5 @@
+
+
 /**
  * Zobrazí hlavní stránku aplikace.
  * @param {object} e Objekt události.
@@ -8,7 +10,7 @@ function doGet(e) {
   return HtmlService.createTemplateFromFile('Index_HTML')
       .evaluate()
       .setTitle('Finanční Aplikace')
-      .setFaviconUrl('https://bsfaplikace.cz/images/logo-bohemika.png');
+      .setFaviconUrl('https://i.imgur.com/UO5ZFJ1.png');
 }
 
 /**
@@ -22,23 +24,3 @@ function include(filename) {
 }
 
 
-function testListAllContacts() {
-  try {
-    // Pokusíme se načíst prvních 20 kontaktů
-    const response = People.People.Connections.list('people/me', {
-      pageSize: 30,
-      personFields: 'names,emailAddresses'
-    });
-
-    // Vypíšeme do logu, co jsme našli
-    Logger.log("Výsledek z People API:");
-    Logger.log(JSON.stringify(response.connections, null, 2));
-    
-    if (!response.connections || response.connections.length === 0) {
-      Logger.log("Nenalezeny žádné kontakty. Zkontrolujte prosím, zda máte kontakty na https://contacts.google.com/ a zda má skript oprávnění k jejich čtení.");
-    }
-
-  } catch (e) {
-    Logger.log("Došlo k chybě při volání People API: " + e.message);
-  }
-}

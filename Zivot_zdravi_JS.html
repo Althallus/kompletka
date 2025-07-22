@@ -1942,6 +1942,37 @@ const formattedDate = `${day}.${month}.${year}`;
   document.getElementById("client_vydaje").addEventListener("blur",prepocty_vydaje_prijmy);
   document.getElementById("client_vydaje_2").addEventListener("blur",prepocty_vydaje_prijmy);
 
+
+
+// Ovládání přepínacích tlačítek
+document.addEventListener('click', function (event) {
+    if (event.target.matches('.btn-group-toggle .btn')) {
+        const group = event.target.closest('.btn-group-toggle');
+        const hiddenInput = group.querySelector('input[type="hidden"]');
+        group.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        if (hiddenInput) {
+            hiddenInput.value = event.target.dataset.value;
+        }
+    }
+});
+
+// Ovládání rozbalovací sekce
+document.addEventListener('click', function (event) {
+    if (event.target.matches('[data-target]')) {
+        const targetSelector = event.target.dataset.target;
+        const content = document.querySelector(targetSelector);
+        if (content) {
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                content.style.padding = '0';
+            } else {
+                content.style.padding = '1.5rem 0 0 0'; // Horní padding
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    }
+});
 // === END POSLLUCHACI ==========================================================
     
 </script>

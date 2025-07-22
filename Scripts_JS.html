@@ -97,13 +97,13 @@ menuToggleBtn.addEventListener('click', () => {
 const pageTitles = {
     bilance: 'Bilance klienta',
     optimalizace: 'Optimalizace',
-    zdravotni: 'Zdravotní dotazník',
-    investice: 'Investice',
-    zivotko: 'Životní pojištění',
+    'zdravotni-dotaznik': 'Zdravotní dotazník',
+    'investicni-porovnavac': 'Investiční porovnávač',
+    'zivot-zdravi': 'Život & zdraví',
     dipuj: 'DIPuj',
-    investicni: 'Investiční kalkulačky',
-    porovnani: 'Porovnání produktů',
-    stavebko: 'Stavebko vs. investice',
+    'investicni-kalkulatory': 'Investiční kalkulačky',
+    'porovnani-produktu': 'Porovnání produktů',
+    'stavebko-investice': 'Stavebko vs. investice',
     platby: 'Platby',
     prehledovka: 'Přehledovka'
 };
@@ -111,30 +111,37 @@ const pageTitles = {
 const pageSubtitles = {
     bilance: 'Přehled příjmů, výdajů a celkové finanční situace',
     optimalizace: 'Nástroje pro optimalizaci finančního portfolia',
-    zdravotni: 'Dotazník pro posouzení zdravotního stavu',
-    investice: 'Nástroje a kalkulačky pro investiční produkty',
-    zivotko: 'Kalkulátory a nástroje pro životní pojištění',
+    'zdravotni-dotaznik': 'Dotazník pro posouzení zdravotního stavu',
+    'investicni-porovnavac': 'Nástroje a kalkulačky pro investiční produkty',
+    'zivot-zdravi': 'Modelace životního pojištění a výpočet potřebných pojistných částek',
     dipuj: 'Dlouhodobý investiční produkt vs. doplňkové penzijní spoření',
-    investicni: 'Specializované kalkulačky pro investiční výpočty',
-    porovnani: 'Nástroje pro porovnání finančních produktů',
-    stavebko: 'Porovnání stavebního spoření a investic',
+    'investicni-kalkulatory': 'Specializované kalkulačky pro investiční výpočty',
+    'porovnani-produktu': 'Nástroje pro porovnání finančních produktů',
+    'stavebko-investice': 'Porovnání stavebního spoření a investic',
     platby: 'Vytvoření přehledu plateb včetně QR kódů',
     prehledovka: 'Přehledové nástroje a reporty'
 };
 
-// JEDINÝ event listener pro přepínání stránek
+// HLAVNÍ event listener pro přepínání stránek
 dropdownItems.forEach(item => {
     item.addEventListener('click', () => {
         const pageName = item.getAttribute('data-page');
         
+        console.log(`Přepínám na stránku: ${pageName}`); // Debug log
+        
         // Skryj všechny sekce
         contentSections.forEach(section => {
             section.classList.remove('active');
+            section.classList.add('hidden');
         });
         
+        // Najdi správnou sekci podle ID
         const targetSection = document.getElementById(pageName);
+        
         if (targetSection) {
+            console.log(`Zobrazuji sekci: ${pageName}`); // Debug log
             targetSection.classList.add('active');
+            targetSection.classList.remove('hidden');
             
             // Aktualizuj hero sekci
             hero.classList.add('compact');
@@ -144,6 +151,9 @@ dropdownItems.forEach(item => {
             // Zobraz tlačítko v rohu a skryj hlavní lištu
             menuToggleBtn.classList.remove('hidden');
             navbar.classList.add('is-hidden');
+        } else {
+            console.error(`Sekce s ID "${pageName}" nebyla nalezena!`);
+            console.log('Dostupné sekce:', Array.from(contentSections).map(s => s.id));
         }
         
         // Kontrola zobrazení poznámkového tlačítka
@@ -269,6 +279,8 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM načten - Kompletka inicializace'); // Debug log
+    
     /**
      * Formátuje hodnotu v inputu na český formát čísel (s mezerou jako oddělovačem tisíců).
      * @param {HTMLInputElement} inputElement - Input, který se má formátovat.
@@ -298,15 +310,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-// === KÓD PRO TLAČÍTKO DOMŮ ===
+    // === KÓD PRO TLAČÍTKO DOMŮ ===
 
     const homeBtn = document.getElementById('homeBtn');
 
     // Funkce pro návrat na úvodní obrazovku
     function returnToHome() {
+        console.log('Návrat domů'); // Debug log
+        
         // Skryjeme všechny aktivní obsahové sekce
         contentSections.forEach(section => {
             section.classList.remove('active');
+            section.classList.add('hidden');
         });
 
         // Obnovíme 'hero' sekci a její obsah
@@ -332,9 +347,96 @@ document.addEventListener('DOMContentLoaded', function() {
         homeBtn.addEventListener('click', returnToHome);
     }
 
+    // === ŽIVOT A ZDRAVÍ SPECIFICKÉ FUNKCE ===
+    
+    // Settings panel toggle
+    window.toggleSettingsPanel = function() {
+        const panel = document.getElementById('zivotzdravi-settings-panel');
+        const btn = document.getElementById('zivotzdravi-settings-btn');
+        
+        if (panel && btn) {
+            panel.classList.toggle('open');
+            panel.classList.toggle('hidden');
+        }
+    };
+
+    // Přepínače zobrazení pro Život a zdraví
+    window.prepnuti_RZ = function() {
+        const card = document.getElementById('card_RZ');
+        if (card) {
+            card.classList.toggle('hidden');
+        }
+    };
+
+    window.prepnuti_ZO = function() {
+        const card = document.getElementById('card_ZO');
+        if (card) {
+            card.classList.toggle('hidden');
+        }
+    };
+
+    window.prepnuti_PNS = function() {
+        const card = document.getElementById('card_PNS');
+        if (card) {
+            card.classList.toggle('hidden');
+        }
+    };
+
+    window.prepnuti_TNU = function() {
+        const card = document.getElementById('card_TNU');
+        if (card) {
+            card.classList.toggle('hidden');
+        }
+    };
+
+    window.prepnuti_ZnP = function() {
+        const card = document.getElementById('card_ZnP');
+        if (card) {
+            card.classList.toggle('hidden');
+        }
+    };
+
+    window.prepnuti_CO_2 = function() {
+        console.log('CO přepínač aktivován');
+    };
+
+    window.prepnuti_DO_2 = function() {
+        console.log('DO přepínač aktivován');
+    };
+
+    // Toggle klient 2
+    window.toggleKlient2 = function() {
+        const section = document.getElementById('klient-2-section');
+        const btn = document.getElementById('pridat-partnera-btn');
+        const hiddenInput = document.getElementById('zobrazeni_klienta_2');
+        
+        if (section && btn && hiddenInput) {
+            const isHidden = section.classList.contains('hidden');
+            
+            if (isHidden) {
+                section.classList.remove('hidden');
+                btn.innerHTML = '<i class="ti ti-user-minus"></i><span>Odebrat partnera/ku</span>';
+                hiddenInput.value = '1';
+            } else {
+                section.classList.add('hidden');
+                btn.innerHTML = '<i class="ti ti-user-plus"></i><span>Přidat partnera/ku</span>';
+                hiddenInput.value = '0';
+            }
+        }
+    };
+
+    // Settings toggle při kliknutí na tlačítko
+    const settingsBtn = document.getElementById('zivotzdravi-settings-btn');
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', toggleSettingsPanel);
+    }
+
+    // Zavření settings panelu při kliknutí na close
+    const settingsClose = document.querySelector('.settings-close');
+    if (settingsClose) {
+        settingsClose.addEventListener('click', toggleSettingsPanel);
+    }
 });
-
-
 
 // Add toggle function to global scope
 window.toggleSection = toggleSection;

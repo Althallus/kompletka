@@ -6,12 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finanční Aplikace</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<!-- --- FONTS & ICONS ------------------------------------------- -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa" rel="stylesheet">
+
+  <!-- --- CDN LINKS CSS BOOTSTRAP ---------------------------------- -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <!-- --- ELEMENTS ADDONS CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+
+  <!-- --- SCRIPT JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/93aeeb4bf2.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
     <?!= include('Styles_CSS.html'); ?>
 </head>
 <body>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner">
+            <div class="spinner_line_1"></div>
+            <div class="spinner_line_2"></div>
+            <div class="spinner_line_3"></div>
+            <img src="https://res.cloudinary.com/dewu93tdy/image/upload/v1743082544/vymVWh7_zlrisn.webp" alt="Logo" class="logo">
+        </div>
+    </div>
+
     <section class="hero" id="hero">
         <div class="hero-content">
             <h1 id="heroTitle">FiDos</h1>
@@ -22,11 +57,11 @@
     <nav class="navbar" id="navbar">
 
         <div class="nav-item">
-        <button class="nav-btn" id="homeBtn">
-            <i class="ti ti-home"></i>
-            <span>Domů</span>
-        </button>
-    </div>
+            <button class="nav-btn" id="homeBtn">
+                <i class="ti ti-home"></i>
+                <span>Domů</span>
+            </button>
+        </div>
 
         <div class="nav-item">
             <button class="nav-btn" data-menu="rozhovor">
@@ -36,7 +71,7 @@
             <div class="dropdown" id="dropdown-rozhovor">
                 <button class="dropdown-item" data-page="bilance">Bilance</button>
                 <a href="https://script.google.com/macros/s/AKfycbz8fNqv4WtwPlYx375Ql3DkU0jEkuCyiI80_2BEIFdEmnG01IAPzvcisUa07mOY-mSDag/exec" class="dropdown-item" target="_blank" rel="noopener noreferrer">Optimalizace</a>
-                <button class="dropdown-item" data-page="zdravotni">Zdravotní dotazník</button>
+                <button class="dropdown-item" data-page="zdravotni-dotaznik">Zdravotní dotazník</button>
             </div>
         </div>
 
@@ -46,8 +81,8 @@
                 <span>Nabídkovače</span>
             </button>
             <div class="dropdown" id="dropdown-nabidkovace">
-                <button class="dropdown-item" data-page="investice">Investice</button>
-                <button class="dropdown-item" data-page="zivotko">Život & zdraví</button>
+                <button class="dropdown-item" data-page="investicni-porovnavac">Investiční porovnávač</button>
+                <button class="dropdown-item" data-page="zivot-zdravi">Život & zdraví</button>
                 <a href="https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec" class="dropdown-item" target="_blank" rel="noopener noreferrer">DIPuj</a>
             </div>
         </div>
@@ -58,9 +93,9 @@
                 <span>Kalkulačky</span>
             </button>
             <div class="dropdown" id="dropdown-kalkulacky">
-                <button class="dropdown-item" data-page="investicni">Investiční</button>
-                <button class="dropdown-item" data-page="porovnani">Porovnání produktů</button>
-                <button class="dropdown-item" data-page="stavebko">Stavebko vs. investice</button>
+                <button class="dropdown-item" data-page="investicni-kalkulatory">Investiční kalkulačky</button>
+                <button class="dropdown-item" data-page="porovnani-produktu">Porovnání produktů</button>
+                <button class="dropdown-item" data-page="stavebko-investice">Stavebko vs. investice</button>
             </div>
         </div>
 
@@ -79,6 +114,7 @@
             <i class="ti ti-sun" id="themeIcon"></i>
         </button>
     </nav>
+    
     <button class="menu-toggle-btn hidden" id="menuToggleBtn">
         <i class="ti ti-menu-2"></i>
     </button>

@@ -1,122 +1,15 @@
-<!-- ======================================================================= -->
-<!-- ŽIVOT A ZDRAVÍ - HLAVNÍ SEKCE -->
-<!-- ======================================================================= -->
-<section class="content-section hidden" id="zivot-zdravi">
-  
-  <!-- Menu tlačítko pro přepínače -->
-  <button class="settings-toggle-btn" id="zivotzdravi-settings-btn">
-    <i class="ti ti-settings"></i>
-  </button>
-  
-  <!-- Nastavení panel -->
-  <div class="settings-panel hidden" id="zivotzdravi-settings-panel">
-    <div class="settings-header">
-      <h3>Nastavení zobrazení</h3>
-      <button class="settings-close" onclick="toggleSettingsPanel()">
-        <i class="ti ti-x"></i>
-      </button>
-    </div>
-    <div class="settings-content">
+<section class="content-section" id="zivotko">
+
+  <form id="myForm" onsubmit="handleFormSubmit(this)">
+
+
       
-      <!-- Přepínače zobrazení -->
-      <div class="setting-group">
-        <h4>Pojištění</h4>
-        <div class="switch-group">
-          <label class="switch">
-            <input type="checkbox" id="zobrazeni_RZ" onchange="prepnuti_RZ()" checked>
-            <span class="slider"></span>
-            <span class="switch-label">Rizikové životní pojištění</span>
-          </label>
-        </div>
-        
-        <div class="switch-group">
-          <label class="switch">
-            <input type="checkbox" id="zobrazeni_ZO" onchange="prepnuti_ZO()">
-            <span class="slider"></span>
-            <span class="switch-label">Pojištění závažných onemocnění</span>
-          </label>
-        </div>
-        
-        <div class="switch-group">
-          <label class="switch">
-            <input type="checkbox" id="zobrazeni_PNS" onchange="prepnuti_PNS()">
-            <span class="slider"></span>
-            <span class="switch-label">Pojištění pracovní neschopnosti</span>
-          </label>
-        </div>
-        
-        <div class="switch-group">
-          <label class="switch">
-            <input type="checkbox" id="zobrazeni_TNU" onchange="prepnuti_TNU()">
-            <span class="slider"></span>
-            <span class="switch-label">Pojištění trvalých následků úrazu</span>
-          </label>
-        </div>
-        
-        <div class="switch-group">
-          <label class="switch">
-            <input type="checkbox" id="zobrazeni_ZnP" onchange="prepnuti_ZnP()">
-            <span class="slider"></span>
-            <span class="switch-label">Závislost na péči</span>
-          </label>
-        </div>
-      </div>
-      
-      <div class="setting-group">
-        <h4>Připojištění</h4>
-        <div class="switch-group">
-          <label class="switch">
-            <input type="checkbox" id="zobrazeni_CO" onchange="prepnuti_CO_2()">
-            <span class="slider"></span>
-            <span class="switch-label">Celodenní ošetřování</span>
-          </label>
-        </div>
-        
-        <div class="switch-group">
-          <label class="switch">
-            <input type="checkbox" id="zobrazeni_DO" onchange="prepnuti_DO_2()">
-            <span class="slider"></span>
-            <span class="switch-label">Léčení úrazu</span>
-          </label>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-  <!-- Hlavní obsah -->
-  <div class="container">
-    
-    <form id="myForm" onsubmit="handleFormSubmit(this)">
-
-
-      <!-- ----------------------------------------------------------- -->
-      <!-- === UVODNI SCREEN === -->
-      <!-- ----------------------------------------------------------- -->
-      <div class="cover-container mb-4">
-        <img src="https://res.cloudinary.com/dewu93tdy/image/upload/v1743082577/HfADUzr_j78ch8.webp" alt="Obrázek" class="trimmed-cover" loading="eager">
-        <div class="cover-text">
-          <h1 class="mb-3">Proč se pojistit?</h1>
-          <p>
-            Máte finanční rezervu, pokud byste kvůli nemoci museli zůstat doma?
-            <br>
-      Zvládnete splácet hypotéku, pokud přijdete o část příjmu?
-            <br>
-            <!-- Jak dlouho zvládnete pokrýt životní náklady bez stabilního příjmu?
-      <br> -->
-            Co budete dělat, když ze dne na den přijdete o svůj příjem?
-          </p>
-        </div>
-      </div>
-      <!-- =============================================================== -->
-
-
       <!-- ------------------------------------------------------------------------------------ -->
       <!-- ==================== -->
       <!-- === ZADANI UDAJU === -->
       <!-- ==================== -->
       <!-- ------------------------------------------------------------------------------------ -->
-      <div class="container-fluid " style="width:; background-color:">
+      <div class="container-fluid " >
 
 <!-- -------------------------------------------------------------------------- -->
 <!-- === VYPOCET RENTY/INVESTICE K POJ CASTKAM === -->
@@ -156,120 +49,81 @@
         <!-- ----------------------------------------------------------------------------- -->
         <!-- === 1. KLIENT === -->
         <!-- ----------------------------------------------------------------------------- -->
-        <div class="row mx-auto d-flex justify-content-center align-items-center" style="width:">
+        <div class="card p-6 mb-6">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold">Zadání údajů klienta 1</h3>
+        <button type="button" class="btn btn-outline" data-target="#collapse_klient_1_content">
+            <i class="ti ti-plus"></i>
+            <span>Další podrobnosti</span>
+        </button>
+    </div>
 
-          <div class="col-sm-12 col-md-12 col-lg-12 mt-2 mb-4 d-flex flex-column mx-auto">
-
-            <div class="card bg-white p-0" style="">
-              <div class="card-header d-flex align-items-center p-1 m-0" id="heading_klient_1">
-                <h6 class="card-title my-auto no-pointer">Zadání údajů klienta 1
-                </h6>
-                <button  type="button" class="btn btn-sm  arrow-toggle ml-auto" data-toggle="collapse" data-target="#collapse_klient_1" aria-expanded="false" aria-controls="collapse_klient_1">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-
-              </div>
-              <div class="card-body p-2">
-
-                <div class="row d-flex justify-content-center align-items-center p-0 m-0">
-
-
-                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
-                    <label for="client_vydaje" class="label-custom col-sm px-1">Datum narození</label>
-                    <input type="date" class="form-control bg-light mt-n2 client-narozeni" id="client_narozeni" name="client_narozeni" ondblclick="this.value=''" style="border:0">
-                  </div>
-
-                  <div class="form-group col-sm-6 col-md-6 col-lg-1 col-xl-1 mb-2">
-                    <label for="client_vydaje" class="label-custom col-sm px-1">Věk</label>
-                    <input type="text" class="form-control bg-light mt-n2 client-vek" id="client_vek" name="client_vek" style="border:0" disabled>
-                  </div>
-
-                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
-                    <label class="label-custom col-sm px-1">Výdaje</label>
-                    <input type="text" class="form-control bg-light mt-n2" name="client_vydaje" id="client_vydaje" inputmode="numeric" min="0" placeholder="Kč/měs." ondblclick="this.value=''" oninput="formatovani_na_tisicovky(this)">
-                  </div>
-
-                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
-                    <label class="label-custom col-sm px-1">Čisté přijmy</label>
-                    <input type="text" class="form-control bg-light mt-n2" name="client_prijem" id="client_prijem" inputmode="numeric" min="0" placeholder="Kč/měs." ondblclick="this.value=''" oninput="formatovani_na_tisicovky(this)">
-                  </div>
-
-                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
-                    <div class="btn-group d-flex flex-column" id="typZamestnani">
-                      <div class="btn btn-custom btn-sm active" data-value="Zaměstnanec">Zaměstnanec</div>
-                      <div class="btn btn-custom btn-sm" data-value="Živnostník">Živnostník</div>
-                    </div>
-                    <input class="form-control" type="hidden" id="typ_prijmu_selected" name="typ_prijmu_selected" value="Zaměstnanec">
-                  </div>
-
-                  <div class="form-group col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-2">
-                    <label class="label-custom col-sm px-1">Hrubý příjem</label>
-                    <input type="text" class="form-control bg-light mt-n2" id="client_hruba_mzda" ondblclick="this.value=''" disabled>
-                  </div>
-
-
-                </div>
-
-                <!-- === PODROBNOSTI KLIENTA 1 CARD -->
-                <div id="collapse_klient_1" class="collapse border-1 p-2" aria-labelledby="heading_klient_1">
-                  <h6 class="card-title no-pointer">Další podrobnosti klienta 1</h6>
-
-                  <div class="row d-none justify-content-start align-items-center p-1 m-0 mt-2" id="klient_1_details">
-
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 form-group mb-2">
-                      <label class="label-custom col-sm px-1" >Pohlaví</label>
-                      <div class="btn-group mt-n2" id="pohlavi_1">
-                        <div class="btn active border-light" data-value="Žena" style="border-radius:20px 0 0 20px">Žena
-                        </div>
-                        <div class="btn border-light" data-value="Muž" style="border-radius:0 20px 20px 0">Muž</div>
-                      </div>
-                      <input class="form-control" type="hidden" id="pohlavi_selected" name="pohlavi_selected" value="Žena">
-                    </div>
-
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 form-group mb-2">
-                      <label class="label-custom col-sm px-1" for="pocetDetiBox" >Počet dětí</label>
-                      <div class="btn-group mt-n2" id="pocetDetiBox">
-                        <div class="btn active border-light" data-value="0" style="border-radius:20px 0 0 20px">0</div>
-                        <div class="btn border-light" data-value="1">1</div>
-                        <div class="btn border-light" data-value="2">2</div>
-                        <div class="btn border-light" data-value="3">3</div>
-                        <div class="btn border-light" data-value="4">4</div>
-                        <div class="btn border-light" data-value="5" style="border-radius:0 20px 20px 0">5 a více</div>
-                      </div>
-                      <input class="form-control" type="hidden" id="pocet_deti" name="pocet_deti" value="0">
-                    </div>
-
-                  </div>
-
-                  <div class="row d-flex justify-content-start align-items-center p-1 m-0">
-
-                    <div class="col-sm-12 col-md-10 col-lg-6 col-xl-6 form-group mb-2">
-                      <label class="label-custom col-sm px-1" for="smrt_nasobek_form">
-        Jak dlouhou dobu má pojištění pokrýt v případě výpadku příjmu?
-    </label>
-                      <div class="btn-group mt-n2" id="smrt_nasobek_form"
-                        style="display: inline-flex; align-items: center;">
-                        <div class="btn border-light" data-value="1" style="border-radius:20px 0 0 20px">1 rok</div>
-                        <div class="btn border-light" data-value="2">2 roky</div>
-                        <div class="btn border-light" data-value="3">3 roky</div>
-                        <div class="btn border-light active" data-value="5">5 let</div>
-                        <div class="btn border-light" id="smrt_nasobek_jine" data-value=""
-                          style="border-radius:0 20px 20px 0">Jiné</div>
-                        <input class="form-control" type="hidden" id="smrt_nasobek" name="smrt_nasobek" value="5" style="width: 60px; margin-left: 10px;">
-                      </div>
-                    </div>
-
-
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- === END CARD -->
-
-          </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+        <div class="form-group lg:col-span-2">
+            <label for="client_narozeni" class="form-label">Datum narození</label>
+            <input type="date" class="form-input client-narozeni" id="client_narozeni" name="client_narozeni" ondblclick="this.value=''">
         </div>
-        <!-- === END ROW -->
+        <div class="form-group">
+            <label for="client_vek" class="form-label">Věk</label>
+            <input type="text" class="form-input client-vek" id="client_vek" name="client_vek" disabled>
+        </div>
+        <div class="form-group">
+            <label for="client_prijem" class="form-label">Čistý příjem</label>
+            <input type="text" class="form-input format-number" name="client_prijem" id="client_prijem" placeholder="Kč/měs." oninput="formatovani_na_tisicovky(this)" ondblclick="this.value=''">
+        </div>
+        <div class="form-group">
+            <label for="client_vydaje" class="form-label">Výdaje</label>
+            <input type="text" class="form-input format-number" name="client_vydaje" id="client_vydaje" placeholder="Kč/měs." oninput="formatovani_na_tisicovky(this)" ondblclick="this.value=''">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Typ příjmu</label>
+            <div class="btn-group-toggle" id="typZamestnani">
+                <button type="button" class="btn active" data-value="Zaměstnanec">Zaměstnanec</button>
+                <button type="button" class="btn" data-value="Živnostník">Živnostník</button>
+                <input type="hidden" id="typ_prijmu_selected" name="typ_prijmu_selected" value="Zaměstnanec">
+            </div>
+        </div>
+        <input type="hidden" id="client_hruba_mzda" name="client_hruba_mzda">
+    </div>
+
+    <div class="section-content" id="collapse_klient_1_content" style="max-height: 0; padding: 0;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+            <div id="klient_1_details" class="space-y-4">
+                <div class="form-group">
+                  <label class="form-label">Pohlaví</label>
+                  <div class="btn-group-toggle" id="pohlavi_1">
+                      <button type="button" class="btn active" data-value="Žena">Žena</button>
+                      <button type="button" class="btn" data-value="Muž">Muž</button>
+                      <input type="hidden" id="pohlavi_selected" name="pohlavi_selected" value="Žena">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Počet dětí</label>
+                    <div class="btn-group-toggle" id="pocetDetiBox">
+                        <button type="button" class="btn active" data-value="0">0</button>
+                        <button type="button" class="btn" data-value="1">1</button>
+                        <button type="button" class="btn" data-value="2">2</button>
+                        <button type="button" class="btn" data-value="3">3</button>
+                        <button type="button" class="btn" data-value="4">4</button>
+                        <button type="button" class="btn" data-value="5+">5+</button>
+                        <input type="hidden" id="pocet_deti" name="pocet_deti" value="0">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Doba krytí výpadku příjmu</label>
+                <div class="btn-group-toggle" id="smrt_nasobek_form">
+                    <button type="button" class="btn" data-value="1">1 rok</button>
+                    <button type="button" class="btn" data-value="2">2 roky</button>
+                    <button type="button" class="btn" data-value="3">3 roky</button>
+                    <button type="button" class="btn active" data-value="5">5 let</button>
+                    <input type="hidden" id="smrt_nasobek" name="smrt_nasobek" value="5">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- === END KLIENT 1 -->
 
 
 
@@ -603,6 +457,19 @@
 
       </div><!-- CONT END -->
       <!-- ########################################################################################### -->
+
+
+
+
+      <!-- ---------------------------------------------------------------------------- -->
+      <!-- === PREHLEDOVA CAST ===  -->
+      <!-- ---------------------------------------------------------------------------- -->
+      <div class="container-fluid">
+
+        
+      </div>
+      <!-- END CONTAINER -->
+      <!-- ======================================================================= -->
 
 
       <!-- ---------------------------------------------------------------------------------------- -->
@@ -1632,6 +1499,29 @@
   </div>
 
 
+
+
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 offset-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Potřebná částka do důchodu se započtením <b>poloviny</b> příjmu</div>
+                        <div class="prediction-value" id="inv_1_rozdil_celkem_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Potřebná částka do důchodu se započtením <b>čtvrtiny</b> příjmu</div>
+                        <div class="prediction-value" id="inv_2_rozdil_celkem_2"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3">
+                      <div class="prediction-box">
+                        <div class="prediction-label">Potřebná částka do důchodu <b>bez jakéhokoliv</b> příjmu</div>
+                        <div class="prediction-value" id="inv_3_rozdil_celkem_2"></div>
+                      </div>
+                    </div> -->
+
                     <!-- === POJISTNA CASTKA BEZ INVESTICE -->
                     <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="inv_header_zobrazeni_2">Doporučená výše pojistné ochrany</h5>
 
@@ -2285,6 +2175,12 @@
                       </div>
                     </div>
 
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 d-none" id="pn_klient_1_60" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska_60"></div>
+                        <div class="prediction-label">na den (od 60. dne)</div>
+                      </div>
+                    </div> -->
 
                   </div>
 
@@ -2302,6 +2198,14 @@
 
                     <div class="col-sm-12">
 
+                      <!-- <label class="label no-print" for="PN_zobrazeni_castek_group" style="font-size:" >Od kolikátého dne vám máme vyplácet peníze?</label>
+                      <div class="form-group col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-n3 mb-2 no-print">
+                        <div class="btn-group d-flex flex-column" id="pn_zobrazeni_castek_group_2">
+                          <div class="btn btn-custom btn-sm active" data-value="30">od 30. dne</div>
+                          <div class="btn btn-custom btn-sm" data-value="60">od 60. dne</div>
+                        </div>
+                        <input class="form-control" type="hidden" id="pn_zobrazeni_castek_2" name="pn_zobrazeni_castek_2" value="30">
+                      </div> -->
 
 
                       <h5 class="card-title col-sm-12 p-2 w-100 my-2" id="" >Doporučená výše pojistné ochrany</h5>
@@ -2314,6 +2218,12 @@
                       </div>
                     </div>
 
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-lg-3 my-1 d-none" id="pn_klient_2_60" style="display:">
+                      <div class="prediction-box">
+                        <div class="prediction-value" id="pojisteni_nemocenska_60_2"></div>
+                        <div class="prediction-label">na den (od 60. dne)</div>
+                      </div>
+                    </div> -->
 
                     </div>
                   </div>
@@ -2342,6 +2252,8 @@
 
           <button type="button" class="col-auto btn btn-custom bg-white mb-4 mx-2" id="btn_DO" onclick="prepnuti_DO()" style="display:block; text-align: left; padding-left: 0;"><i class="fa-solid fa-circle-plus fa-xl" style="color: #E15452;margin-left: 4px;"></i><span style="flex-grow: 1; margin-left: 4px;"> Pojištění léčení úrazu</span></button>
 
+          <!-- <input class="form-control" type="hidden" id="zobrazeni_ZO_2" name="zobrazeni_ZO_2" value="0">
+          <input class="form-control" type="hidden" id="zobrazeni_ZNP_2" name="zobrazeni_ZNP_2" value="0"> -->
           </div>
 
           <hr class="custom-hr">
@@ -2461,10 +2373,10 @@
 
         </div> <!-- END CONTAINER -->
       </div> <!-- END print -->
+    
 
 
   </form>
-    
-  </div>
+
   
-</section>
+  </section>

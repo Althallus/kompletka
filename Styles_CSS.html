@@ -1026,4 +1026,1234 @@ input[type="range"].slider::-moz-range-thumb {
     font-size: var(--text-sm);
     color: var(--neutral-500);
 }
+
+
+/* =============================================================================== */
+/* === OVERLAY A SPINNER PRO CELOU APLIKACI === */
+/* =============================================================================== */
+
+.loading-overlay {
+    display: none; /* Skryto ve výchozím stavu */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999; /* Vysoký z-index, aby bylo vždy navrchu */
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+/* První točící se linka */
+.spinner .spinner_line_1 {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    border: 3px transparent;
+    border-top: 3px solid #00acc1; /* Barva linky 1 */
+    border-radius: 50%;
+    animation: spin1 0.75s linear infinite;
+}
+
+/* Druhá točící se linka */
+.spinner .spinner_line_2 {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    border: 3px transparent;
+    border-bottom: 3px solid #cc5500; /* Barva linky 2 */
+    border-radius: 50%;
+    animation: spin2 1s linear infinite reverse;
+}
+
+/* Třetí točící se linka */
+.spinner .spinner_line_3 {
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 30%;
+    border: 3px transparent;
+    border-bottom: 3px solid #2ecc71; /* Barva linky 3 */
+    border-radius: 50%;
+    animation: spin3 1.5s linear infinite;
+}
+
+.spinner .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+}
+
+/* Animace pro první linku */
+@keyframes spin1 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animace pro druhou linku */
+@keyframes spin2 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animace pro třetí linku */
+@keyframes spin3 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-group-toggle { display: flex; flex-wrap: wrap; gap: var(--spacing-2); }
+.btn-group-toggle .btn { background-color: var(--neutral-100); color: var(--neutral-700); border: 1px solid var(--neutral-200); }
+.btn-group-toggle .btn:hover { background-color: var(--neutral-200); }
+.btn-group-toggle .btn.active { background-color: var(--primary); color: var(--white); border-color: var(--primary); }
+
+
+// ---------------------------------------------------------------------
+// === BODY HTML CONTAINER ===
+// ---------------------------------------------------------------------
+body {
+  padding-top: 36px;
+  height: 200vh; 
+  min-height: 100vh;
+  background-color: #eff2f8;
+  font-family: 'Comfortaa';
+  overflow-x: hidden;
+  /* margin: 0 !important; */
+  /* padding: 0 !important; */
+  /* height: 200vh !important; */
+  /* height:100%; */
+  /* width: 100% !important; */
+  /* background-color: lightblue; */
+  /* background-color: #f1f4f8; */
+  /* font-family: 'Open Sans'; */
+  /* zoom: 125%; */
+    /* margin: 0;
+      padding: 0; */
+}
+
+#container {
+  perspective: 1000px;
+  width: 100%;
+  height: 100%;
+}
+
+/* .page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+} */
+
+.container-fluid {
+max-width: 90%;
+/* padding-left:auto; */
+/* padding-right:auto; */
+padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.container-custom {
+max-width: none !important;
+/* padding-left:auto; */
+/* padding-right:auto; */
+padding-right:0;
+    padding-left:0;
+    margin-right:0;
+    margin-left:0;
+}
+// ==============================================================
+
+
+// -----------------------------------------------------------------------
+// === SMALLER DISPLAY
+// -----------------------------------------------------------------------
+@media (max-width: 768px){
+  main {
+    padding-top:30px;
+    padding-bottom:80px;
+  }
+  .navbar-custom {
+    height: auto !important; /* Automatická výška pro mobilní obrazovky */
+    padding: 10px; /* Přidání paddingu, aby tlačítko menu a logo měly více prostoru */
+  }
+
+  .navbar-toggler {
+    height: 24px ; /* Přizpůsobení výšky tlačítka menu */
+  }
+
+  .navbar-brand {
+    font-size: 0.5rem; /* Mírné zmenšení textu pro mobilní obrazovky */
+  }
+    .custom-modal {
+        width: 100%;
+        margin: 0;
+    }
+    .cover-text h1 {
+      font-size: 1.5rem !important;
+    }
+    .cover-text p {
+      font-size: 1rem  !important;
+    }
+
+}
+
+@media (max-width: 1068px) {
+    .cover-text h1 {
+      font-size: 1.5rem !important;
+    }
+    .cover-text p {
+      font-size: 1rem  !important;
+    }
+}
+// ========================================================================
+
+
+
+// ----------------------------------------------------------------------
+// === OVERLAY A SPINNER
+// ----------------------------------------------------------------------
+ .loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+      }
+
+
+  /* Styl pro točící kolečko */
+      .spinner {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        /* background-color:#f1f4f8; */
+        border-radius: 50%;
+      }
+
+      // === PRVNI LINKA
+      .spinner .spinner_line_1 {
+        position: absolute;
+        width: 80%;
+        height: 80%;
+        top: 10%;
+        left: 10%;
+        border: 3px transparent;
+        border-top: 3px solid #00acc1; /* barva */
+        border-radius: 50%;
+        animation: spin1 0.75s linear infinite;
+      }
+
+      // === DRUHA LINKA
+      .spinner .spinner_line_2 {
+        position: absolute;
+        width: 60%;
+        height: 60%;
+        top: 20%;
+        left: 20%;
+        /* border: 2px solid rgba(255, 255, 255, 0.3); */
+        border: 3px transparent;
+        border-bottom: 3px solid #cc5500; /* barva */
+        border-radius: 50%;
+        animation: spin2 1s linear infinite reverse;
+      }
+      // === TRETI LINKA
+      .spinner .spinner_line_3 {
+        position: absolute;
+        width: 40%;
+        height: 40%;
+        top: 30%;
+        left: 30%;
+        border: 3px transparent;
+        border-bottom: 3px solid #2ecc71; /* barva */
+        border-radius: 50%;
+        animation: spin3 1.5s linear infinite;
+      }
+
+      .spinner .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px; /* Velikost loga */
+        height: 50px;
+      }
+
+      /* Animace pro první linku */
+      @keyframes spin1 {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Animace pro druhou linku */
+      @keyframes spin2 {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      /* Animace pro druhou linku */
+      @keyframes spin3 {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+// ===============================================================================
+
+// -----------------------------------------------------------------------
+// === Floating card ===
+ .floating-card {
+            position: fixed;
+            top: 20%;
+            right: -300px;
+            width: 280px;
+            background: white;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            transition: right 0.3s ease-in-out;
+            border-radius: 8px;
+            z-index: 1050;
+        }
+        .floating-card.show {
+            right: 10px;
+        }
+        .info-card {
+            position: fixed;
+            top: 20%;
+            left: -380px;
+            width: 360px;
+            background: white;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 1050;
+            transition: left 0.3s ease-in-out;
+        }
+        .info-card.show {
+            left: 10px;
+        }
+        .toggle-btn {
+            position: fixed;
+            top: 21%;
+            right: 10px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1100;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .toggle-btn.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .toggle-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .info-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        .info-btn i {
+            pointer-events: none;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .result-text {
+            font-size: 1.2rem;
+            color: #f36500;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+        .overlay.show {
+            display: block;
+        }
+
+// ===============================================================================
+
+
+// ----------------------------------------------------------------------------
+// === PDF PRINT ===
+// ----------------------------------------------------------------------------
+  /* @media print {
+    } */
+  
+ .page-break-avoid {
+    page-break-inside: avoid;
+  }
+
+  /* Výchozí styl pro text, aby neměl žádný stín */
+  #content, #content * {
+    text-shadow: none !important;
+  }
+
+
+  .no-print {
+    /* display: none; */
+  }
+
+  .print {
+    /* background-color: #eff2f8; */
+    /* background-color: #0b5e81; */
+  }
+
+  // ==========================================================================
+
+  .btn-group {
+      display: flex;
+      justify-content: space-between;
+      width: auto;
+      margin: 20px auto;
+    }
+
+    /* Styl pro jednotlivá tlačítka */
+    /* .btn {
+      padding: 10px 20px;
+      background-color: #e0e0e0;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    } */
+
+    /* Styl pro aktivní tlačítko (zamáčknuté) */
+    .btn.active {
+      background-color: #0b5e81;
+      color: white;
+    }
+
+    .btn:hover {
+      /* background-color: #ccc;
+      background-color: #eff2f8; */
+      background-color: #0b5e81 !important;
+      color: #f6f9ff;
+      transform: scale(1.1);
+    transition: all 0.2s ease;
+  z-index: 10;
+    }
+
+
+
+// -----------------------------------------------------------
+// === NAVBAR ===
+.navbar-custom{
+  /* background-color: #1e3d59; */
+  /* background-color: rgb(30, 61, 89, 0.5); */
+  /* background-color: rgb(239, 242, 248, 0.5); */
+  background-color: #eff2f8;
+  transition: box-shadow 0.7s ease;
+
+  border-bottom:1px solid #e1e7f2;
+  height: 36px;
+  
+/* top: -2px; */
+  /* -webkit-box-shadow: 0 3px 3px 3px #b0bec5 ;
+  -moz-box-shadow: 0 3px 3px 3px #b0bec5 ;
+  box-shadow: 0 3px 3px 3px #b0bec5 ; */
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px; */
+}
+
+.navbar-shadow {
+  background-color: rgba(239, 242, 248, 0.5);
+
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.05) 0px 10px 10px -5px;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    }
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-nav .nav-link {
+    line-height: 36px; /* Stejné jako výška navbaru, aby byl text vertikálně zarovnaný */
+    padding: 0; /* Odstranění dodatečného paddingu */
+  }
+
+  .navbar-toggler {
+    padding: 0; /* Odstranění dodatečného paddingu */
+    height: 48px; /* Nastavení stejné výšky jako navbar */
+    border: none; /* Odstranění okraje kolem tlačítka */
+  }
+
+  .navbar-toggler-icon {
+    width: 24px; /* Zmenšení šířky ikony */
+    height: 24px; /* Zmenšení výšky ikony */
+  }
+
+
+.dropdown-menu {
+  padding: 1rem;
+  top: 100%;
+  bottom: auto;
+  background-color: #f1f4f8;
+  border-radius: 20px 20px 20px 20px !important; 
+  /* .stay-open { */
+    /* display:block !important; */
+    /* } */
+}
+
+ .dropdown-item:active {
+      background-color: transparent !important; /* Vypnout podbarvení */
+      color: inherit !important; /* Zachovat výchozí barvu textu */
+    }
+
+ /* .navbar-custom {
+      background-color: #eff2f8;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-custom .navbar-nav .nav-link {
+      color: #333;
+    }
+    .navbar-custom .navbar-nav .nav-link:hover {
+      color: #007bff;
+    }
+    .navbar-custom .custom-checkbox {
+      padding-top: 8px;
+      padding-left: 10px;
+    } */
+// ========================================================
+  
+
+
+// --------------------------------------------------------------------------
+// === TABLE 
+// --------------------------------------------------------------------------
+table td {
+  line-height: 3;
+  /* padding: 130px 115px; */
+}
+
+th {
+  vertical-align: middle;
+  text-align: left;
+}
+
+#dataTable {
+        width: 100%;
+        table-layout: fixed; /* Rovnoměrné rozdělení sloupců */
+      }
+
+       #dataTable td:nth-child(2),
+      #dataTable td:nth-child(3),
+      #dataTable td:nth-child(4) {
+        text-align: center;
+      }
+// ==================================================
+
+
+#childrenPage {
+  transform: rotateY(-180deg);
+}
+
+.active {
+  transform: rotateY(0deg);
+}
+
+.flip {
+  transform: rotateY(180deg);
+}
+
+
+// ====================================================
+
+// --------------------------------------------------------------------------
+// === FOCUS & HOVER
+// --------------------------------------------------------------------------
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus,
+ .form-control:focus {
+  /* border-color: #28a745; */
+  border-color:#0b5e81;
+  border:3px solid #0b5e81;
+  box-shadow: inset 3px 3px 3px #0b5e81 ;
+
+}
+
+button.btn:hover { 
+  /* background-color: #b7d0e7; */
+  background-color: #0b5e81 !important;
+  /* color: #1e3d59; */
+  color: #f6f9ff;
+  /* border-color:#cc0000;
+  border:2px solid #cc0000; */
+   }
+// ==========================================================================
+
+
+
+
+.custom-modal{
+/* width:50%; */
+/* max-width: 100%;
+margin: auto; */
+/* background-color: transparent; */
+}
+
+/* custom-modal-dialog{
+background-color: transparent;
+
+}
+
+custom-modal-body{
+background-color: transparent;
+
+
+} */
+
+
+
+
+.custom-row {
+  width: 100%;
+  padding-right:0;
+    padding-left:0;
+    /* margin-right:auto;
+    margin-left:auto; */
+    margin-right:0;
+    margin-left:0; 
+
+}
+
+
+  .column {
+  float: left;
+  /* width: 25%; */
+  /* width: 90%; */
+  max-width: 70%;
+  display: flex;
+   justify-content: space-between;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.row {margin: 0 -10px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.card {
+  border: 0 !important;
+  padding: 0px;
+    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 10px 0 20px rgba(0, 0, 0, 0.1); */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  /* box-shadow: 3px 5px 13px rgba(0, 0, 0, 0.25);  */
+  /* box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1), 5px 5px 10px rgba(0, 0, 0, 0.2); */
+  /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); */
+}
+
+.card-title {
+  /* color: #0b5e81; */
+  color: #3c79b1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.0);
+
+}
+
+.custom-card-title {
+  /* background-color: #0b5e81; */
+  /* background-color: #13a0db; */
+  background-color: #3c79b1;
+  color: white !important;
+  /* color: #eff2f8; */
+}
+
+
+/* .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: inherit;
+} */
+
+  /* text-align: center; */
+  /* background-color: #f1f1f1; */
+  /* border-radius: 10px; */
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 800px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.custom-control {
+  /* scale: 1.2; */
+  /* overflow: hidden; */
+/* margin-left:1rem; */
+  /* min-height:150%;
+  min-width: 150%;
+  max-height:150%;
+  max-width: 150%; */
+  /* width: 120%;
+  height: 120%; */
+}
+
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+} */
+
+
+/* .navbar{
+  border-bottom:2px solid #b2ebf2 ;
+  -webkit-box-shadow: 0 3px 3px 3px #b0bec5 ;
+  -moz-box-shadow: 0 3px 3px 3px #b0bec5 ;
+  box-shadow: 0 3px 3px 3px #b0bec5 ;
+} */
+
+.hr_special {
+  border:none;
+  /* color: #467fd0; */
+  height: 20px;
+  width: 100%;
+  height: 50px;
+  margin-top: 0;
+  border-bottom: 1px solid #1f1209;
+  box-shadow: 0 20px 20px -20px #333;
+  margin: -50px auto 10px; 
+  margin-bottom: 30px;pred
+}
+
+.hr_cyan {
+  border-bottom: 3px solid #54B4D3;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  margin-left:-2rem;
+  margin-right:-2rem;
+}
+
+.custom-hr {
+  /* border-bottom: 3px solid #cc5500; */
+  /* border-bottom: 3px solid #0b5e81; */
+  border-bottom: 3px solid #13a0db;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  margin-left:-2rem;
+  margin-right:-2rem;
+}
+// --------------------------------------------------
+// === MODALS
+// --------------------------------------------------
+
+.modal {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content
+{
+   /* background-color: transparent !important; */
+    /* max-height: 100%; */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; 
+    //max-height: 80vh; // 90% of the viewport height
+
+}
+
+.modal-dialog {
+    // max-height: 80vh; 90% of the viewport height
+    display: flex;
+    flex-direction: column;
+    background-color: transparent !important;
+    max-width: 80%;
+    border: 0px !important;
+}
+
+.modal-body
+{
+  border-radius: 0px 0px 10px 10px !important; 
+  /* background-color: #1e3d59 ; */
+  border: 0;
+
+}
+
+.modal-header{
+  background-color: #eff2f8 !important;
+  border-bottom: none;
+}
+
+ .card-header {
+      /* border-radius: 20px !important; */
+      cursor: pointer;
+      transition: border-radius 0.3s ease;
+      border-radius: 8px 8px 0 0 !important;
+      background-color: transparent;
+      border: 0px;
+      /* background-color: #0b5e81; */
+  /* color: white; */
+  /* color: #eff2f8; */
+
+    }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+ /* .prediction-box {
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  .prediction-box:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .prediction-label {
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+  .prediction-value {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+  } */
+  /* .extra-info.hidden {
+    display: none;
+  } */
+
+ .z-100 { z-index: 100; }
+
+.extra-info {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.8s ease, opacity 0.8s ease;
+  }
+  .extra-info.animate-expand:not(.hidden) {
+    max-height: 1000px;
+    opacity: 1;
+  }
+  .extra-info.hidden {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+  }
+
+ /* První řádek: šedý a tučný text */
+    .prediction-label {
+      color: #687494;
+      font-weight: 500;
+    /* margin-top: 0.5rem; */
+    }
+
+    /* Druhý řádek: modrý text */
+    .prediction-value {
+      font-weight: bold;
+      color: #3c79b1;
+      /* font-size: 1.2em; */
+      font-size: 1.2rem;
+    font-weight: bold;
+    /* margin-bottom: 0.75rem; */
+    }
+
+    /* Styl pro každý prvek */
+    .prediction-box {
+      padding: 10px;
+      /* border: 1px solid #0b5e81; */
+      /* border: 1px solid #eff2f8; */
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+      /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+      border-radius: 8px;
+      text-align: center;
+      z-index: 1025 !important;
+      transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer !important;
+    }
+
+  .prediction-label, .prediction-value, .prediction-box {
+    /* transition-delay: 0.9s; */
+    transition: color 0.4s ease, background-color 0.5s ease, transform 0.7s ease;
+  }
+   
+    /* Styl při najetí myši */
+  .prediction-box:hover {
+    /* background-color: #0b5e81;  */
+    background-color: #3c79b1; 
+    transform: scale(1.2);
+    z-index: 1050 !important;
+  }
+
+  .prediction-box:hover .prediction-label{
+    color: #A9B5D4;
+
+  }
+  .prediction-box:hover .prediction-value {
+    color: #e0f7ff;
+  }
+
+    /* Styl pro boxy s inputy */
+    .input-box {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+    }
+
+
+     .table-highlighted {
+    font-weight: bold;
+    color: #f36500;
+    font-size: 1.2rem;
+  }
+
+   .hidden-column {
+    display: none;
+  }
+
+.no-hover {
+  pointer-events: none; /* Blokuje hover i click eventy */
+}
+
+    /* Když je karta rozbalená, změní spodní rohy headeru na ostré */
+    /* .card .collapse.show + .card-header {
+      border-bottom-left-radius: 0 ;
+      border-bottom-right-radius: 0 ;
+    }
+  .card-header.collapsed {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    } */
+ .card-header.collapsed{
+      /* border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0; */
+      border-radius: 8px !important;
+    }
+
+    .chosen {
+background-color:#9FE2BF !important;
+/* background-color:#90EE90 !important; */
+/* background-color:#90EE90 !important; */
+/* background-color:#0b5e81 !important; */
+
+    }
+
+.collapse {
+  transition: height 0.7s ease, padding 0.3s ease;
+}
+
+.card-body {
+  overflow: visible;
+}
+
+.card-body.collapsing {
+  height: auto; /* Zajistí hladší animaci */
+}
+
+.card-body.collapsed {
+  height: 0; /* Minimalizuje prostor po zavření */
+  padding: 0 !important; /* Odstraní přebytečné mezery při zavření */
+}
+
+
+
+// ===================================================
+
+// ----------------------------------------------------------------------------------
+// === ROZTAZENI PRVKU EFEKTY
+// ----------------------------------------------------------------------------------
+.expandable-content {
+    /* max-height: 0;
+    overflow: hidden; */
+    transition: max-height 0.9s ease-out;
+  }
+
+  //.expandable-content.show {
+  //  max-height: 200px; /* Maximální výška při rozbalení, můžeš upravit podle obsahu */
+  //}
+// ==================================================================================
+
+
+// ----------------------------------------------------------------------------------
+// === INPUTS FORMS CONTROLS LABELS ===
+// ----------------------------------------------------------------------------------
+/* input[type=text],input[type=number],input[type=date],form-control, select {
+  font-size: 1.2rem;
+  color: #1e3d59;
+} */
+
+textarea, input[type=text],input[type=number],input[type=date],.form-control, select {
+    border: 0px !important;
+    text-align:center;
+    /* background: #f1f4f8; */
+    shadow: 2px;
+    /* text-align:center; */
+    /* box-shadow: inset 4px 4px 7px #c6d3e6, inset 0px -3px 1px white; */
+    /* box-shadow: inset 3px 3px 5px #1e3d59, inset 0px -3px 1px white; */
+    /* box-shadow: inset 4px 4px 7px #c6d3e6, inset 0px -3px 1px white; */
+    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.25), inset 0px -2px 1px white; //BOHEMIKA
+    font-weight: bold;
+    /* box-shadow: inset 3px 3px 5px #434343, inset 0px -3px 1px white; //FIDOS */
+    /* margin-bottom: 1rem; */
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+label {
+  /* font-size: .9rem; */
+  /* color:#4bacc6; */
+  /* color:white; */
+  /* overflow: hidden; */
+}
+
+ .label-custom {
+/* color: #393D47; */
+  /* color: #3c79b1; */
+  /* color: #EEBC1D; */
+  color: #cc5500;
+font-size:1rem;
+ }
+
+ .label-custom_inside {
+/* color: #393D47; */
+color: #A9B5D4;
+text-align: right;
+font-size:0.7rem;
+margin-left: -0.25rem;
+pointer-events: none;
+
+ }
+
+/* .input {
+  background-color: #1e3d59;
+  color:white;
+} */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+ .form-control::placeholder { 
+  color: #3c79b1 ; 
+  opacity: 1 !important; 
+  font-weight: normal; 
+  font-size: small; 
+} 
+
+.form-control, .btn-custom, .btn-group, ul, li, select, radio,
+/* .modal,.modal-body,.modal-header, */
+.modal-content
+/* .modal-dialog,
+.modal */
+  {
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    border-radius: 20px !important; 
+    /* border-radius: 24px !important; */
+}
+
+
+ 
+ .card {
+    -webkit-border-radius: 8px !important;
+    -moz-border-radius: 8px !important;
+    border-radius: 8px !important; 
+    /* border-radius: 24px !important; */
+}
+
+
+.arrow-toggle {
+  background: none; /* Bez pozadí */
+  border: none; /* Bez okrajů */
+  padding: 0; /* Minimální prostor kolem ikony */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-toggle i {
+  font-size: 1.2rem; /* Velikost ikony */
+  transition: transform 0.3s ease; /* Plynulá změna při otočení */
+  transform-origin: center; /* Zajistí správné otáčení kolem středu */
+}
+
+.arrow-toggle[aria-expanded="true"] i {
+  transform: rotate(180deg); /* Otočení šipky o 90° při otevření */
+}
+
+.arrow-toggle[aria-expanded="false"] i {
+  transform: rotate(0deg); /* Návrat šipky do výchozí polohy */
+}
+
+
+// ------------------------------------------------------------------------------
+// === PŘEPINACE
+// ------------------------------------------------------------------------------
+/* Odstranění výchozích stylů Bootstrapu pro přepínač */
+  .custom-switch .custom-control-label::before {
+    border: 1px solid #5FC6F1; /* Barva okraje */
+    background-color: #FFF; /* Barva pozadí */
+  }
+  .custom-switch .custom-control-label::after {
+    background-color: #5FC6F1; /* Barva přepínače */
+  }
+  .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+    border-color: #0b5e81; /* Barva okraje při zapnutém stavu */
+    background-color: #0b5e81; /* Barva přepínače */
+  }
+
+      /* Stylování před zaškrtnutím */
+  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #0b5e81;
+  }
+
+  .custom-checkbox .custom-control-input:not(:checked) ~ .custom-control-label::before {
+    border-color: #5FC6F1;
+  }
+// =========================================================================================
+
+
+
+// --------------------------------------------------------------------------------------
+// === COVER IMAGE ===
+// --------------------------------------------------------------------------------------
+/* Kontejner, který drží obrázek a text nad ním */
+    .cover-container {
+      /* position: relative;
+      text-align: center;
+      color: white;  */
+      position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Obrázek, který zabírá celý prostor */
+    .trimmed-cover {
+      object-fit: cover;
+      object-position: center 50%;
+      width: 100%;
+      /* height: auto; */
+      height: 300px;
+      display: block;
+    }
+
+    /* Styl pro nadpis a text nad obrázkem */
+    .cover-text {
+      position: absolute;
+      top: 5%; 
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%; /* Šířka textu */
+      padding: 20px;
+    max-width: 80%;
+    box-sizing: border-box;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Stín textu pro lepší čitelnost */
+    }
+
+    .cover-text h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .cover-text p {
+      font-size: 1.5rem;
+      line-height: 2.5;
+    }
+
+.centered {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  /* transform: translate(-25%, 0%); */
+}
+.centered_2 {
+  position: absolute;
+  top: 15%;
+  /* left: 5%; */
+  /* transform: translate(-25%, 0%); */
+}
+// ==================================================================================
+
+
 </style>
