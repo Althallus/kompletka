@@ -161,14 +161,12 @@ Komplexní webová aplikace s přepínáním stránek. Bude sloužit k různým 
 
 ### Instrukce pro naprogramování
 
-1. Přidat tlačítko domů
-    - Vrátí uživatele na úvodní stránku
-2. Do navbaru odkaz na DIPuj - https://script.google.com/macros/s/AKfycbynLjd9wqMx_DIuQoPytGi4CEvn8Hy13MlT_sOBVoh1-JOgmzrp39d2WdoUrOmtkFEO/exec
-3. Do navbaru odkaz na Optimalizaci - https://script.google.com/macros/s/AKfycbz8fNqv4WtwPlYx375Ql3DkU0jEkuCyiI80_2BEIFdEmnG01IAPzvcisUa07mOY-mSDag/exec
-4. Zdravotní dotazník - Upravit stránku
-    - smazat formulář
-    - přidat možnost vytvoření draftu do gmailu pro odeslání odkazu na zdravotní dotazník pro odeslání klientovi - (budeme umět odeslat rovnou?)
-5. Přidat nabídkovač Život & zdraví
-    - modelace životního pojištění - viz jiný projekt - jak napojíme do chatu pro zdroj kodu?
-6. Přidat Investiční porovnávač
-    - Viz kód jiný projekt - jak napojíme do chatu pro zdroj kodu?
+1. Přidat nabídkovač Život & zdraví
+    - vytvoření stránky pomocí AI a zadávání uživatele
+        - zadávání po částech
+        - html kód do **Zivot_zdravi_HTML.html**
+        - javascript do **Zivot_zdravi_JS.html**
+        - upravy stylů do **Styles_CSS**
+        - serverside funkce do **ZivotZdravi-scripts**
+    - Provázání s google tabulkou, kde probíhají výpočty
+    - tisk vybrané oblasti do pdf
