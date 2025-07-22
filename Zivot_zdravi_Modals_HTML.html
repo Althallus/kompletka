@@ -1,0 +1,598 @@
+<div class="modal-overlay" id="zivotkoSettingsModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="text-xl">Nastavení kalkulace</h3>
+      <button class="modal-close-btn"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="custom-control custom-switch mb-4">
+        <input type="checkbox" class="custom-control-input" id="switch_partneri" onclick="zobrazeni_partnera()">
+        <label class="custom-control-label" for="switch_partneri">Zobrazit partnerku/a</label>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Zobrazení PČ invalidity</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="invalidita_zobrazeni_castek" id="invalidita_zobrazeni_castek_1" value="1" checked>
+          <label class="form-check-label" for="invalidita_zobrazeni_castek_1">PČ bez investice</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="invalidita_zobrazeni_castek" id="invalidita_zobrazeni_castek_2" value="2">
+          <label class="form-check-label" for="invalidita_zobrazeni_castek_2">PČ s investicí</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="invalidita_zobrazeni_castek" id="invalidita_zobrazeni_castek_3" value="3">
+          <label class="form-check-label" for="invalidita_zobrazeni_castek_3">Obojí</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="zivotkoDisplayModal">
+    </div>
+
+
+    <!-- -------------------------------------------------------------- -->
+  <!-- ### MODALS - POPUPS - NAPOVEDY ### -->
+  <!-- -------------------------------------------------------------- -->
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL SMRT ### -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_smrt" class="modal fade" role="dialog">
+    <div class="modal-dialog ">
+      <div class="modal-content" style="">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">PŘEHLED POZŮSTALOSTNÍCH DŮCHODŮ</h5>
+        </div>
+        <div class="modal-body p-0 m-0">
+          <!-- --------------------------------------------------------------------------- -->
+          <!-- ### VDOVSKY ### -->
+          <div class="row d-flex justify-content-center my-0 px-0 mx-0">
+            <!-- ### PENZE VYSE -->
+            <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Vdovský a vdovecký důchod</h5>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Orientační výše důchodu </div>
+                <div class="prediction-value" id="vdovsky_result_1_2"></div>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Základní doba vyplácení</div>
+                <div class="prediction-value" id="vdovsky_doba_vyplaceni">1 rok</div>
+              </div>
+            </div>
+
+            <!-- ### PENZE PODMINKA -->
+            <!-- <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+      <div class="prediction-box">
+        <div class="prediction-label">Splňuji podmínky pro výplacení?</div>
+        <div class="prediction-value" id="penze_check">Ano/Ne</div>
+      </div>
+    </div> -->
+
+          </div>
+
+          <!-- --------------------------------------------------------------------------- -->
+          <!-- ### SIROTCI ### -->
+          <div class="row d-flex justify-content-center my-3 px-0 mx-0">
+            <!-- ### PENZE VYSE -->
+            <h5 class="card-title custom-card-title col-sm-12 p-4 w-100 m-0">Sirotčí důchod</h5>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Orientační výše důchodu </div>
+                <div class="prediction-value" id="sirotci_result_1_2"></div>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+              <div class="prediction-box">
+                <div class="prediction-label">Základní doba vyplácení</div>
+                <div class="prediction-value" id="sirotci_doba_vyplaceni">do 18 let věku dítěte<br> (až do 26 let při soustavné přípravě na povolání)
+                </div>
+              </div>
+            </div>
+
+            <!-- ### PENZE PODMINKA -->
+            <!-- <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+      <div class="prediction-box">
+        <div class="prediction-label">Splňuji podmínky pro výplacení?</div>
+        <div class="prediction-value" id="penze_check">Ano/Ne</div>
+      </div>
+    </div> -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================================================================= -->
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL ZO DOSPELI ### -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_zo_dospeli" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#cc5500">
+          PŘEHLED ZÁVAŽNÝCH ONEMOCNĚNÍ PRO ŽIVOTNÍ POJIŠTĚNÍ
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p><u><b>DOSPĚLÍ</b></u></p>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div style="flex: 1 1 45%;">
+            <b>Skupina Nervová a pohybová soustava</b><br>
+            1. <a href="https://www.google.com/search?q=Alzheimerova+choroba" target="_blank">Alzheimerova choroba</a><br>
+            2. <a href="https://www.google.com/search?q=Parkinsonova+choroba" target="_blank">Parkinsonova choroba</a><br>
+            3. <a href="https://www.google.com/search?q=Bakteriální+meningitida" target="_blank">Bakteriální meningitida</a><br>
+            4. <a href="https://www.google.com/search?q=Bechtěrevova+choroba" target="_blank">Bechtěrevova choroba</a><br>
+            5. <a href="https://www.google.com/search?q=Roztroušená+skleróza" target="_blank">Roztroušená skleróza</a><br>
+            6. <a href="https://www.google.com/search?q=Ochrnutí" target="_blank">Ochrnutí</a><br>
+            7. <a href="https://www.google.com/search?q=Ztráta+končetin" target="_blank">Ztráta končetin</a><br>
+            8. <a href="https://www.google.com/search?q=Klíšťová+encefalitida" target="_blank">Klíšťová encefalitida</a><br>
+            9. <a href="https://www.google.com/search?q=Kóma" target="_blank">Kóma</a><br><br>
+
+            <b>Skupina Rakovina</b><br>
+            10. <a href="https://www.google.com/search?q=Mozkový+nádor" target="_blank">Mozkový nádor</a><br>
+            11. <a href="https://www.google.com/search?q=Zhoubný+nádor" target="_blank">Zhoubný nádor</a><br>
+            12. <a href="https://www.google.com/search?q=Transplantace+kostní+dřeně" target="_blank">Transplantace kostní dřeně</a><br><br>
+
+            <b>Skupina HIV</b><br>
+            13. <a href="https://www.google.com/search?q=HIV+při+transfuzi" target="_blank">HIV při transfuzi</a><br>
+            14. <a href="https://www.google.com/search?q=HIV+z+napadení+nebo+zaměstnání" target="_blank">HIV z napadení nebo zaměstnání</a><br><br>
+
+            <b>Kardiovaskulární soustava</b><br>
+            15. <a href="https://www.google.com/search?q=Mozková+příhoda" target="_blank">Mozková příhoda</a><br>
+            16. <a href="https://www.google.com/search?q=Náhrada+srdeční+chlopně" target="_blank">Náhrada srdeční chlopně</a><br>
+            17. <a href="https://www.google.com/search?q=Operace+aorty" target="_blank">Operace aorty</a><br>
+          </div>
+
+          <div style="flex: 1 1 45%;">
+            18. <a href="https://www.google.com/search?q=Operace+věnčitých+tepen" target="_blank">Operace věnčitých tepen</a><br>
+            19. <a href="https://www.google.com/search?q=Infarkt+myokardu" target="_blank">Infarkt myokardu</a><br><br>
+
+            <b>Skupina Vnitřní orgány</b><br>
+            20. <a href="https://www.google.com/search?q=Chronická+obstrukční+plicní+nemoc" target="_blank">Chronická obstrukční plicní nemoc</a><br>
+            21. <a href="https://www.google.com/search?q=Selhání+ledvin" target="_blank">Selhání ledvin</a><br>
+            22. <a href="https://www.google.com/search?q=Transplantace+životně+důležitých+orgánů" target="_blank">Transplantace životně důležitých orgánů</a><br>
+            23. <a href="https://www.google.com/search?q=Systémová+sklerodermie" target="_blank">Systémová sklerodermie</a><br><br>
+
+            <b>Skupina Smysly</b><br>
+            24. <a href="https://www.google.com/search?q=Oslepnutí" target="_blank">Oslepnutí</a><br>
+            25. <a href="https://www.google.com/search?q=Hluchota" target="_blank">Hluchota</a><br>
+            26. <a href="https://www.google.com/search?q=Ztráta+řeči" target="_blank">Ztráta řeči</a><br><br>
+
+            <b>Skupina Nervová a pohybová soustava</b><br>
+            27. <a href="https://www.google.com/search?q=Laterární+skleróza" target="_blank">Laterární skleróza</a><br>
+            28. <a href="https://www.google.com/search?q=Creutzfeldtova-Jakobova+nemoc" target="_blank">Creutzfeldtova-Jakobova nemoc</a><br>
+            29. <a href="https://www.google.com/search?q=Typy+demence" target="_blank">Další typy demence</a><br>
+            30. <a href="https://www.google.com/search?q=Epilepsie" target="_blank">Epilepsie</a><br><br>
+
+            <b>Skupina Kardiovaskulární soustava</b><br>
+            31. <a href="https://www.google.com/search?q=Aplastická+anemie" target="_blank">Aplastická anemie</a><br>
+            32. <a href="https://www.google.com/search?q=Kardiomyopatie" target="_blank">Kardiomyopatie</a><br><br>
+
+            <b>Skupina Vnitřní orgány</b><br>
+            33. <a href="https://www.google.com/search?q=Crohnova+choroba" target="_blank">Crohnova choroba</a><br>
+            34. <a href="https://www.google.com/search?q=Plicní+hypertenze" target="_blank">Plicní hypertenze</a><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ================================================================= -->
+
+  <!-- ------------------------------------------------------------------- -->
+  <!-- ### MODAL ZO DETI ### -->
+  <!-- ------------------------------------------------------------------- -->
+  <div id="modal_zo_deti" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#cc5500">
+          PŘEHLED ZÁVAŽNÝCH ONEMOCNĚNÍ PRO ŽIVOTNÍ POJIŠTĚNÍ
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p><u><b>DĚTI</b></u></p>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div style="flex: 1 1 45%;">
+            <b>Skupina Nervová a pohybová soustava</b><br>
+            1. <a href="https://www.google.com/search?q=Bakteriální+meningitida" target="_blank">Bakteriální meningitida</a><br>
+            2. <a href="https://www.google.com/search?q=Roztroušená+skleróza" target="_blank">Roztroušená skleróza</a><br>
+            3. <a href="https://www.google.com/search?q=Ochrnutí" target="_blank">Ochrnutí</a><br>
+            4. <a href="https://www.google.com/search?q=Ztráta+končetin" target="_blank">Ztráta končetin</a><br>
+            5. <a href="https://www.google.com/search?q=Klíšťová+encefalitida" target="_blank">Klíšťová encefalitida</a><br>
+            6. <a href="https://www.google.com/search?q=Kóma" target="_blank">Kóma</a><br>
+            7. <a href="https://www.google.com/search?q=Dětská+mozková+obrna" target="_blank">Dětská mozková obrna</a><br>
+            8. <a href="https://www.google.com/search?q=Myopatie" target="_blank">Myopatie</a><br>
+            9. <a href="https://www.google.com/search?q=Epilepsie" target="_blank">Epilepsie</a><br><br>
+
+            <b>Skupina Rakovina</b><br>
+            10. <a href="https://www.google.com/search?q=Mozkový+nádor" target="_blank">Mozkový nádor</a><br>
+            11. <a href="https://www.google.com/search?q=Zhoubný+nádor" target="_blank">Zhoubný nádor</a><br>
+            12. <a href="https://www.google.com/search?q=Transplantace+kostní+dřeně" target="_blank">Transplantace kostní dřeně</a><br><br>
+
+            <b>Skupina HIV</b><br>
+            13. <a href="https://www.google.com/search?q=HIV+při+transfuzi" target="_blank">HIV při transfuzi</a><br>
+            14. <a href="https://www.google.com/search?q=HIV+z+napadení+nebo+zaměstnání" target="_blank">HIV z napadení nebo zaměstnání</a><br>
+          </div>
+
+          <div style="flex: 1 1 45%;">
+            <b>Kardiovaskulární soustava</b><br>
+            15. <a href="https://www.google.com/search?q=Operace+aorty" target="_blank">Operace aorty</a><br>
+            16. <a href="https://www.google.com/search?q=Operace+věnčitých+tepen" target="_blank">Operace věnčitých tepen</a><br>
+            17. <a href="https://www.google.com/search?q=Náhrada+srdeční+chlopně" target="_blank">Náhrada srdeční chlopně</a><br><br>
+
+            <b>Skupina Vnitřní orgány</b><br>
+            18. <a href="https://www.google.com/search?q=Chronická+obstrukční+plicní+nemoc" target="_blank">Chronická obstrukční plicní nemoc</a><br>
+            19. <a href="https://www.google.com/search?q=Selhání+ledvin" target="_blank">Selhání ledvin</a><br>
+            20. <a href="https://www.google.com/search?q=Transplantace+životně+důležitých+orgánů" target="_blank">Transplantace životně důležitých orgánů</a><br>
+            21. <a href="https://www.google.com/search?q=Systémová+sklerodermie" target="_blank">Systémová sklerodermie</a><br>
+            22. <a href="https://www.google.com/search?q=Astma" target="_blank">Astma</a><br><br>
+
+            <b>Skupina Smysly</b><br>
+            23. <a href="https://www.google.com/search?q=Oslepnutí" target="_blank">Oslepnutí</a><br>
+            24. <a href="https://www.google.com/search?q=Hluchota" target="_blank">Hluchota</a><br>
+            25. <a href="https://www.google.com/search?q=Ztráta+řeči" target="_blank">Ztráta řeči</a><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ===================================================== -->
+
+
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- ### MODAL INVALIDITA ### -->
+  <!-- ----------------------------------------------------------- -->
+  <!-- <div class="modal-content" style=""> -->
+  <div id="modal_invalidita" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Stupně invalidity</h5>
+        </div>
+        <div class="modal-body">
+          <!-- <h5>Stupně invalidity</h5> -->
+          <div class="col-sm-12">
+
+            <p>Invalidita vám bude přiznána, pokud klesne vaše schopnost pracovat v důsledku
+              dlouhodobého nepříznivého zdravotního stavu.<br>
+Při posuzování poklesu pracovní schopnosti se přihlíží k dosaženému vzdělání,
+zkušenostem, znalostem a předchozím výdělečným činnostem pojištěného.<br>
+              <br>
+              <b>1. stupeň:</b> O invaliditu prvního stupně se jedná v případě, že dojde k poklesu pracovní
+              schopnosti o 35 % až 49 %. <br>
+              <b>2. stupeň: </b>Pokud nastal pokles pracovní schopnosti o 50 % až 69 %, jde o invaliditu
+              druhého stupně. <br>
+              <b>3. stupeň:</b> V případě poklesu pracovní schopnosti o 70 % a více je přiznána invalidita
+              třetího stupně.<br>
+              <br>
+Po přiznání prvního a druhého stupné invalidity, je možné, aby pojištěný vykonával ještě
+nějaké zaměstnání. U třetího stupně invalidity s tím už nepočítáme.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ========================================================================== -->
+
+
+
+  <!-- ---------------------------------------------------------------------------- -->
+  <!-- ### MODAL PN KLIENT 2 ### -->
+  <!-- ---------------------------------------------------------------------------- -->
+  <div id="modal_pn_2" class="modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Přehled vyplácené nemocenské</h5>
+        </div>
+        <div class="modal-body px-0 mx-0">
+          <!-- <h5>Přehled vyplácené nemocenské</h5> -->
+          <div class="col-sm-12">
+
+            <p>
+              Stát a zaměstnavatel vám vyplatí přibližně 60 % vašeho měsíčního příjmu,
+              a to už od 1. dne neschopnosti. Pokud budete stonat 30 dní a více, začneme i my každý
+              měsíc vyplácet dohodnuté krytí.
+
+              Náhradu mzdy poskytuje zaměstnavatel během prvních 14 kalendářních dnů, ale jen za každou zameškanou
+              směnu.
+              OSVČ při nemoci náhradu mzdy od nikoho nedostávají. <br>
+Nemocenské vyplácí stát od 15. kalendářního dne nemoci. Tato dávka náleží za každý kalendářní den nemoci, pokud se účastníte nemocenského pojištění.<br>
+              <br>
+              <!-- <div class="field col s12 m12 l12"> -->
+            <table class="table table-hover table-sm w-100" id="tabulka_nemocenska_2" name="tabulka_nemocenska_2">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="text-center">1. měsíc</th>
+                  <th class="text-center">2. měsíc</th>
+                  <th class="text-center">Každý další měsíc</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Výše nemocenské (+náhrady mzdy v 1. měsíci)</th>
+                  <td id="pn_1_nemocenska_2" class="text-center"></td>
+                  <td id="pn_2_nemocenska_2" class="text-center"></td>
+                  <td id="pn_3_nemocenska_2" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Na výdaje bude scházet</th>
+                  <td id="pn_1_rozdil_2" class="text-center"></td>
+                  <td id="pn_2_rozdil_2" class="text-center"></td>
+                  <td id="pn_3_rozdil_2" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Denní rozdíl</th>
+                  <td id="pn_1_rozdil_denni_2" class="text-center"></td>
+                  <td id="pn_2_rozdil_denni_2" class="text-center"></td>
+                  <td id="pn_3_rozdil_denni_2" class="text-center"></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- </div> -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================================================================== -->
+
+  <!-- ---------------------------------------------------------------------------- -->
+  <!-- ### MODAL PN KLIENT 1 ### -->
+  <!-- ---------------------------------------------------------------------------- -->
+  <div id="modal_pn" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Přehled vyplácené nemocenské</h5>
+        </div>
+        <div class="modal-body px-0 mx-0">
+          <!-- <h5>Přehled vyplácené nemocenské</h5> -->
+          <div class="col-sm-12">
+
+            <p>
+              Stát a zaměstnavatel vám vyplatí přibližně 60 % vašeho měsíčního příjmu,
+              a to už od 1. dne neschopnosti. Pokud budete stonat 30 dní a více, začneme i my každý
+              měsíc vyplácet dohodnuté krytí.
+
+              Náhradu mzdy poskytuje zaměstnavatel během prvních 14 kalendářních dnů, ale jen za každou zameškanou
+              směnu.
+              OSVČ při nemoci náhradu mzdy od nikoho nedostávají. <br>
+Nemocenské vyplácí stát od 15. kalendářního dne nemoci. Tato dávka náleží za každý kalendářní den nemoci, pokud se účastníte nemocenského pojištění.<br>
+              <br>
+              <!-- <div class="field col s12 m12 l12"> -->
+            <table class="table table-hover table-sm w-100" id="tabulka_nemocenska" name="tabulka_nemocenska">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="text-center">1. měsíc</th>
+                  <th class="text-center">2. měsíc</th>
+                  <th class="text-center">Každý další měsíc</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Výše nemocenské (+náhrady mzdy v 1. měsíci)</th>
+                  <td id="pn_1_nemocenska" class="text-center"></td>
+                  <td id="pn_2_nemocenska" class="text-center"></td>
+                  <td id="pn_3_nemocenska" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Na výdaje bude scházet</th>
+                  <td id="pn_1_rozdil" class="text-center"></td>
+                  <td id="pn_2_rozdil" class="text-center"></td>
+                  <td id="pn_3_rozdil" class="text-center"></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle; text-align: left">Denní rozdíl</th>
+                  <td id="pn_1_rozdil_denni" class="text-center"></td>
+                  <td id="pn_2_rozdil_denni" class="text-center"></td>
+                  <td id="pn_3_rozdil_denni" class="text-center"></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- </div> -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================================================================== -->
+
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL TNU -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_TNU" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Příklady z oceňovacích tabulek</h5>
+        </div>
+        <div class="modal-body">
+
+          <p style="font-family:Comfortaa; font-size:1rem">
+            Oceňovací tabulky obsahují většinou stovky položek. Ale najdou se i případy, kdy má pojišťovna rozsah velmi
+            omezený. <br><br>
+Níže jsou uvedené příklady, jak mají pojišťovny ohodnoceny jednotlivé úrazy a jak by vypadalo progresivní plnění při doporučené pojistné ochraně
+            <!-- <br>
+            <em id="client_1_TNU_zobrazeni"> &nbsp 1. klienta &nbsp</em> <strong id="result_TNU_tabulka" ></strong>
+            <em class="d-none client_label" id="client_2_TNU_zobrazeni">&nbsp a &nbsp 2. klienta &nbsp</em>
+            <strong id="result_TNU_tabulka_2" ></strong>
+            <br><br> -->
+          </p>
+
+          <div class="col-sm-12">
+            <table class="table table-hover" id="dataTable">
+            </table>
+          </div>
+
+
+
+
+          <!-- </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END TNU -->
+  <!-- ====================================================================================== -->
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL ZAVISLOST NA PECI -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_ZnP" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#cc5500">Co je snížená soběstačnost?</h5>
+        </div>
+        <div class="modal-body">
+          <!-- <h5>Co je snížená soběstačnost?</h5> -->
+
+          <p class="text-wrap" style="font-family:Comfortaa; font-size:1rem">
+            Při posuzování příspěvku na péči se zkoumá schopnost žadatele zvládat deset tzv. základních životních
+            potřeb. Každá z nich se skládá z několika činností, přičemž pokud váš blízký některou z nich nedokáže, měla
+            by být za nezvládnutou posouzena celá potřeba. <br>
+            <br>
+            <b>Mobilita:</b> Vstávání a usedání, stoj, zaujímat polohy, pohybovat se chůzí krok za krokem, popřípadě i s
+            přerušováním zastávkami, v dosahu alespoň 200 m, a to i po nerovném povrchu, chůze po schodech v rozsahu
+            jednoho patra směrem nahoru i dolů, používat dopravní prostředky včetně bariérových.
+            <br>
+            <br>
+            <b>Orientace:</b> Poznávat a rozeznávat zrakem a sluchem, mít přiměřené duševní kompetence, orientovat se
+            časem, místem a osobou, orientovat se v obvyklém prostředí a situacích a přiměřeně v nich reagovat.
+            <br>
+            <br>
+            <b>Komunikace:</b> Dorozumět se a porozumět, a to mluvenou srozumitelnou řečí a psanou zprávou, porozumět
+            všeobecně používaným základním obrazovým symbolům nebo zvukovým signálům, používat běžné komunikační
+            prostředky.
+            <br>
+            <br>
+            <b>Stravování:</b> Vybrat si ke konzumaci hotový nápoj a potraviny, nápoj nalít, stravu naporcovat,
+            naservírovat, najíst se a napít, dodržovat stanovený dietní režim.
+            <br>
+            <br>
+            <b>Oblékání a obouvání:</b> Vybrat si oblečení a obutí přiměřené okolnostem, oblékat se a obouvat se,
+            svlékat se a zouvat se, manipulovat s oblečením v souvislosti s denním režimem.
+            <br>
+            <br>
+            <b>Tělesná hygiena:</b> Použít hygienické zařízení, mýt si a osušovat si jednotlivé části těla, provádět
+            celkovou hygienu, česat se, provádět ústní hygienu, holit se.
+            Výkon fyziologické potřeby: Včas používat WC, vyprázdnit se, provést očistu, používat hygienické pomůcky.
+            <br>
+            <br>
+            <b>Péče o zdraví:</b> Dodržovat stanovený léčebný režim, provádět stanovená léčebná a ošetřovatelská
+            opatření a používat k tomu potřebné léky, pomůcky.
+            <br>
+            <br>
+            <b>Osobní aktivity:</b> Vstupovat do vztahů s jinými osobami, stanovit si a dodržet denní program, vykonávat
+            aktivity obvyklé věku a prostředí jako např. vzdělávání, zaměstnání, volnočasové aktivity, vyřizovat své
+            záležitosti.
+            <br>
+            <br>
+            <b>Péče o domácnost:</b> Nakládat s penězi v rámci osobních příjmů a domácnosti, manipulovat s předměty
+            denní potřeby, obstarat si běžný nákup, ovládat běžné domácí spotřebiče, uvařit si teplé jídlo a nápoj,
+            vykonávat běžné domácí práce, obsluhovat topení a udržovat pořádek. Desátá základní životní potřeba péče o
+            domácnost se u osob do 18 let neposuzuje.
+            <br>
+            <br>
+            <b>Jak se vypočítá stupeň závislosti u osob do 18 let:</b><br>
+tři nezvládané základní životní potřeby = I. stupeň závislosti<br>
+čtyři nebo pět nezvládaných základních životních potřeb = II. stupeň závislosti<br>
+šest nebo sedm nezvládaných základních životních potřeb = III. stupeň závislosti<br>
+osm nebo devět nezvládaných základních životních potřeb = IV. stupeň závislosti<br>
+            <br><br>
+            <b>Jak se vypočítá stupeň závislosti u osob nad 18 let:</b><br>
+tři nebo čtyři nezvládané základní životní potřeby = I. stupeň závislosti<br>
+pět nebo šest nezvládaných základních životních potřeb = II. stupeň závislosti<br>
+sedm nebo osm nezvládaných základních životních potřeb = III. stupeň závislosti<br>
+devět nebo deset nezvládaných základních životních potřeb = IV. stupeň závislosti<br>
+
+          </p>
+
+
+
+
+          <!-- </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END ZnP -->
+  <!-- ====================================================================================== -->
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- ### MODAL ZnP PRISPEVKY -->
+  <!-- -------------------------------------------------------------- -->
+  <div id="modal_ZnP_prispevky" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#cc5500">Jaké jsou příspěvky státu na péči?</h5>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="text-center w-50">Stupeň závislosti</th>
+              <th class="text-center w-50">Výše příspěvku na péči</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center w-50">stupeň I</td>
+              <td class="text-center w-50">3 300 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň II</td>
+              <td class="text-center w-50">7 400 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň III</td>
+              <td class="text-center w-50">16 100 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň IV</td>
+              <td class="text-center w-50">23 000 Kč</td>
+            </tr>
+            <tr>
+              <td class="text-center w-50">stupeň IV+</td>
+              <td class="text-center w-50">27 000 Kč</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- END TNU -->
+  <!-- ====================================================================================== -->
+
+  <!-- === END MODALS -->
+  <!-- =============================================================== -->
