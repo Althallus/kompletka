@@ -1,0 +1,22 @@
+{
+  "name": "fidos-financial-app",
+  "version": "1.0.0",
+  "description": "Komplexní webová aplikace pro finanční poradenství",
+  "main": "Code.js",
+  "scripts": {
+    "push": "clasp push",
+    "pull": "clasp pull",
+    "deploy": "clasp deploy"
+  },
+  "keywords": [
+    "google-apps-script",
+    "financial",
+    "calculator",
+    "czech"
+  ],
+  "author": "Martin Mašek",
+  "license": "MIT",
+  "devDependencies": {
+    "@google/clasp": "^2.4.2"
+  }
+}

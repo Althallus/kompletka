@@ -1,172 +1,99 @@
-## Instrukce pro Claude - Specializace na Google Apps Script webové aplikace
+# Finanční Aplikace - FiDos
 
-### Přístup k vývoji
+## Přehled projektu
 
-- **~~První verze**: Vytvoř kompletní ukázku v artefaktu pro rychlé testování~~ - Hotovo✅
-- **Následný vývoj**: Rozděl kód do samostatných částí pro snadnou správu větších aplikací
-- **GitHub integrace**: Počítej s tím, že kód bude verzován na GitHubu pro lepší přehled změn
+Komplexní webová aplikace pro finanční poradenství postavená na Google Apps Script. Aplikace poskytuje různé kalkulačky, nabídkovače a nástroje pro finanční poradce a jejich klienty.
 
-### Struktura kódu
+## Struktura projektu
 
-stranyk s css, javascriptem mají koncovku html pro Google apps script (jiné koncovky tam nejsou možné) 
-Propojení do index.html pomocí **include**
+### Hlavní soubory
+- **`Code.js`** - Hlavní serverový soubor (doGet, include funkce)
+- **`appsscript.json`** - Manifest aplikace
+- **`Index_HTML.html`** - Základní HTML struktura
+- **`Styles_CSS.html`** - Všechny styly (micro-framework)
+- **`Scripts_JS.html`** - Frontend JavaScript pro všeobecné a společné skripty
 
-### **Základní rozdělení:**
+### Utility javascripty
+- **`Modals_JS.html`** - Správa modálních oken
+- **`Kalkulacky_JS.html`** - Kalkulačky a výpočty
 
-- **`Code.gs`** hlavní Google Apps Script logika - Hlavní serverový soubor (doGet, include funkce)
-- **`ZpracovaniFormulare.gs`**
-- **`appsscript.json`** # Manifest aplikace
+### Server-side skripty
+- **`ZivotZdravi-scripts.js`** - Backend logika pro Život & zdraví
+- **`ZdravotníDotaznik-scripts.js`** - Backend logika pro zdravotní dotazník
 
-- **`Index_HTML.html`** - základní HTML struktura
-- **`Styles_CSS.html`** - všechny styly (micro-framework)
-- **`Script_JS.html`** - frontend JavaScript - pro všeobecné a společné skripty
+### Stránky/sekce aplikace
 
-**Utility javascripty:**
+#### Rozhovor
+- **Bilance** (`Bilance_HTML.html`) - Přehled příjmů, výdajů a celkové finanční situace
+- **Optimalizace** - Externí odkaz na optimalizační aplikaci
+- **Zdravotní dotazník** (`Zdravotni_dotaznik_HTML.html`, `Zdravotni_dotaznik_JS.html`) - Vytvoření draftu emailu pro odeslání dotazníku
 
-Společné javascripty
+#### Nabídkovače
+- **Investiční porovnávač** (`Investicni_porovnavac_HTML.html`) - Nástroje pro investiční produkty
+- **Život & zdraví** (`Zivot_zdravi_HTML.html`, `Zivot_zdravi_JS.html`, `Zivot_zdravi_Modals_HTML.html`) - Modelace životního pojištění
+- **DIPuj** - Externí odkaz na DIP aplikaci
 
-- **`Modals_JS.html`**
-- **`Kalkulacky_JS.html`**
+#### Kalkulačky
+- **Investiční kalkulačky** (`Investicni_kalkulatory_HTML.html`) - Specializované kalkulačky
+- **Porovnání produktů** (`Porovnani_produktu_HTML.html`) - Porovnání finančních produktů
+- **Stavebko vs. investice** (`Stavebko_HTML.html`) - Porovnání stavebního spoření a investic
 
-**Stránky/sekce aplikace** *(rozdelené dle tlačítek na navbaru)***:**
+#### Pomůcky
+- **Platby** (`Platby_HTML.html`) - Vytvoření přehledu plateb včetně QR kódů
+- **Přehledovka** (`Prehledovka_HTML.html`) - Přehledové nástroje a reporty
 
-### *Rozhovor*
+## Technické specifikace
 
-- Optimalizace - zrušíme - bude pouze jako odkaz na externí aplikaci
-    - **`Optimalizace_HTML.html`**
-    - 
-- Bilance
-    - **`Bilance_HTML.html`**
-    - **`Bilance_JS.html`**
-- Zdravotní dotazník -  bude samostatně - pouze funkce vytvoření draftu emailu v gmailu pro odeslání odkazu klientovi na vyplnění
-    - **`Zdravotni_dotaznik_HTML.html`**
-    - **`Zdravotni_dotaznik_JS.html`**
+### Design systém
+- **Vlastní micro-framework** s CSS Custom Properties
+- **Utility třídy** inspirované Tailwindem (`p-4`, `text-lg`, `bg-primary`)
+- **Primární barva**: `#13a0db`
+- **Ikony**: Výhradně Tabler Icons
+- **Responzivní design**: Mobile-first přístup
 
-### *Nabídkovače*
+### Funkcionalita
+- Modální okna s výpočty a grafy
+- Přepínání mezi sekcemi
+- Napojení na Google Sheets pro databázi
+- Tisk do PDF
+- Tmavý/světlý režim
 
-- Život a zdraví
-    - **`Zivot_zdravi_HTML.html`**
-    - **`Zivot_zdravi_JS.html`**
-- **Investiční porovnávač**
-    - **`Investicni_porovnavac_HTML.html`**
-    - **`Investicni_porovnavac_JS.html`**
-- **DIPuj** - pouze odkaz na externí aplikaci
-
-### *Kalkulačky*
-
-- **Inflace vs. Zhodnocení**
-    - **`Inflace_HTML.html`**
-    - **`Inflace_JS.html`**
-- **Investiční kalkulátory**
-    - **`Investicni_kalkulatory_HTML.html`**
-    - **`Investicni_kalkulatory_JS.html`**
-- **Mzdové kalkulačky**
-    - Zatím chybí
-- **Porovnání produktů**
-    - Zatím chybí
-- **Stavebko vs. Investice**
-    - Zatím chybí
-
-### *Pomůcky*
-
-- **Přehledovka**
-    - stránka sloužící pro vytvoření přehledu rozdělení portfolia. Zadání až deseti různých investičních produktů (smluv)
-        - v rámci produktů výběr až 10 investičních nástrojů/fondů
-        - zadání
-            - počátku smlouvy
-            - čísla smlouvy
-            - investovaná částka
-            - aktuální hodnota na smlouvě
-            - 
-    - **`Prehledovka_HTML.html`**
-    - **`Prehledovka_JS.html`**
-
-- **Platby**
-    - Pomůcka pro zadání plateb na produkty a vytvoření pdf s qr kódy
-    - Propojení do google tabulky s databází nastavení plateb
-        - Výběr produktů z tabulky
-        - zadání platby
-        - zadání variabilních, konstantních a specifických symbolů
-        - datum platby
-        - Výběr plateb dle četnosti
-    - **`Platby_HTML.html`**
-
-### Design a CSS Framework
-
-**Vlastní micro-framework:**
-
-- CSS Custom Properties pro barvy a spacing
-- Utility třídy inspirované Tailwindem (`p-4`, `text-lg`, `bg-primary`)
-- Předpřipravené komponenty (tlačítka, karty, formuláře)
-- Mobile-first responzivní design
-- Barva `#13a0db` jako primární
-
-**Vizuální styl:**
-
-- Moderní, čistý design s minimalistickým přístupem
-- Omezená paleta barev (primární modrá + neutrální šedé)
-- Konzervativní, ale současný vzhled
-- Důraz na čitelnost a použitelnost
-
-**Ikony:**
-
-- **Výhradně Tabler Icons**:
-- `https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css`
-- konzistentní design
-- Použití: `<i class="ti ti-plus"></i>`
-- Velikosti: `icon-sm`, `icon`, `icon-lg`, `icon-xl`
-
-**Responzivita:**
-
-- Mobile-first přístup s breakpointy
-- Flexibilní layout pro všechny velikosti obrazovek
-- Touch-friendly ovládání na mobilech
-- Automatické přizpůsobení komponent
-
-### Technické specifikace
-
+### Kompatibilita
 - Google Apps Script kompatibilní kód
 - Vanilla JavaScript (bez externích knihoven)
 - CSS Grid/Flexbox pro layouty
-- CSS Custom Properties pro snadnou customizaci
 - Progresivní vylepšování funkcionality
 
-### Komponenty micro-frameworku
+## Stav implementace
 
-- **Utility třídy**: spacing, typography, barvy, layout
-- **Tlačítka**: `btn`, `btn-primary`, `btn-secondary`, `btn-outline`
-- **Karty**: `card`, `card-header`, `card-body`, `card-footer`
-- **Formuláře**: `form-input`, `form-label`, `form-group`
-- **Tabulky**: `table`, `table-container`
-- **Badges**: `badge`, `badge-success`, `badge-warning`
-- **Grid systém**: `grid`, `grid-cols-auto`, responzivní varianty
+### ✅ Hotové
+- Základní struktura a navigace
+- Design systém a styly
+- Optimalizace sekce s kalkulačkou
+- Zdravotní dotazník s Gmail integrací
+- Modální systém
+- Responzivní design
 
-## Informace o projektu
+### 🚧 Ve vývoji
+- Život & zdraví nabídkovač
+- Investiční porovnávač
+- Kalkulačky sekce
 
-### Cíl projektu:
+### 📋 Plánované
+- Bilance kalkulátor
+- Platby s QR kódy
+- Přehledovka portfolia
+- Stavebko vs. investice
+- Mzdové kalkulačky
 
-Komplexní webová aplikace s přepínáním stránek. Bude sloužit k různým výpočtům a nabídkám pro klienty.
+## Návod pro vývoj
 
-### Funcionalita
+1. **Struktura souborů**: Každá sekce má vlastní HTML, JS a případně modal soubory
+2. **Styly**: Všechny styly v `Styles_CSS.html` s využitím CSS custom properties
+3. **Navigace**: Automatické přepínání sekcí přes `data-page` atributy
+4. **Modály**: Využití `data-modal-target` pro otevírání modálních oken
+5. **Server-side**: Google Apps Script funkce v samostatných .js souborech
 
-- Pro GAS
-- Modaly s výpočty a grafy
-- Tisk do PDF - z webu nebo google tabulky
-- Přepínaní z listy mezi jednotlivými částmi
-- Napojení na Google tabulky pro využití jako
-    - databáze
-    - zdroj nabídky k tisku do pdf
+## Nasazení
 
-**Instrukce budou doplňovány průběžně, jak bude vytvářen projekt**
-
-### Instrukce pro naprogramování
-
-1. Přidat nabídkovač Život & zdraví
-    - vytvoření stránky pomocí AI a zadávání uživatele
-        - zadávání po částech
-        - html kód do **Zivot_zdravi_HTML.html**
-        - javascript do **Zivot_zdravi_JS.html**
-        - upravy stylů do **Styles_CSS**
-        - serverside funkce do **ZivotZdravi-scripts**
-    - Provázání s google tabulkou, kde probíhají výpočty
-    - tisk vybrané oblasti do pdf
+Aplikace je určena pro nasazení jako Google Apps Script webová aplikace s přístupem pro konkrétní uživatele nebo organizaci.

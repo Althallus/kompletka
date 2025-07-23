@@ -1,5 +1,3 @@
-
-
 /**
  * Zobrazí hlavní stránku aplikace.
  * @param {object} e Objekt události.
@@ -22,5 +20,3 @@ function doGet(e) {
 function include(filename) {
   return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }
-
-
